@@ -135,7 +135,7 @@ const RegisterForm = () => {
                 id="DateAndTimePicker"
                 required
                 value={DateAndTime}
-                onChange={(newValue) => setDateAndTime(newValue)}
+                onChange={(newValue) => setDateAndTime(newValue.get)}
                 minTime={nineAM}
                 maxTime={fivePM}
               />
@@ -143,7 +143,7 @@ const RegisterForm = () => {
           </Stack>
           <Button
             variant="contained"
-            color="warning"
+            color="primary"
             type="submit"
             fullWidth
             size="large"

@@ -7,7 +7,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import MenuBar from "./Components/MenuBar";
 import RegisterUserForm from "./Components/HomePage/RegisterUserForm.jsx";
 function App() {
-  const [theme, settheme] = useState(true);
+  const [theme, settheme] = useState(false);
   const darkTheme = createTheme({
     palette: {
       mode: theme ? "dark" : "light",

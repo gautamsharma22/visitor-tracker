@@ -32,7 +32,7 @@ function MenuBar(props) {
       onClick={handleDrawerToggle}
     >
       <Typography variant="h6" sx={{ my: 2 }}>
-        Visitor Tracking System
+        Visior
       </Typography>
       <Divider />
       <List>
@@ -67,11 +67,11 @@ function MenuBar(props) {
               <MenuIcon />
             </IconButton>
             <Typography
-              variant="h6"
+              variant="h5"
               component="div"
               sx={{ flexGrow: 1, display: { sm: "block" } }}
             >
-              Visitor Tracking System
+              Visior
             </Typography>
             {props.currentTheme ? (
               <Brightness7Icon onClick={props.onChange} />
