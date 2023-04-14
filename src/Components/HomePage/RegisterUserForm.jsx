@@ -9,6 +9,7 @@ import {
   OutlinedInput,
   InputLabel,
   InputAdornment,
+  Box,
 } from "@mui/material";
 import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -16,13 +17,7 @@ import {
   MobileDateTimePicker,
   LocalizationProvider,
 } from "@mui/x-date-pickers";
-import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-
-import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
-import { DesktopDateTimePicker } from "@mui/x-date-pickers/DesktopDateTimePicker";
-import { StaticDateTimePicker } from "@mui/x-date-pickers/StaticDateTimePicker";
-
 const RegisterForm = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -43,94 +38,106 @@ const RegisterForm = () => {
 
   return (
     <>
-      <Typography variant="h2" gutterBottom align="center">
-        Registration Form
-      </Typography>
-      <form onSubmit={handleSubmit}>
-        <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }}>
+      <Box
+        sx={{
+          p: 1,
+        }}
+      >
+        <form onSubmit={handleSubmit}>
+        <Typography variant="h2" gutterBottom align="center">
+          Registration Form
+        </Typography>
+          <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }}>
+            <TextField
+              type="text"
+              variant="outlined"
+              color="primary"
+              label="First Name"
+              onChange={(e) => setFirstName(e.target.value)}
+              value={firstName}
+              fullWidth
+              required
+            />
+            <TextField
+              type="text"
+              variant="outlined"
+              color="primary"
+              label="Last Name"
+              onChange={(e) => setLastName(e.target.value)}
+              value={lastName}
+              fullWidth
+              required
+            />
+          </Stack>
           <TextField
-            type="text"
+            type="email"
             variant="outlined"
             color="primary"
-            label="First Name"
-            onChange={(e) => setFirstName(e.target.value)}
-            value={firstName}
+            label="Email"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
             fullWidth
             required
+            sx={{ mb: 4 }}
           />
+          <FormControl variant="outlined" fullWidth sx={{ mb: 4 }}>
+            <InputLabel htmlFor="outlined-adornment-password">
+              Password
+            </InputLabel>
+            <OutlinedInput
+              onChange={(e) => setPassword(e.target.value)}
+              id="outlined-adornment-password"
+              type={showPassword ? "text" : "password"}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              label="Password"
+              required
+            />
+          </FormControl>
           <TextField
-            type="text"
-            variant="outlined"
-            color="primary"
-            label="Last Name"
-            onChange={(e) => setLastName(e.target.value)}
-            value={lastName}
+            id="outlined-textarea"
+            label="Reason"
+            placeholder="Please Specify reason for Visit"
+            multiline
             fullWidth
+            sx={{ mb: 4 }}
             required
-          />
-        </Stack>
-        <TextField
-          type="email"
-          variant="outlined"
-          color="primary"
-          label="Email"
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
-          fullWidth
-          required
-          sx={{ mb: 4 }}
-        />
-        <FormControl variant="outlined" fullWidth sx={{ mb: 4 }}>
-          <InputLabel htmlFor="outlined-adornment-password">
-            Password
-          </InputLabel>
-          <OutlinedInput
-            onChange={(e) => setPassword(e.target.value)}
-            id="outlined-adornment-password"
-            type={showPassword ? "text" : "password"}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-            label="Password"
-          />
-        </FormControl>
-        <TextField
-          id="outlined-textarea"
-          label="Reason"
-          placeholder="Please Specify reason for Visit"
-          multiline
-          fullWidth
-          sx={{ mb: 4 }}
-        />
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <InputLabel htmlFor="DateAndTimePicker" fullWidth>
-            Select Visiting Date :
-          </InputLabel>
-          <MobileDateTimePicker
-            id="DateAndTimePicker"
-            defaultValue={dayjs("2022-04-17T15:30")}
+                  />
+                  <Stack>
+                      
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <InputLabel htmlFor="DateAndTimePicker" fullWidth>
+              Select Visiting Date and Time :
+            </InputLabel>
+            <MobileDateTimePicker
+              id="DateAndTimePicker"
+              defaultValue={dayjs()}
+              required
+              />
+          </LocalizationProvider>
+              </Stack>
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
             fullWidth
-          />
-        </LocalizationProvider>
-        <Button
-          variant="contained"
-          color="primary"
-          type="submit"
-          fullWidth
-          size="large"
-        >
-          Register
-        </Button>
-      </form>
+                      size="large"
+                      sx={{ mt: 4 }}
+          >
+            Register
+          </Button>
+        </form>
+      </Box>
     </>
   );
 };
