@@ -15,18 +15,13 @@ function App() {
     },
   });
   const handleChange = (event) => {
-    settheme(event.target.checked);
+    settheme(!theme);
   };
   return (
     <div className="App">
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
-        <MenuBar onChange={handleChange} />
-        <h3>Dark Theme</h3>
-        <Switch
-					checked={theme}
-					color='warning'
-          onChange={handleChange} />
+        <MenuBar onChange={handleChange} currentTheme={theme}/>
         <RegisterUserForm />
       </ThemeProvider>
     </div>

@@ -16,6 +16,8 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import AdbIcon from "@mui/icons-material/Adb";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
+import Brightness3Icon from "@mui/icons-material/Brightness3";
 function MenuBar(props) {
   const drawerWidth = 240;
   const navItems = ["Home", "Register", "Login"];
@@ -25,7 +27,6 @@ function MenuBar(props) {
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
-
   const drawer = (
     <Box
       onClick={handleDrawerToggle}
@@ -56,61 +57,66 @@ function MenuBar(props) {
 
   return (
     <>
-        <Box sx={{ display: "flex" }}>
-          <CssBaseline />
-          <AppBar component="nav">
-            <Toolbar>
-              <AdbIcon sx={{ display: { xs: "none", sm: "block" } }} />
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                edge="start"
-                onClick={handleDrawerToggle}
-                sx={{ mr: 2, display: { sm: "none" } }}
-              >
-                <MenuIcon />
-              </IconButton>
-              <Typography
-                variant="h6"
-                component="div"
-                sx={{ flexGrow: 1, display: { sm: "block" } }}
-              >
-                Visitor Tracking System
-              </Typography>
-              <Box sx={{ display: { xs: "none", sm: "block" } }}>
-                {navItems.map((item) => (
-                  <Button key={item} sx={{ color: "#fff" }}>
-                    {item}
-                  </Button>
-                ))}
-              </Box>
-            </Toolbar>
-          </AppBar>
-          <Box component="nav">
-            <Drawer
-              container={container}
-              variant="temporary"
-              open={mobileOpen}
-              onClose={handleDrawerToggle}
-              ModalProps={{
-                keepMounted: true, // Better open performance on mobile.
-              }}
-              sx={{
-                display: { xs: "block", sm: "none" },
-                "& .MuiDrawer-paper": {
-                  boxSizing: "border-box",
-                  width: drawerWidth,
-                  backgroundColor: "color.primary",
-                },
-              }}
+      <Box sx={{ display: "flex" }}>
+        <CssBaseline />
+        <AppBar component="nav">
+          <Toolbar>
+            <AdbIcon sx={{ display: { xs: "none", sm: "block" } }} />
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ mr: 2, display: { sm: "none" } }}
             >
-              {drawer}
-            </Drawer>
-          </Box>
-          <Box component="main" sx={{ p: 3 }}>
-            <Toolbar />
-          </Box>
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ flexGrow: 1, display: { sm: "block" } }}
+            >
+              Visitor Tracking System
+            </Typography>
+            {props.currentTheme ? (
+              <Brightness7Icon onClick={props.onChange} />
+            ) : (
+              <Brightness3Icon onClick={props.onChange} />
+            )}
+            <Box sx={{ display: { xs: "none", sm: "block" } }}>
+              {navItems.map((item) => (
+                <Button key={item} sx={{ color: "#fff" }}>
+                  {item}
+                </Button>
+              ))}
+            </Box>
+          </Toolbar>
+        </AppBar>
+        <Box component="nav">
+          <Drawer
+            container={container}
+            variant="temporary"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            ModalProps={{
+              keepMounted: true, // Better open performance on mobile.
+            }}
+            sx={{
+              display: { xs: "block", sm: "none" },
+              "& .MuiDrawer-paper": {
+                boxSizing: "border-box",
+                width: drawerWidth,
+                backgroundColor: "color.primary",
+              },
+            }}
+          >
+            {drawer}
+          </Drawer>
         </Box>
+        <Box component="main" sx={{ p: 3 }}>
+          <Toolbar />
+        </Box>
+      </Box>
     </>
   );
 }
