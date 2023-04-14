@@ -18,7 +18,7 @@ import {
   LocalizationProvider,
 } from "@mui/x-date-pickers";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-const RegisterForm = () => {
+const RegisterForm = (props) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -117,7 +117,7 @@ const RegisterForm = () => {
           </FormControl>
           <TextField
             id="outlined-textarea"
-            label="Reason"
+            label="Reason of Visit"
             placeholder="Please Specify reason for Visit"
             onChange={(e) => setReason(e.target.value)}
             value={reason}
@@ -143,7 +143,7 @@ const RegisterForm = () => {
           </Stack>
           <Button
             variant="contained"
-            color="primary"
+            color={props.darkMode?"warning":"primary"}
             type="submit"
             fullWidth
             size="large"

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   AppBar,
   Box,
@@ -15,9 +15,9 @@ import {
   Button,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import AdbIcon from "@mui/icons-material/Adb";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import DarkModeIcon from '@mui/icons-material/DarkMode'
+import MapSharpIcon from '@mui/icons-material/MapSharp';
 function MenuBar(props) {
   const drawerWidth = 240;
   const navItems = ["Home", "Register", "Login"];
@@ -56,7 +56,11 @@ function MenuBar(props) {
         <CssBaseline />
         <AppBar component="nav">
           <Toolbar>
-            <AdbIcon sx={{ display: { xs: "none", sm: "block" } }} />
+            <MapSharpIcon sx={
+              { display: { xs: "none", sm: "block"} }
+            
+            }
+            color={props.darkMode?"warning":""}/>
             <IconButton
               color="inherit"
               aria-label="open drawer"
@@ -69,9 +73,9 @@ function MenuBar(props) {
             <Typography
               variant="h5"
               component="div"
-              sx={{ flexGrow: 1, display: { sm: "block" } }}
+              sx={{ flexGrow: 1, display: { sm: "block"},ml:1 }}
             >
-              Visior
+              Visor
             </Typography>
             {props.currentTheme ? (
               <Brightness7Icon onClick={props.onChange} />
@@ -109,7 +113,7 @@ function MenuBar(props) {
           </Drawer>
         </Box>
         <Box component="main" sx={{ p: 3 }}>
-          <Toolbar />
+          {/* <Toolbar /> */}
         </Box>
       </Box>
     </>
