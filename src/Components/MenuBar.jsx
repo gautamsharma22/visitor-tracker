@@ -17,7 +17,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import AdbIcon from "@mui/icons-material/Adb";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
-import Brightness3Icon from "@mui/icons-material/Brightness3";
+import DarkModeIcon from '@mui/icons-material/DarkMode'
 function MenuBar(props) {
   const drawerWidth = 240;
   const navItems = ["Home", "Register", "Login"];
@@ -30,11 +30,6 @@ function MenuBar(props) {
   const drawer = (
     <Box
       onClick={handleDrawerToggle}
-      sx={{
-        textAlign: "center",
-        bgcolor: "background.default",
-        color: "text.primary",
-      }}
     >
       <Typography variant="h6" sx={{ my: 2 }}>
         Visitor Tracking System
@@ -81,7 +76,7 @@ function MenuBar(props) {
             {props.currentTheme ? (
               <Brightness7Icon onClick={props.onChange} />
             ) : (
-              <Brightness3Icon onClick={props.onChange} />
+              <DarkModeIcon onClick={props.onChange} />
             )}
             <Box sx={{ display: { xs: "none", sm: "block" } }}>
               {navItems.map((item) => (

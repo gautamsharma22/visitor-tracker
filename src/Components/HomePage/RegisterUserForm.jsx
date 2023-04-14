@@ -22,18 +22,29 @@ const RegisterForm = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [reason, setReason] = useState("");
+
+  const tommorow = dayjs().add(1, "day");
+  const fivePM = dayjs()
+    .set("hour", 17)
+    .startOf("hour");
+  const nineAM = dayjs()
+    .set("hour", 9)
+    .startOf("hour");
+
+  const [DateAndTime, setDateAndTime] = React.useState(dayjs().set("hour", 9)
+  .startOf("hour"));
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(firstName, lastName, email, password);
+    console.log(firstName, lastName, email, password, DateAndTime);
   }
 
   return (
@@ -44,9 +55,9 @@ const RegisterForm = () => {
         }}
       >
         <form onSubmit={handleSubmit}>
-        <Typography variant="h2" gutterBottom align="center">
-          Registration Form
-        </Typography>
+          <Typography variant="h2" gutterBottom align="center">
+            Registration Form
+          </Typography>
           <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }}>
             <TextField
               type="text"
@@ -108,31 +119,35 @@ const RegisterForm = () => {
             id="outlined-textarea"
             label="Reason"
             placeholder="Please Specify reason for Visit"
+            onChange={(e) => setReason(e.target.value)}
+            value={reason}
             multiline
             fullWidth
             sx={{ mb: 4 }}
             required
-                  />
-                  <Stack>
-                      
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <InputLabel htmlFor="DateAndTimePicker" fullWidth>
-              Select Visiting Date and Time :
-            </InputLabel>
-            <MobileDateTimePicker
-              id="DateAndTimePicker"
-              defaultValue={dayjs()}
-              required
+          />
+          <Stack>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <InputLabel htmlFor="DateAndTimePicker" fullWidth>
+                Select Visiting Date and Time :
+              </InputLabel>
+              <MobileDateTimePicker
+                id="DateAndTimePicker"
+                required
+                value={DateAndTime}
+                onChange={(newValue) => setDateAndTime(newValue)}
+                minTime={nineAM}
+                maxTime={fivePM}
               />
-          </LocalizationProvider>
-              </Stack>
+            </LocalizationProvider>
+          </Stack>
           <Button
             variant="contained"
-            color="primary"
+            color="warning"
             type="submit"
             fullWidth
-                      size="large"
-                      sx={{ mt: 4 }}
+            size="large"
+            sx={{ mt: 4 }}
           >
             Register
           </Button>

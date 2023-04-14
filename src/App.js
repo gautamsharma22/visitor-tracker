@@ -6,9 +6,8 @@ import { Switch } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import MenuBar from "./Components/MenuBar";
 import RegisterUserForm from "./Components/HomePage/RegisterUserForm.jsx";
-import { Label } from "@mui/icons-material";
 function App() {
-  const [theme, settheme] = useState(false);
+  const [theme, settheme] = useState(true);
   const darkTheme = createTheme({
     palette: {
       mode: theme ? "dark" : "light",
