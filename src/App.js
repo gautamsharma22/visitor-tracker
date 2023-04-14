@@ -1,9 +1,11 @@
 import React from "react";
-import TestFile from "./Components/TestFile.jsx";
+import RegisterForm from "./Components/HomePage/RegisterUserForm";
+import Login from "./Components/HomePage/Login";
 const App = () => {
   return (
     <div>
-      <TestFile />
+      <RegisterForm />
+      <Login/>
     </div>
   );
 };
