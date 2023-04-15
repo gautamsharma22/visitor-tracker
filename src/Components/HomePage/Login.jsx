@@ -1,23 +1,15 @@
-import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-import aerial from "../../../src/aerial-view-geu.jpg"
+import React from "react"
+import {Avatar,Button,CssBaseline,Typography,Grid,Box,Paper,TextField} from "@mui/material";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export default function SignInSide(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    // console.log({
+    //   email: data.get("email"),
+    //   password: data.get("password"),
+    // });
   };
 
   return (
@@ -29,7 +21,7 @@ export default function SignInSide(props) {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: "url(https://unsplash.com/s/photos/random)",
+            backgroundImage: "url()",
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             backgroundPosition: "center",

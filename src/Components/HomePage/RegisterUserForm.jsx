@@ -11,6 +11,8 @@ import {
   InputAdornment,
   Box,
 } from "@mui/material";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
 import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import {
@@ -32,8 +34,11 @@ const RegisterForm = (props) => {
     .set("hour", 9)
     .startOf("hour");
 
-  const [DateAndTime, setDateAndTime] = React.useState(dayjs().set("hour", 9)
-  .startOf("hour"));
+  const [DateAndTime, setDateAndTime] = React.useState(
+    dayjs()
+      .set("hour", 9)
+      .startOf("hour")
+  );
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -42,9 +47,11 @@ const RegisterForm = (props) => {
     event.preventDefault();
   };
 
+  const [VisitorType, setVisitorType] = React.useState("");
+
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(firstName, lastName, email, password, DateAndTime);
+    console.log(firstName, lastName, email, password, DateAndTime,VisitorType);
   }
 
   return (
@@ -58,7 +65,7 @@ const RegisterForm = (props) => {
           <Typography variant="h2" gutterBottom align="center">
             Registration Form
           </Typography>
-          <Stack spacing={2} direction="row" sx={{ marginBottom: 4 }}>
+          <Stack spacing={2} direction="row" sx={{ mb: 3 }}>
             <TextField
               type="text"
               variant="outlined"
@@ -89,9 +96,9 @@ const RegisterForm = (props) => {
             value={email}
             fullWidth
             required
-            sx={{ mb: 4 }}
+            sx={{ mb: 3 }}
           />
-          <FormControl variant="outlined" fullWidth sx={{ mb: 4 }}>
+          <FormControl variant="outlined" fullWidth sx={{ mb: 3 }}>
             <InputLabel htmlFor="outlined-adornment-password">
               Password
             </InputLabel>
@@ -115,6 +122,24 @@ const RegisterForm = (props) => {
               required
             />
           </FormControl>
+          <FormControl fullWidth sx={{ mb: 3 }}>
+            <InputLabel id="visitor-type">Visitor Type</InputLabel>
+            <Select
+              labelId="visitor-type"
+              id="visitor-type-select"
+              value={VisitorType}
+              label="Visitor Type"
+              onChange={(e) => setVisitorType(e.target.value)}
+              required
+            >
+              <MenuItem value={"Parent"}>Parent</MenuItem>
+              <MenuItem value={"Alumni"}>Alumni</MenuItem>
+              <MenuItem value={"Admission Enquiry"}>Admission Enquiry</MenuItem>
+              <MenuItem value={"Fee Submission"}>Fee Submission</MenuItem>
+              <MenuItem value={"Maintainance"}>Maintainance</MenuItem>
+              <MenuItem value={"Others"}>--Others--</MenuItem>
+            </Select>
+          </FormControl>
           <TextField
             id="outlined-textarea"
             label="Reason of Visit"
@@ -123,7 +148,7 @@ const RegisterForm = (props) => {
             value={reason}
             multiline
             fullWidth
-            sx={{ mb: 4 }}
+            sx={{ mb: 3 }}
             required
           />
           <Stack>
@@ -143,7 +168,7 @@ const RegisterForm = (props) => {
           </Stack>
           <Button
             variant="contained"
-            color={props.darkMode?"warning":"primary"}
+            color={props.darkMode ? "warning" : "primary"}
             type="submit"
             fullWidth
             size="large"

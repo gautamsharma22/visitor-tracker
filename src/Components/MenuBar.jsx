@@ -32,7 +32,7 @@ function MenuBar(props) {
       onClick={handleDrawerToggle}
     >
       <Typography variant="h6" sx={{ my: 2 }}>
-        Visior
+        VISOR
       </Typography>
       <Divider />
       <List>
@@ -75,7 +75,7 @@ function MenuBar(props) {
               component="div"
               sx={{ flexGrow: 1, display: { sm: "block"},ml:1 }}
             >
-              Visor
+              VISOR
             </Typography>
             {props.currentTheme ? (
               <Brightness7Icon onClick={props.onChange} />

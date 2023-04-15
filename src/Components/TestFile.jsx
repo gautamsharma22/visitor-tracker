@@ -1,31 +1,16 @@
-import React from "react";
-function TestFile() {
-  const users = ["Admin", "Faculty", "Supervisor"];
-  function clickHandler() {
-    console.log("clicked");
-  }
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
+export default function BasicSelect() {
+
+
   return (
-    <>
-      <div className="dropdown">
-        <button
-          className="btn btn-secondary dropdown-toggle"
-          type="button"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          Select User :
-        </button>
-        <ul className="dropdown-menu">
-          {users.map((user) => (
-            <li>
-              <a className="dropdown-item" onClick={clickHandler}>
-                {user}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </>
+    <Box sx={{ minWidth: 120 }}>
+      
+    </Box>
   );
 }
-export default TestFile;
