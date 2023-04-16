@@ -21,7 +21,7 @@ function App() {
     <div className="App">
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
-        <MenuBar onChange={handleChange} darkMode={theme}/>
+        <MenuBar onChange={handleChange} currentTheme={theme}/>
         <RegisterUserForm darkMode={theme} />
         {/* <Login darkMode={theme}/> */}
         {/* <AdminDashboard /> */}

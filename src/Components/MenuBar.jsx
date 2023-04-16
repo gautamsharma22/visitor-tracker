@@ -18,7 +18,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import DarkModeIcon from '@mui/icons-material/DarkMode'
 import MapSharpIcon from '@mui/icons-material/MapSharp';
-function MenuBar(props) {
+
+const MenuBar=(props)=> {
   const drawerWidth = 240;
   const navItems = ["Home", "Register", "Login"];
   const { window } = props;

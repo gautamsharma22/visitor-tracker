@@ -26,18 +26,7 @@ const RegisterForm = (props) => {
   const [email, setEmail] = useState("");
   const [reason, setReason] = useState("");
 
-  const tommorow = dayjs().add(1, "day");
-  const fivePM = dayjs()
-    .set("hour", 17)
-    .startOf("hour");
-  const nineAM = dayjs()
-    .set("hour", 9)
-    .startOf("hour");
-
-  const [DateAndTime, setDateAndTime] = React.useState(
-    dayjs()
-      .set("hour", 9)
-      .startOf("hour")
+  const [DateAndTime, setDateAndTime] = React.useState(dayjs().add(1, 'day')
   );
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = React.useState(false);
@@ -46,12 +35,14 @@ const RegisterForm = (props) => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-
+  const handleDateChange = (newDate) => {
+    setDateAndTime(newDate)
+  }
   const [VisitorType, setVisitorType] = React.useState("");
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(firstName, lastName, email, password, DateAndTime,VisitorType);
+    console.log(firstName, lastName, email, password, DateAndTime,VisitorType,reason);
   }
 
   return (
@@ -60,6 +51,7 @@ const RegisterForm = (props) => {
         sx={{
           p: 1,
         }}
+        mt={4}
       >
         <form onSubmit={handleSubmit}>
           <Typography variant="h2" gutterBottom align="center">
@@ -74,7 +66,7 @@ const RegisterForm = (props) => {
               onChange={(e) => setFirstName(e.target.value)}
               value={firstName}
               fullWidth
-              required
+          
             />
             <TextField
               type="text"
@@ -84,7 +76,7 @@ const RegisterForm = (props) => {
               onChange={(e) => setLastName(e.target.value)}
               value={lastName}
               fullWidth
-              required
+          
             />
           </Stack>
           <TextField
@@ -95,7 +87,7 @@ const RegisterForm = (props) => {
             onChange={(e) => setEmail(e.target.value)}
             value={email}
             fullWidth
-            required
+        
             sx={{ mb: 3 }}
           />
           <FormControl variant="outlined" fullWidth sx={{ mb: 3 }}>
@@ -119,7 +111,7 @@ const RegisterForm = (props) => {
                 </InputAdornment>
               }
               label="Password"
-              required
+          
             />
           </FormControl>
           <FormControl fullWidth sx={{ mb: 3 }}>
@@ -129,8 +121,8 @@ const RegisterForm = (props) => {
               id="visitor-type-select"
               value={VisitorType}
               label="Visitor Type"
-              onChange={(e) => setVisitorType(e.target.value)}
-              required
+              onClose={(e) => setVisitorType(e.target.value)}
+          
             >
               <MenuItem value={"Parent"}>Parent</MenuItem>
               <MenuItem value={"Alumni"}>Alumni</MenuItem>
@@ -149,7 +141,7 @@ const RegisterForm = (props) => {
             multiline
             fullWidth
             sx={{ mb: 3 }}
-            required
+        
           />
           <Stack>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -158,11 +150,9 @@ const RegisterForm = (props) => {
               </InputLabel>
               <MobileDateTimePicker
                 id="DateAndTimePicker"
-                required
                 value={DateAndTime}
-                onChange={(newValue) => setDateAndTime(newValue.get)}
-                minTime={nineAM}
-                maxTime={fivePM}
+                onChange={handleDateChange}
+                disablePast
               />
             </LocalizationProvider>
           </Stack>
