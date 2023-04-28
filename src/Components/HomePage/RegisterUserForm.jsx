@@ -156,7 +156,7 @@ const RegisterForm = (props) => {
           </Stack>
           <Button
             variant="contained"
-            color={props.darkMode ? "warning" : "primary"}
+            color={props.currentTheme ? "warning" : "primary"}
             type="submit"
             fullWidth
             size="large"

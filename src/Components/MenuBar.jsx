@@ -16,22 +16,21 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
-import DarkModeIcon from '@mui/icons-material/DarkMode'
-import MapSharpIcon from '@mui/icons-material/MapSharp';
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import MapSharpIcon from "@mui/icons-material/MapSharp";
+import { Link } from "react-router-dom";
 
-const MenuBar=(props)=> {
+const MenuBar = (props) => {
   const drawerWidth = 240;
   const navItems = ["Home", "Register", "Login"];
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  console.log(props)
+  console.log(props);
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
   const drawer = (
-    <Box
-      onClick={handleDrawerToggle}
-    >
+    <Box onClick={handleDrawerToggle}>
       <Typography variant="h6" sx={{ my: 2 }}>
         VISOR
       </Typography>
@@ -57,11 +56,10 @@ const MenuBar=(props)=> {
         <CssBaseline />
         <AppBar component="nav">
           <Toolbar>
-            <MapSharpIcon sx={
-              { display: { xs: "none", sm: "block"} }
-            
-            }
-            color={props.currentTheme?"warning":""}/>
+            <MapSharpIcon
+              sx={{ display: { xs: "none", sm: "block" } }}
+              color={props.currentTheme ? "warning" : ""}
+            />
             <IconButton
               color="inherit"
               aria-label="open drawer"
@@ -74,7 +72,7 @@ const MenuBar=(props)=> {
             <Typography
               variant="h5"
               component="div"
-              sx={{ flexGrow: 1, display: { sm: "block"},ml:1 }}
+              sx={{ flexGrow: 1, display: { sm: "block" }, ml: 1 }}
             >
               VISOR
             </Typography>
@@ -84,11 +82,30 @@ const MenuBar=(props)=> {
               <DarkModeIcon onClick={props.onChange} />
             )}
             <Box sx={{ display: { xs: "none", sm: "block" } }}>
-              {navItems.map((item) => (
-                <Button key={item} sx={{ color: "#fff" }}>
-                  {item}
-                </Button>
-              ))}
+              <Button key="Home">
+                <Link
+                  to="/Home"
+                  style={{ textDecoration: "none", color: "#fff" }}
+                >
+                  Home
+                </Link>
+              </Button>
+              <Button key="Login">
+                <Link
+                  to="/Login"
+                  style={{ textDecoration: "none", color: "#fff" }}
+                >
+                  Login
+                </Link>
+              </Button>
+              <Button key="Register">
+                <Link
+                  to="/Register"
+                  style={{ textDecoration: "none", color: "#fff" }}
+                >
+                  Register
+                </Link>
+              </Button>
             </Box>
           </Toolbar>
         </AppBar>
@@ -119,6 +136,6 @@ const MenuBar=(props)=> {
       </Box>
     </>
   );
-}
+};
 
 export default MenuBar;
