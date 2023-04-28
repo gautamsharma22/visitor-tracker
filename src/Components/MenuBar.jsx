@@ -24,7 +24,7 @@ const MenuBar=(props)=> {
   const navItems = ["Home", "Register", "Login"];
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
+  console.log(props)
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
@@ -61,7 +61,7 @@ const MenuBar=(props)=> {
               { display: { xs: "none", sm: "block"} }
             
             }
-            color={props.darkMode?"warning":""}/>
+            color={props.currentTheme?"warning":""}/>
             <IconButton
               color="inherit"
               aria-label="open drawer"

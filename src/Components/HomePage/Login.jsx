@@ -1,15 +1,12 @@
 import React from "react"
 import {Avatar,Button,CssBaseline,Typography,Grid,Box,Paper,TextField} from "@mui/material";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-
+import image1 from "../../images/bg3.jpg"
+import image2 from "../../images/bg2.jpg"
 export default function SignInSide(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    // console.log({
-    //   email: data.get("email"),
-    //   password: data.get("password"),
-    // });
   };
 
   return (
@@ -21,7 +18,7 @@ export default function SignInSide(props) {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: "url()",
+            backgroundImage:props.currentTheme?`url(${image1})`:`url(${image2})`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             backgroundPosition: "center",
@@ -37,7 +34,7 @@ export default function SignInSide(props) {
               alignItems: "center",
             }}
           >
-          <Avatar sx={{ width: 56, height: 56,bgcolor:"primary.main" }}
+          <Avatar sx={{ width: 56, height: 56,bgcolor:props.currentTheme?"warning.light":"primary.light" }}
           >
             <AccountCircleIcon sx={{ width: 56, height: 56 }}
             />
@@ -76,7 +73,7 @@ export default function SignInSide(props) {
                 fullWidth
                 variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              color={props.darkMode?"warning":"primary"}
+              color={props.currentTheme?"warning":"primary"}
               >
                 Sign In
               </Button>

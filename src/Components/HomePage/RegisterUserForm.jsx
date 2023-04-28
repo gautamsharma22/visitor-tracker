@@ -38,13 +38,12 @@ const RegisterForm = (props) => {
   const handleDateChange = (newDate) => {
     setDateAndTime(newDate)
   }
-  const [VisitorType, setVisitorType] = React.useState("");
-
+  const [VisitorType, setVisitorType] = React.useState('');
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(firstName, lastName, email, password, DateAndTime,VisitorType,reason);
+    console.log(firstName, lastName, email, password, DateAndTime, VisitorType, reason);
   }
-
+  
   return (
     <>
       <Box
@@ -121,8 +120,7 @@ const RegisterForm = (props) => {
               id="visitor-type-select"
               value={VisitorType}
               label="Visitor Type"
-              onClose={(e) => setVisitorType(e.target.value)}
-          
+              onChange={(e) => setVisitorType(e.target.value)}
             >
               <MenuItem value={"Parent"}>Parent</MenuItem>
               <MenuItem value={"Alumni"}>Alumni</MenuItem>

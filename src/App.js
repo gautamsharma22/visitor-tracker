@@ -22,8 +22,8 @@ function App() {
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
         <MenuBar onChange={handleChange} currentTheme={theme}/>
-        <RegisterUserForm darkMode={theme} />
-        {/* <Login darkMode={theme}/> */}
+        {/* <RegisterUserForm darkMode={theme} /> */}
+        <Login currentTheme={theme}/>
         {/* <AdminDashboard /> */}
         {/* <TestFile/> */}
       </ThemeProvider>
