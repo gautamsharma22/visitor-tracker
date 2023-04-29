@@ -38,8 +38,10 @@ function App() {
           <Route exact path="/Home">
             <LandingPage />
           </Route>
+          <Route exact path="/View">
+        <AdminDashboard />
+          </Route>
         </Switch>
-        {/* <AdminDashboard /> */}
         {/* <TestFile/> */}
       </ThemeProvider>
     </div>

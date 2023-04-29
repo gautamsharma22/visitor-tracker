@@ -1,11 +1,26 @@
-import * as React from "react";
+import React from "react";
+import { useState, useEffect } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions } from "@mui/material";
-import Requests from "./TestData";
+// import Requests from "./TestData";
 import { Grid } from "@mui/material";
 const AdminDashboard = () => {
+  const [Requests, setRequests] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/view/Parent")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setRequests(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
+
   const req = Requests.map((req) => {
     return (
       <Grid item xs={12} sm={2} md={3}>
@@ -42,9 +57,7 @@ const AdminDashboard = () => {
     );
   });
   return (
-      <Grid container direction={{ xs: "column", sm: "row" }} mt={2}
-        spacing={3}
-      >
+    <Grid container direction={{ xs: "column", sm: "row" }} mt={2} spacing={3}>
       {req}
     </Grid>
   );

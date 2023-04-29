@@ -105,6 +105,14 @@ const MenuBar = (props) => {
                 >
                   Register
                 </Link>
+                </Button>
+              <Button key="View">
+                <Link
+                  to="/View"
+                  style={{ textDecoration: "none", color: "#fff" }}
+                >
+                  View Requests
+                </Link>
               </Button>
             </Box>
           </Toolbar>
