@@ -39,7 +39,7 @@ function App() {
             <LandingPage />
           </Route>
           <Route exact path="/View">
-        <AdminDashboard />
+        <AdminDashboard currentTheme={theme}/>
           </Route>
         </Switch>
         {/* <TestFile/> */}

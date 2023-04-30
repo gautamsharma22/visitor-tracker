@@ -2,7 +2,7 @@ const Requests = [
   {
     id: 1,
     name: "Gautam Sharma",
-    email: "gautamsharma.best@gmail.com",
+    email: "gautamsharma@gmail.com",
     reason:
       "Need to talk with HOD",
     dateAndTime: "2023-04-16 9:00 PM",
@@ -11,7 +11,7 @@ const Requests = [
   {
     id: 2,
     name: "Shivam Kumar",
-    email: "shivamjaat@gmail.com",
+    email: "shivam@gmail.com",
     reason:
       "Submit Fees",
     dateAndTime: "2023-04-16 9:00 PM",
@@ -20,7 +20,7 @@ const Requests = [
   {
     id: 3,
     name: "Ashwani Tomar",
-    email: "ashwanitomar2001@gmail.com",
+    email: "ashwani@gmail.com",
     reason:
     "Admission Enquiry",
     dateAndTime: "2023-04-16 9:00 PM",
@@ -29,7 +29,7 @@ const Requests = [
   {
     id: 4,
     name: "Aayush Lamba",
-    email: "aayushlamba18@gmail.com",
+    email: "aayush@gmail.com",
     reason:
     "Special Event",
     dateAndTime: "2023-04-16 9:00 PM",

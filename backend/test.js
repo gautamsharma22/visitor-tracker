@@ -9,8 +9,7 @@ const data = require("./demoData")
 
 app.get("/view/:visitorType", (req, res) => {
     console.log(req.params)
-    // res.header('Access-Control-Allow-Origin', 'https://localhost:3000');
-    const filteredData = data.filter(item => item.visitorType === req.params.visitorType);
+    const filteredData = data.filter(item => item.visitorType === req.params.visitorType || req.params.visitorType==="*");
     console.log(filteredData)
     res.json(filteredData);
 });

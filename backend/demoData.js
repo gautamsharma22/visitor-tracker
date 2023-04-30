@@ -33,7 +33,7 @@ const Requests = [
     reason:
     "Special Event",
     dateAndTime: "2023-04-16 9:00 PM",
-    visitorType:"Student",
+    visitorType:"Alumni",
   },
   {
     id: 5,
@@ -42,7 +42,7 @@ const Requests = [
     reason:
       "Maintainance work near Deemed Building",
     dateAndTime: "2023-04-16 9:00 PM",
-    visitorType:"Staff",
+    visitorType:"Fee Submission",
   },
   {
     id: 4,
@@ -60,7 +60,7 @@ const Requests = [
     reason:
       "Maintainance work near Deemed Building",
     dateAndTime: "2023-04-16 9:00 PM",
-    visitorType:"Staff",
+    visitorType:"Maintainance",
   },
 ];
 
