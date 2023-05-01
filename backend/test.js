@@ -6,6 +6,9 @@ const port = 5000;
 const cors = require("cors");
 app.use(cors());
 const data = require("./demoData")
+const { userLogin, userRegister } = require('./controllers');
+
+router.get("/login", userLogin);
 
 app.get("/view/:visitorType", (req, res) => {
     console.log(req.params)
