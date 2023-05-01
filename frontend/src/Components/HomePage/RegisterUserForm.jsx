@@ -36,14 +36,14 @@ const RegisterForm = (props) => {
   };
 
   const [DateAndTime, setDateAndTime] = React.useState(dayjs().add(1, "day"));
-  const [showPassword, setShowPassword] = React.useState(false);
-
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
   const handleDateChange = (newDate) => {
     setDateAndTime(newDate);
+  };
+  const [showPassword, setShowPassword] = React.useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
   };
   async function handleSubmit(event) {
     event.preventDefault();
@@ -55,7 +55,7 @@ const RegisterForm = (props) => {
       password,
       visitortype,
     } = userData;
-    const res = await fetch("http://localhost:5000/register", {
+    const res = await fetch("http://localhost:5000/users/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

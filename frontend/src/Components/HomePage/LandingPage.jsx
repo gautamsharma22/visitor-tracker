@@ -1,6 +1,6 @@
 import React from "react";
 import { Typography, Box } from "@mui/material";
-const LandingPage = () => {
+const LandingPage = (props) => {
   return (
     <Box
       sx={{
@@ -13,10 +13,17 @@ const LandingPage = () => {
       mt={4}
       height={"90vh"}
     >
-      <Typography variant="h1" gutterBottom align="center">
-        Hello! This App is Under Development
+      <Typography variant="h1" align="center" color={"#1976d2"}>
+        Hello ! 
       </Typography>
-      <Typography variant="h6" gutterBottom align="center">
+      <Typography variant="h1" align="center" color={"#FFC107"}>
+        
+        Currently This App is Under
+      </Typography>
+      <Typography variant="h1" gutterBottom align="center" color={"#f44336"}>
+        Development
+      </Typography>
+      <Typography variant="h6"  align="center">
         Please Comeback Soon :)
       </Typography>
     </Box>

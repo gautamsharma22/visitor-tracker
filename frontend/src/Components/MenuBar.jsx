@@ -1,4 +1,5 @@
 import React from "react";
+import { amber } from '@mui/material/colors';
 import {
   AppBar,
   Box,
@@ -46,7 +47,12 @@ const MenuBar = (props) => {
       </List>
     </Box>
   );
-
+  function handleHoverColor(e) {
+    e.target.style.color = props.currentTheme ? "#FFC107" : '#FFFFFF';
+  }
+  function handleHoverColorBack(e) {
+    e.target.style.color = '#FFFFFF';
+  }
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
@@ -54,12 +60,8 @@ const MenuBar = (props) => {
     <>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
-        <AppBar component="nav">
+        <AppBar component="nav" sx={{ hover: "#" }}>
           <Toolbar>
-            <MapSharpIcon
-              sx={{ display: { xs: "none", sm: "block" } }}
-              color={props.currentTheme ? "warning" : ""}
-            />
             <IconButton
               color="inherit"
               aria-label="open drawer"
@@ -69,6 +71,7 @@ const MenuBar = (props) => {
             >
               <MenuIcon />
             </IconButton>
+            <MapSharpIcon color={props.currentTheme ? "warning" : ""} />
             <Typography
               variant="h5"
               component="div"
@@ -85,7 +88,12 @@ const MenuBar = (props) => {
               <Button key="Home">
                 <Link
                   to="/Home"
-                  style={{ textDecoration: "none", color: "#fff" }}
+                  style={{
+                    textDecoration: "none",
+                    color: "#FFFFFF",
+                  }}
+                  onMouseEnter={handleHoverColor}
+                  onMouseLeave={handleHoverColorBack}
                 >
                   Home
                 </Link>
@@ -94,6 +102,8 @@ const MenuBar = (props) => {
                 <Link
                   to="/Login"
                   style={{ textDecoration: "none", color: "#fff" }}
+                  onMouseEnter={handleHoverColor}
+                  onMouseLeave={handleHoverColorBack}
                 >
                   Login
                 </Link>
@@ -102,14 +112,18 @@ const MenuBar = (props) => {
                 <Link
                   to="/Register"
                   style={{ textDecoration: "none", color: "#fff" }}
+                  onMouseEnter={handleHoverColor}
+                  onMouseLeave={handleHoverColorBack}
                 >
                   Register
                 </Link>
-                </Button>
+              </Button>
               <Button key="View">
                 <Link
                   to="/View"
                   style={{ textDecoration: "none", color: "#fff" }}
+                  onMouseEnter={handleHoverColor}
+                  onMouseLeave={handleHoverColorBack}
                 >
                   View Requests
                 </Link>

@@ -10,7 +10,7 @@ import TestFile from "./Components/TestFile";
 import { Route, Switch } from "react-router";
 import LandingPage from "./Components/HomePage/LandingPage";
 function App() {
-  const [theme, settheme] = useState(false);
+  const [theme, settheme] = useState(true);
   const darkTheme = createTheme({
     palette: {
       mode: theme ? "dark" : "light",
@@ -27,10 +27,10 @@ function App() {
 
         <Switch>
           <Route exact path="/">
-            <LandingPage />
+            <LandingPage currentTheme={theme} />
           </Route>
           <Route exact path="/Login">
-            {/* <Login currentTheme={theme} /> */}
+            <Login currentTheme={theme} />
           </Route>
           <Route exact path="/Register">
             <RegisterUserForm currentTheme={theme} />
