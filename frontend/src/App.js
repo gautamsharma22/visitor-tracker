@@ -30,7 +30,7 @@ function App() {
             <LandingPage />
           </Route>
           <Route exact path="/Login">
-            <Login currentTheme={theme} />
+            {/* <Login currentTheme={theme} /> */}
           </Route>
           <Route exact path="/Register">
             <RegisterUserForm currentTheme={theme} />

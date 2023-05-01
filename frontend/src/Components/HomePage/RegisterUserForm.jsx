@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   TextField,
   Button,
@@ -21,14 +21,21 @@ import {
 } from "@mui/x-date-pickers";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 const RegisterForm = (props) => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [reason, setReason] = useState("");
+  const [userData, setUserData] = React.useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    reason: "",
+    password: "",
+    visitortype: "",
+  });
+  const handleChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    setUserData({ ...userData, [name]: value });
+  };
 
-  const [DateAndTime, setDateAndTime] = React.useState(dayjs().add(1, 'day')
-  );
-  const [password, setPassword] = useState("");
+  const [DateAndTime, setDateAndTime] = React.useState(dayjs().add(1, "day"));
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -36,14 +43,34 @@ const RegisterForm = (props) => {
     event.preventDefault();
   };
   const handleDateChange = (newDate) => {
-    setDateAndTime(newDate)
-  }
-  const [VisitorType, setVisitorType] = React.useState('');
-  function handleSubmit(event) {
+    setDateAndTime(newDate);
+  };
+  async function handleSubmit(event) {
     event.preventDefault();
-    console.log(firstName, lastName, email, password, DateAndTime, VisitorType, reason);
+    const {
+      firstName,
+      lastName,
+      email,
+      reason,
+      password,
+      visitortype,
+    } = userData;
+    const res = await fetch("http://localhost:5000/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        firstName,
+        lastName,
+        email,
+        reason,
+        password,
+        visitortype,
+      }),
+    });
   }
-  
+
   return (
     <>
       <Box
@@ -58,35 +85,35 @@ const RegisterForm = (props) => {
           </Typography>
           <Stack spacing={2} direction="row" sx={{ mb: 3 }}>
             <TextField
+              name="firstName"
               type="text"
               variant="outlined"
               color="primary"
               label="First Name"
-              onChange={(e) => setFirstName(e.target.value)}
-              value={firstName}
+              onChange={handleChange}
+              value={userData.firstName}
               fullWidth
-          
             />
             <TextField
+              name="lastName"
               type="text"
               variant="outlined"
               color="primary"
               label="Last Name"
-              onChange={(e) => setLastName(e.target.value)}
-              value={lastName}
+              onChange={handleChange}
+              value={userData.lastName}
               fullWidth
-          
             />
           </Stack>
           <TextField
+            name="email"
             type="email"
             variant="outlined"
             color="primary"
             label="Email"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
+            onChange={handleChange}
+            value={userData.email}
             fullWidth
-        
             sx={{ mb: 3 }}
           />
           <FormControl variant="outlined" fullWidth sx={{ mb: 3 }}>
@@ -94,9 +121,11 @@ const RegisterForm = (props) => {
               Password
             </InputLabel>
             <OutlinedInput
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handleChange}
               id="outlined-adornment-password"
               type={showPassword ? "text" : "password"}
+              value={userData.password}
+              name="password"
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
@@ -110,17 +139,17 @@ const RegisterForm = (props) => {
                 </InputAdornment>
               }
               label="Password"
-          
             />
           </FormControl>
           <FormControl fullWidth sx={{ mb: 3 }}>
             <InputLabel id="visitor-type">Visitor Type</InputLabel>
             <Select
+              name="visitortype"
               labelId="visitor-type"
               id="visitor-type-select"
-              value={VisitorType}
+              value={userData.visitortype}
               label="Visitor Type"
-              onChange={(e) => setVisitorType(e.target.value)}
+              onChange={handleChange}
             >
               <MenuItem value={"Parent"}>Parent</MenuItem>
               <MenuItem value={"Alumni"}>Alumni</MenuItem>
@@ -131,19 +160,19 @@ const RegisterForm = (props) => {
             </Select>
           </FormControl>
           <TextField
+            name="reason"
             id="outlined-textarea"
             label="Reason of Visit"
             placeholder="Please Specify reason for Visit"
-            onChange={(e) => setReason(e.target.value)}
-            value={reason}
+            onChange={handleChange}
+            value={userData.reason}
             multiline
             fullWidth
             sx={{ mb: 3 }}
-        
           />
           <Stack>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <InputLabel htmlFor="DateAndTimePicker" fullWidth>
+              <InputLabel htmlFor="DateAndTimePicker">
                 Select Visiting Date and Time :
               </InputLabel>
               <MobileDateTimePicker
