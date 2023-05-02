@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useContext} from "react";
 import {
   Avatar,
   Button,
@@ -14,7 +14,8 @@ import {
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import image1 from "../../images/bg3.jpg";
 import image2 from "../../images/bg2.jpg";
-export default function SignInSide(props) {
+import { UserContext } from "../../App";
+export default function Login(props) {
   const [user, setUser] = React.useState({ email: "", password: "" });
   const handleChange = (event) => {
     event.preventDefault();
@@ -22,6 +23,7 @@ export default function SignInSide(props) {
     const value = event.target.value;
     setUser({ ...user, [name]: value });
   };
+  const { currentUser, setcurrentUser } = useContext(UserContext);
   const [alertMessage, setAlertMessage] = React.useState("");
   React.useEffect(() => {
     if (alertMessage) {
@@ -48,7 +50,8 @@ export default function SignInSide(props) {
         .then((response) => response.json())
         .then((data) => {
           setAlertMessage(data);
-          console.log(alertMessage);
+          console.log(data)
+          setcurrentUser({...currentUser,...data,LoggedIn: true});
         });
     } catch (err) {
       console.log("Error -> ", err);

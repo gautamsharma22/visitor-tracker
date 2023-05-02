@@ -13,7 +13,9 @@ router.post("/login", async (req, res) => {
       text: "User Not found with this Email, ",
       secondrytext: "Try creating a New One",
     });
+  } else {
   }
+  const { firstName, lastName } = existingUser;
   const hashedPassword = existingUser.password;
   bcrypt.compare(password, hashedPassword, (err, result) => {
     if (err) {
@@ -26,6 +28,8 @@ router.post("/login", async (req, res) => {
         title: "Welcome",
         text: "Logged in succesfully",
         secondrytext: "",
+        firstName: firstName,
+        lastName:lastName,
       });
     } else {
       res.send({

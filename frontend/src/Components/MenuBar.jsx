@@ -1,5 +1,4 @@
-import React from "react";
-import { amber } from '@mui/material/colors';
+import React ,{useContext} from "react";
 import {
   AppBar,
   Box,
@@ -20,13 +19,20 @@ import Brightness7Icon from "@mui/icons-material/Brightness7";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import MapSharpIcon from "@mui/icons-material/MapSharp";
 import { Link } from "react-router-dom";
+import { UserContext } from "../App";
 
 const MenuBar = (props) => {
   const drawerWidth = 240;
   const navItems = ["Home", "Register", "Login"];
+  const { currentUser, setcurrentUser } = useContext(UserContext);
+  console.log(currentUser)
+  const handlecurrentUserChange = () => {
+    if (currentUser.LoggedIn) {
+      setcurrentUser({...currentUser,LoggedIn: false})
+    }
+  }
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  console.log(props);
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
@@ -53,9 +59,8 @@ const MenuBar = (props) => {
   function handleHoverColorBack(e) {
     e.target.style.color = '#FFFFFF';
   }
-  const container =
+  const container = 
     window !== undefined ? () => window().document.body : undefined;
-
   return (
     <>
       <Box sx={{ display: "flex" }}>
@@ -98,17 +103,18 @@ const MenuBar = (props) => {
                   Home
                 </Link>
               </Button>
-              <Button key="Login">
+               <Button key={currentUser.LoggedIn ? "Sign Out" : "Login"}>
                 <Link
-                  to="/Login"
+                  to={currentUser.LoggedIn ? "/Home" : "/Login"}
                   style={{ textDecoration: "none", color: "#fff" }}
+                  onClick={handlecurrentUserChange}
                   onMouseEnter={handleHoverColor}
                   onMouseLeave={handleHoverColorBack}
                 >
-                  Login
+                  {currentUser.LoggedIn ? "Logout" : "Log In"}
                 </Link>
               </Button>
-              <Button key="Register">
+              {!currentUser.LoggedIn && <Button key="Register">
                 <Link
                   to="/Register"
                   style={{ textDecoration: "none", color: "#fff" }}
@@ -117,7 +123,7 @@ const MenuBar = (props) => {
                 >
                   Register
                 </Link>
-              </Button>
+              </Button>}
               <Button key="View">
                 <Link
                   to="/View"
