@@ -8,6 +8,8 @@ import {
   Box,
   Paper,
   TextField,
+  Alert,
+  AlertTitle,
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import image1 from "../../images/bg3.jpg";
@@ -20,17 +22,37 @@ export default function SignInSide(props) {
     const value = event.target.value;
     setUser({ ...user, [name]: value });
   };
+  const [alertMessage, setAlertMessage] = React.useState("");
+  React.useEffect(() => {
+    if (alertMessage) {
+      const timer = setTimeout(() => {
+        setAlertMessage(null);
+      }, 2000);
 
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [alertMessage]);
   const handleSubmit = async (event) => {
     event.preventDefault();
     const { email, password } = user;
-    const res = await fetch("http://localhost:5000/login", {
-      method: "POST",
-      headers: {
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify({email,password})
-    })
+    try {
+      const res = await fetch("http://localhost:5000/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setAlertMessage(data);
+          console.log(alertMessage);
+        });
+    } catch (err) {
+      console.log("Error -> ", err);
+    }
   };
 
   return (
@@ -69,9 +91,16 @@ export default function SignInSide(props) {
           >
             <AccountCircleIcon sx={{ width: 56, height: 56 }} />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" gutterBottom>
             Sign in
           </Typography>
+          {alertMessage && (
+            <Alert severity={alertMessage.type}>
+              <AlertTitle>{alertMessage.title}</AlertTitle>
+              {alertMessage.text}
+              <strong>{alertMessage.secondrytext}</strong>
+            </Alert>
+          )}
           <Box
             component="form"
             noValidate

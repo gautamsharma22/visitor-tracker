@@ -2,26 +2,38 @@ const express = require("express");
 const Visitor = require("../models/visitor");
 const router = express.Router();
 
-router.get("/login", async (req, res) => {
+router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   const existingUser = await Visitor.findOne({ email });
   if (!existingUser) {
-    return res
-      .status(400)
-      .send({ error: "An account with this email not found. Try Signing Up." });
+    return res.send({
+      type: "warning",
+      title: "Oops!",
+      text: "User Not found with this Email, ",
+      secondrytext: "Try creating a New One",
+    });
   }
 
   try {
     const user = await Visitor.findOne({ email: email, password: password });
     if (user) {
-      res.send({ success: "Logged in succesfully" });
+      res.send({
+        type: "success",
+        title: "Welcome",
+        text: "Logged in succesfully",
+        secondrytext: "",
+      });
     } else {
-      res.send({ success: "Credentials don't match, Please try again" });
+      res.send({
+        type: "error",
+        title: "Oops!",
+        text: "Credentials don't match, ",
+        secondrytext: "Please Recheck your Credentials",
+      });
     }
   } catch (error) {
-    console.error("Error Logging in :( ", error);
-    res.status(500).send(error);
+    res.send({ type: "error", title: "Oh No!", text: { error } });
   }
 });
 
