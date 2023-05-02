@@ -1,4 +1,7 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+const dotenv = require("dotenv");
+dotenv.config();
 const VisitorSchema = new mongoose.Schema({
   firstName: {
     type: String,
@@ -36,5 +39,18 @@ const VisitorSchema = new mongoose.Schema({
   },
 });
 
+VisitorSchema.pre("save", async function (next) {
+  try {
+    const saltRounds = parseInt(process.env.SALT_ROUNDS);
+    const salt = await bcrypt.genSalt(saltRounds);
+    const hashedPassword = await bcrypt.hash(this.password, salt);
+    this.password = hashedPassword;
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
+
 const MyModel = mongoose.model("Visitor", VisitorSchema);
+
 module.exports = MyModel;

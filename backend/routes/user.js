@@ -1,7 +1,7 @@
 const express = require("express");
 const Visitor = require("../models/visitor");
 const router = express.Router();
-
+const bcrypt = require("bcrypt");
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -14,10 +14,13 @@ router.post("/login", async (req, res) => {
       secondrytext: "Try creating a New One",
     });
   }
-
-  try {
-    const user = await Visitor.findOne({ email: email, password: password });
-    if (user) {
+  const hashedPassword = existingUser.password;
+  bcrypt.compare(password, hashedPassword, (err, result) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    if (result) {
       res.send({
         type: "success",
         title: "Welcome",
@@ -32,9 +35,7 @@ router.post("/login", async (req, res) => {
         secondrytext: "Please Recheck your Credentials",
       });
     }
-  } catch (error) {
-    res.send({ type: "error", title: "Oh No!", text: { error } });
-  }
+  });
 });
 
 router.post("/register", async (req, res) => {
