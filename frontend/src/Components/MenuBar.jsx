@@ -1,4 +1,4 @@
-import React ,{useContext} from "react";
+import React, { useContext } from "react";
 import {
   AppBar,
   Box,
@@ -25,7 +25,6 @@ const MenuBar = (props) => {
   const drawerWidth = 240;
   const navItems = ["Home", "Register", "Login"];
   const { currentUser, setcurrentUser } = useContext(UserContext);
-  console.log(currentUser)
   const handlecurrentUserChange = () => {
     if (currentUser.LoggedIn) {
       setcurrentUser({...currentUser,LoggedIn: false})
@@ -124,7 +123,7 @@ const MenuBar = (props) => {
                   Register
                 </Link>
               </Button>}
-              <Button key="View">
+              {currentUser.LoggedIn && <Button key="View">
                 <Link
                   to="/View"
                   style={{ textDecoration: "none", color: "#fff" }}
@@ -133,7 +132,7 @@ const MenuBar = (props) => {
                 >
                   View Requests
                 </Link>
-              </Button>
+              </Button>}
             </Box>
           </Toolbar>
         </AppBar>

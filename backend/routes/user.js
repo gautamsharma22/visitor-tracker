@@ -29,7 +29,7 @@ router.post("/login", async (req, res) => {
         text: "Logged in succesfully",
         secondrytext: "",
         firstName: firstName,
-        lastName:lastName,
+        lastName: lastName,
       });
     } else {
       res.send({
@@ -45,6 +45,7 @@ router.post("/login", async (req, res) => {
 router.post("/register", async (req, res) => {
   const { firstName, lastName, email, reason, password, visitortype } =
     req.body;
+  console.log(req.body)
   const visitor = new Visitor({
     firstName,
     lastName,
@@ -56,18 +57,30 @@ router.post("/register", async (req, res) => {
 
   const existingUser = await Visitor.findOne({ email });
   if (existingUser) {
-    return res
-      .status(400)
-      .send({ error: "User with this email already exists" });
+    return res.send({
+      type: "info",
+      title: "Oops!",
+      text: "Email Already Exists, ",
+      secondrytext: "Redirecting You to Login",
+    });
   }
 
   try {
     const result = await visitor.save();
-    console.log("Visitor saved:", result);
-    res.send(result);
+    res.send({
+      type: "success",
+      title: "Welcome",
+      text: "Registered Succesfully",
+      secondrytext: "Redirecting You to Login",
+    });
   } catch (error) {
     console.error("Error saving visitor:", error);
-    res.status(500).send(error);
+    res.send({
+      type: "error",
+      title: "Error Occured",
+      text: "Something Went Wrong :(",
+      secondrytext: "",
+    });
   }
 });
 

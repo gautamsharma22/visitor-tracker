@@ -1,4 +1,5 @@
-import React,{useContext} from "react";
+import React, { useContext } from "react";
+import { Redirect } from 'react-router-dom';
 import {
   Avatar,
   Button,
@@ -24,7 +25,18 @@ export default function Login(props) {
     setUser({ ...user, [name]: value });
   };
   const { currentUser, setcurrentUser } = useContext(UserContext);
+  const [redirect, setRedirect] = React.useState(false);
   const [alertMessage, setAlertMessage] = React.useState("");
+
+  React.useEffect(() => {
+    if (currentUser.LoggedIn) {
+      const redirectTimer = setTimeout(() => {
+        setRedirect(true);
+      }, 1000);
+      return () => clearTimeout(redirectTimer);
+    }
+  }, [currentUser.LoggedIn]);
+  
   React.useEffect(() => {
     if (alertMessage) {
       const timer = setTimeout(() => {
@@ -60,6 +72,7 @@ export default function Login(props) {
 
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
+      {redirect && (<Redirect to="/home" />)}
       <CssBaseline />
       <Grid
         item

@@ -10,7 +10,11 @@ import {
   InputLabel,
   InputAdornment,
   Box,
+  Alert,
+  AlertTitle,
+  LinearProgress,
 } from "@mui/material";
+import { Redirect } from "react-router-dom";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import dayjs from "dayjs";
@@ -21,6 +25,21 @@ import {
 } from "@mui/x-date-pickers";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 const RegisterForm = (props) => {
+  const [alertMessage, setAlertMessage] = React.useState("");
+  const [redirect, setRedirect] = React.useState(false);
+  React.useEffect(() => {
+    if (alertMessage) {
+      const timer = setTimeout(() => {
+        setAlertMessage(null);
+        if (alertMessage.type === "success" || alertMessage.type==="info") {
+          setRedirect(true);
+        }
+      }, 2000);
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [alertMessage]);
   const [userData, setUserData] = React.useState({
     firstName: "",
     lastName: "",
@@ -68,7 +87,12 @@ const RegisterForm = (props) => {
         password,
         visitortype,
       }),
-    });
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setAlertMessage(data);
+        console.log(data);
+      });
   }
 
   return (
@@ -78,12 +102,23 @@ const RegisterForm = (props) => {
           p: 1,
         }}
         mt={4}
-      >
+        >
+        {redirect && (<>
+        <LinearProgress color="warning" /> <Redirect to="/login" />
+        </>
+        )}
         <form onSubmit={handleSubmit}>
-          <Typography variant="h2" gutterBottom align="center">
+          <Typography variant="h2" align="center">
             Registration Form
           </Typography>
-          <Stack spacing={2} direction="row" sx={{ mb: 3 }}>
+          {alertMessage && (
+            <Alert severity={alertMessage.type}>
+              <AlertTitle>{alertMessage.title}</AlertTitle>
+              {alertMessage.text}
+              <strong>{alertMessage.secondrytext}</strong>
+            </Alert>
+          )}
+          <Stack spacing={2} direction="row" sx={{ mb: 3, mt: 3 }}>
             <TextField
               name="firstName"
               type="text"
