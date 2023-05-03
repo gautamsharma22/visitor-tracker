@@ -10,6 +10,7 @@ import AdminDashboard from "./Components/AdminDashboard";
 import TestFile from "./Components/TestFile";
 import { Route, Switch } from "react-router";
 import LandingPage from "./Components/HomePage/LandingPage";
+import Requests from "./Components/Requests";
 export const UserContext = createContext();
 function App() {
   const [currentUser, setcurrentUser] = useState({Username:"", LoggedIn: false });
@@ -38,6 +39,9 @@ function App() {
             </Route>
             <Route exact path="/Register">
               <RegisterUserForm currentTheme={theme} />
+            </Route>
+            <Route exact path="/Requests">
+              <Requests currentTheme={theme} />
             </Route>
             <Route exact path="/Home">
               <LandingPage />

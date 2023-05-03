@@ -62,8 +62,7 @@ export default function Login(props) {
         .then((response) => response.json())
         .then((data) => {
           setAlertMessage(data);
-          console.log(data)
-          setcurrentUser({...currentUser,...data,LoggedIn: true});
+          setcurrentUser({...currentUser,...data});
         });
     } catch (err) {
       console.log("Error -> ", err);

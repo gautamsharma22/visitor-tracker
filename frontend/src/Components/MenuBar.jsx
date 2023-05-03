@@ -133,6 +133,16 @@ const MenuBar = (props) => {
                   View Requests
                 </Link>
               </Button>}
+              {currentUser.LoggedIn && <Button key="Requests">
+                <Link
+                  to="/Requests"
+                  style={{ textDecoration: "none", color: "#fff" }}
+                  onMouseEnter={handleHoverColor}
+                  onMouseLeave={handleHoverColorBack}
+                >
+                  Requests
+                </Link>
+              </Button>}
             </Box>
           </Toolbar>
         </AppBar>

@@ -13,7 +13,6 @@ router.post("/login", async (req, res) => {
       text: "User Not found with this Email, ",
       secondrytext: "Try creating a New One",
     });
-  } else {
   }
   const { firstName, lastName } = existingUser;
   const hashedPassword = existingUser.password;
@@ -30,6 +29,7 @@ router.post("/login", async (req, res) => {
         secondrytext: "",
         firstName: firstName,
         lastName: lastName,
+        LoggedIn: true,
       });
     } else {
       res.send({

@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const registerUser = require("./routes/user");
+const manageRequest = require("./routes/requests");
 const app = express();
 const cors = require("cors");
 dotenv.config();
@@ -16,5 +17,10 @@ mongoose
   })
   .catch((err) => console.error("Could not connect to MongoDB", err));
 
+  
 app.use("/users", registerUser);
+app.use("/request", manageRequest);
+
+
+
 app.listen(process.env.LISTEN_PORT, () => console.log(`Server listening on port ${process.env.LISTEN_PORT}`));
