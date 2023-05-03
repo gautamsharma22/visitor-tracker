@@ -13,16 +13,9 @@ import {
   Alert,
   AlertTitle,
   LinearProgress,
+  CssBaseline,
 } from "@mui/material";
 import { Redirect } from "react-router-dom";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
-import dayjs from "dayjs";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import {
-  MobileDateTimePicker,
-  LocalizationProvider,
-} from "@mui/x-date-pickers";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 const RegisterForm = (props) => {
   const [alertMessage, setAlertMessage] = React.useState("");
@@ -44,19 +37,12 @@ const RegisterForm = (props) => {
     firstName: "",
     lastName: "",
     email: "",
-    reason: "",
     password: "",
-    visitortype: "",
   });
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
     setUserData({ ...userData, [name]: value });
-  };
-
-  const [DateAndTime, setDateAndTime] = React.useState(dayjs().add(1, "day"));
-  const handleDateChange = (newDate) => {
-    setDateAndTime(newDate);
   };
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -70,9 +56,7 @@ const RegisterForm = (props) => {
       firstName,
       lastName,
       email,
-      reason,
       password,
-      visitortype,
     } = userData;
     const res = await fetch("http://localhost:5000/users/register", {
       method: "POST",
@@ -83,9 +67,7 @@ const RegisterForm = (props) => {
         firstName,
         lastName,
         email,
-        reason,
         password,
-        visitortype,
       }),
     })
       .then((response) => response.json())
@@ -97,19 +79,24 @@ const RegisterForm = (props) => {
 
   return (
     <>
+      <CssBaseline />
       <Box
         sx={{
-          p: 1,
+          p: 2,
         }}
         mt={4}
         >
-        {redirect && (<>
-        <LinearProgress color="warning" /> <Redirect to="/login" />
-        </>
-        )}
+{redirect && (
+  <React.Fragment>
+    <div>
+      <Redirect to="/login" />
+      <LinearProgress color="warning" />
+    </div>
+  </React.Fragment>
+)}
         <form onSubmit={handleSubmit}>
           <Typography variant="h2" align="center">
-            Registration Form
+            Register
           </Typography>
           {alertMessage && (
             <Alert severity={alertMessage.type}>
@@ -176,55 +163,12 @@ const RegisterForm = (props) => {
               label="Password"
             />
           </FormControl>
-          <FormControl fullWidth sx={{ mb: 3 }}>
-            <InputLabel id="visitor-type">Visitor Type</InputLabel>
-            <Select
-              name="visitortype"
-              labelId="visitor-type"
-              id="visitor-type-select"
-              value={userData.visitortype}
-              label="Visitor Type"
-              onChange={handleChange}
-            >
-              <MenuItem value={"Parent"}>Parent</MenuItem>
-              <MenuItem value={"Alumni"}>Alumni</MenuItem>
-              <MenuItem value={"Admission Enquiry"}>Admission Enquiry</MenuItem>
-              <MenuItem value={"Fee Submission"}>Fee Submission</MenuItem>
-              <MenuItem value={"Maintainance"}>Maintainance</MenuItem>
-              <MenuItem value={"Others"}>--Others--</MenuItem>
-            </Select>
-          </FormControl>
-          <TextField
-            name="reason"
-            id="outlined-textarea"
-            label="Reason of Visit"
-            placeholder="Please Specify reason for Visit"
-            onChange={handleChange}
-            value={userData.reason}
-            multiline
-            fullWidth
-            sx={{ mb: 3 }}
-          />
-          <Stack>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <InputLabel htmlFor="DateAndTimePicker">
-                Select Visiting Date and Time :
-              </InputLabel>
-              <MobileDateTimePicker
-                id="DateAndTimePicker"
-                value={DateAndTime}
-                onChange={handleDateChange}
-                disablePast
-              />
-            </LocalizationProvider>
-          </Stack>
           <Button
             variant="contained"
             color={props.currentTheme ? "warning" : "primary"}
             type="submit"
             fullWidth
             size="large"
-            sx={{ mt: 4 }}
           >
             Register
           </Button>

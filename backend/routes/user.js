@@ -43,16 +43,14 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/register", async (req, res) => {
-  const { firstName, lastName, email, reason, password, visitortype } =
+  const { firstName, lastName, email, password} =
     req.body;
   console.log(req.body)
   const visitor = new Visitor({
     firstName,
     lastName,
     email,
-    reason,
     password,
-    visitortype,
   });
 
   const existingUser = await Visitor.findOne({ email });

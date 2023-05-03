@@ -23,20 +23,6 @@ const VisitorSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  visitortype: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  uid: {
-    type: Number,
-    min: 0,
-    max: 10,
-  },
-  myDate: {
-    type: Date,
-    default: Date.now,
-  },
 });
 
 VisitorSchema.pre("save", async function (next) {
