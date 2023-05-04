@@ -7,7 +7,7 @@ import MenuBar from "./Components/MenuBar";
 import RegisterUserForm from "./Components/HomePage/RegisterUserForm.jsx";
 import Login from "./Components/HomePage/Login.jsx";
 import AdminDashboard from "./Components/AdminDashboard";
-import TestFile from "./Components/TestFile";
+import NewRegister from "./Components/HomePage/newRegister";
 import { Route, Switch } from "react-router";
 import LandingPage from "./Components/HomePage/LandingPage";
 import Requests from "./Components/Requests";
@@ -38,7 +38,8 @@ function App() {
               <Login currentTheme={theme} />
             </Route>
             <Route exact path="/Register">
-              <RegisterUserForm currentTheme={theme} />
+              {/* <RegisterUserForm currentTheme={theme} /> */}
+              < NewRegister currentTheme={theme}/>
             </Route>
             <Route exact path="/Requests">
               <Requests currentTheme={theme} />
@@ -51,6 +52,7 @@ function App() {
             </Route>
           </Switch>
           {/* <TestFile/> */}
+         
         </ThemeProvider>
       </UserContext.Provider>
     </div>

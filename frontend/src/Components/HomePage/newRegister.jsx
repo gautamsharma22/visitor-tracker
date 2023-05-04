@@ -12,13 +12,18 @@ import {
   Box,
   Alert,
   AlertTitle,
-  LinearProgress,
   CssBaseline,
   Grow,
+  Grid,
+  Paper,
+  Avatar,
 } from "@mui/material";
 import { Redirect } from "react-router-dom";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import image1 from "../../images/bg3.jpg";
+import image2 from "../../images/bg2.jpg";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-const RegisterForm = (props) => {
+export default function NewRegister(props) {
   const [checked, setChecked] = React.useState(false);
   React.useEffect(() => {
     setChecked(true);
@@ -57,6 +62,7 @@ const RegisterForm = (props) => {
   };
   async function handleSubmit(event) {
     event.preventDefault();
+    console.log(userData);
     const { firstName, lastName, email, password } = userData;
     try {
       const res = await fetch("http://localhost:5000/users/register", {
@@ -82,29 +88,49 @@ const RegisterForm = (props) => {
   }
 
   return (
-    <>
+    <Grid container component="main" sx={{ height: "100vh" }}>
       <CssBaseline />
+      <Grid
+        item
+        xs={false}
+        sm={4}
+        md={7}
+        sx={{
+          backgroundImage: props.currentTheme
+            ? `url(${image1})`
+            : `url(${image2})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      />
+      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <Box
           sx={{
-            p: 2,
+            my: 8,
+            mx: 4,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
-          mt={4}
         >
-          {redirect && (
-            <React.Fragment>
-              <div>
-                <Redirect to="/login" />
-                <LinearProgress color="warning" />
-              </div>
-            </React.Fragment>
-        )}
-        <Grow
-        in={checked}
-        {...(checked ? { timeout: 1000 } : {})}
+          <Avatar
+            sx={{
+              m: 1,
+              bgcolor: props.currentTheme ? "warning.light" : "primary.light",
+              height: 56,
+              width: 56,
+            }}
           >
-            
-        <form onSubmit={handleSubmit}>
-            <Typography variant="h2" align="center">
+            <LockOutlinedIcon
+              sx={{
+                height: 40,
+                width: 40,
+              }}
+            />
+          </Avatar>
+          <form onSubmit={handleSubmit}>
+            <Typography variant="h3" align="center">
               Register
             </Typography>
             {alertMessage && (
@@ -113,8 +139,7 @@ const RegisterForm = (props) => {
                 {alertMessage.text}
                 <strong>{alertMessage.secondrytext}</strong>
               </Alert>
-          )}
-                
+            )}
 
             <Stack spacing={2} direction="row" sx={{ mb: 3, mt: 3 }}>
               <TextField
@@ -183,11 +208,9 @@ const RegisterForm = (props) => {
             >
               Register
             </Button>
-        </form>
-        </Grow>
+          </form>
         </Box>
-    </>
+      </Grid>
+    </Grid>
   );
-};
-
-export default RegisterForm;
+}
