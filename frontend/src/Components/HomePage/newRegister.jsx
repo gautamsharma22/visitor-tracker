@@ -104,6 +104,10 @@ export default function NewRegister(props) {
           backgroundPosition: "center",
         }}
       />
+            <Grow
+        in={checked}
+        {...(checked ? { timeout: 800 } : {})}
+      >
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <Box
           sx={{
@@ -211,6 +215,7 @@ export default function NewRegister(props) {
           </form>
         </Box>
       </Grid>
+      </Grow>
     </Grid>
   );
 }

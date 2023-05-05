@@ -94,7 +94,6 @@ export default function Login(props) {
       />
       <Grow
         in={checked}
-        style={{ transformOrigin: "0 0 0" }}
         {...(checked ? { timeout: 800 } : {})}
       >
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
