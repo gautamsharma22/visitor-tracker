@@ -8,11 +8,8 @@ const userLogin = async (req, res) => {
   const { email, password } = req.body;
   const existingUser = await Visitor.findOne({ email });
   if (!existingUser) {
-    return res.send({
-      type: "warning",
-      title: "Oops!",
-      text: "User Not found with this Email, ",
-      secondrytext: "Try creating a New One",
+    return res.status(400).json({
+      message: "User Not found with this Email, ",
     });
   }
   const { firstName, lastName } = existingUser;

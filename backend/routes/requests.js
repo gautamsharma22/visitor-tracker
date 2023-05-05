@@ -1,24 +1,24 @@
 const express = require("express");
 const {
   createRequest,
-  updateRequest,
+  acceptRequest,
   viewRequest,
-  deleteRequest,
+  rejectRequest,
 } = require("../controllers/requests");
 const authUser = require("../controllers/userAuth");
 
 const router = express.Router();
 
-//Create new Data
+//Create Request
 router.post("/", authUser, createRequest);
 
-// Update Data
-router.put("/", authUser, updateRequest);
+// Accept Request
+router.put("/accept/:visitorID", authUser, acceptRequest);
 
-//View requests
+// Reject Request
+router.put("/reject/:visitorID", authUser, rejectRequest);
+
+// View requests
 router.get("/", authUser, viewRequest);
-
-//Delete requests
-router.delete("/", authUser, deleteRequest);
 
 module.exports = router;

@@ -1,6 +1,13 @@
 const mongoose = require("mongoose");
 const VisitorRequestSchema = new mongoose.Schema(
   {
+    name: {
+      type: String,
+    },
+    email: {
+      type: String,
+      trim: true,
+    },
     reason: {
       type: String,
     },
@@ -12,6 +19,10 @@ const VisitorRequestSchema = new mongoose.Schema(
       default: Date.now(),
     },
     reqAccepted: {
+      type: Boolean,
+      default: false,
+    },
+    reqRejected: {
       type: Boolean,
       default: false,
     },

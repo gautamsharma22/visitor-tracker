@@ -1,11 +1,11 @@
 const VisitorRequest = require("../models/visitor-request");
 const createRequest = async (req, res) => {
-  const { id, name, email, reason, visitortype, visitingDate } = req.body;
   console.log(req.body);
+  const { reason, visitortype, visitingDate } = req.body;
+  const { email, name } = req.visitorID;
   const request = new VisitorRequest({
-    id,
-    name,
     email,
+    name,
     reason,
     visitortype,
     visitingDate,
@@ -24,10 +24,60 @@ const createRequest = async (req, res) => {
     });
   }
 };
-const updateRequest = async (req, res) => {
-    console.log(req.visitorID);
+const viewRequest = async (req, res) => {
+  const { email } = req.visitorID;
+  try {
+    const requests = await VisitorRequest.findOne({ email });
+    res.status(200).json(requests);
+  } catch (error) {
+    res.status(500).json({
+      message: "Something Went Wrong",
+    });
+  }
 };
-const viewRequest = async (req, res) => {};
-const deleteRequest = async (req, res) => {};
+const acceptRequest = async (req, res) => {
+  const id = req.params.visitorID;
+  console.log(id);
+  try {
+    const result = await VisitorRequest.findByIdAndUpdate(
+      id,
+      { reqAccepted: true },
+      { new: true }
+    );
 
-module.exports = { createRequest, updateRequest, viewRequest, deleteRequest };
+    if (!result) {
+      return res.status(404).send("Visitor request not found");
+    }
+
+    res.status(200).json({ message: "Updated Successfully", data: result });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "Something Went Wrong",
+    });
+  }
+};
+const rejectRequest = async (req, res) => {
+  const id = req.params.visitorID;
+  console.log(id);
+  try {
+    const result = await VisitorRequest.findByIdAndUpdate(
+      id,
+      { reqRejected: true },
+      { new: true }
+    );
+
+    if (!result) {
+      return res.status(404).send("Visitor request not found");
+    }
+
+    res.status(200).json({ message: "Request Rejected", data: result });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "Something Went Wrong",
+    });
+  }
+};
+
+module.exports = { createRequest, acceptRequest, viewRequest, rejectRequest };

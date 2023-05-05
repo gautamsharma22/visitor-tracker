@@ -29,8 +29,6 @@ const Requests = (props) => {
     }
   }, [alertMessage]);
   const [userData, setUserData] = React.useState({
-    name: "",
-    email: "",
     reason: "",
     visitortype: "",
     visitingDate: "",
@@ -58,7 +56,7 @@ const Requests = (props) => {
         secondrytext: "Please Check Again",
       });
     }
-    const { name, email, reason, visitortype, visitingDate } = userData;
+    const { reason, visitortype, visitingDate } = userData;
     try {
       console.log("request made");
       const res = await fetch("http://localhost:5000/request", {
@@ -67,8 +65,6 @@ const Requests = (props) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name,
-          email,
           reason,
           visitortype,
           visitingDate,
@@ -101,29 +97,6 @@ const Requests = (props) => {
               <strong>{alertMessage.secondrytext}</strong>
             </Alert>
           )}
-          <Stack spacing={2} direction="row" sx={{ mb: 3, mt: 3 }}>
-            <TextField
-              name="name"
-              type="text"
-              variant="outlined"
-              color="primary"
-              label="Enter Full Name: "
-              onChange={handleChange}
-              value={userData.name}
-              fullWidth
-            />
-          </Stack>
-          <TextField
-            name="email"
-            type="email"
-            variant="outlined"
-            color="primary"
-            label="Email"
-            onChange={handleChange}
-            value={userData.email}
-            fullWidth
-            sx={{ mb: 3 }}
-          />
           <FormControl fullWidth sx={{ mb: 3 }} required>
             <InputLabel id="visitor-type">Visitor Type</InputLabel>
             <Select
@@ -174,7 +147,7 @@ const Requests = (props) => {
             size="large"
             sx={{ mt: 4 }}
           >
-            Subimit Request
+            Submit Request
           </Button>
         </form>
       </Box>
