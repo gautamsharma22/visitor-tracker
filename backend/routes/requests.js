@@ -1,43 +1,24 @@
 const express = require("express");
+const {
+  createRequest,
+  updateRequest,
+  viewRequest,
+  deleteRequest,
+} = require("../controllers/requests");
+const authUser = require("../controllers/userAuth");
+
 const router = express.Router();
-const VisitorRequest = require("../models/visitor-request");
+
 //Create new Data
-router.post("/", async (req, res) => {
-  const { id, name, email, reason, visitortype, visitingDate } = req.body;
-  console.log(req.body);
-  const request = new VisitorRequest({
-    id,
-    name,
-    email,
-    reason,
-    visitortype,
-    visitingDate,
-  });
-  try {
-    const result = await request.save();
-    if (result) {
-      res.send({
-        type: "success",
-        title: "Request Sent",
-        text: "Request Sent Successfully",
-        secondrytext: "Please wait while we approve your request.",
-      });
-    }
-  } catch (error) {
-    console.error("Error saving visitor:", error);
-    res.send({
-      type: "error",
-      title: "Error Occured",
-      text: "Something Went Wrong :(",
-      secondrytext: "",
-    });
-  }
-});
+router.post("/", authUser, createRequest);
+
 // Update Data
-router.put("/requests", async (req, res) => {
-  const { email, password } = req.body;
-});
+router.put("/", authUser, updateRequest);
+
 //View requests
-router.get("/requests", async (req, res) => {});
+router.get("/", authUser, viewRequest);
+
+//Delete requests
+router.delete("/", authUser, deleteRequest);
 
 module.exports = router;

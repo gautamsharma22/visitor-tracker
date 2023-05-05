@@ -32,7 +32,11 @@ export default function Login(props) {
   const { currentUser, setcurrentUser } = useContext(UserContext);
   const [redirect, setRedirect] = React.useState(false);
   const [alertMessage, setAlertMessage] = React.useState("");
-
+  const [jwtToken, setJwtToken] = useState("");
+  const handleLogout = () => {
+    localStorage.removeItem("jwtToken");
+    setJwtToken("");
+  };
   React.useEffect(() => {
     if (currentUser.LoggedIn) {
       const redirectTimer = setTimeout(() => {
@@ -66,8 +70,11 @@ export default function Login(props) {
       })
         .then((response) => response.json())
         .then((data) => {
-          setAlertMessage(data);
+          localStorage.setItem("jwtToken", data.token);
+          setJwtToken(data.token);
+          //setAlertMessage(data);
           setcurrentUser({ ...currentUser, ...data });
+          console.log(jwtToken);
         });
     } catch (err) {
       console.log("Error -> ", err);
@@ -92,10 +99,7 @@ export default function Login(props) {
           backgroundPosition: "center",
         }}
       />
-      <Grow
-        in={checked}
-        {...(checked ? { timeout: 800 } : {})}
-      >
+      <Grow in={checked} {...(checked ? { timeout: 800 } : {})}>
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{
@@ -111,13 +115,15 @@ export default function Login(props) {
                 m: 1,
                 bgcolor: props.currentTheme ? "warning.light" : "primary.light",
                 height: 56,
-                width:56,
+                width: 56,
               }}
             >
-              <PersonIcon sx={{
-                height: 50,
-                width:50,
-              }}/>
+              <PersonIcon
+                sx={{
+                  height: 50,
+                  width: 50,
+                }}
+              />
             </Avatar>
             <Typography variant="h3" align="center">
               Login
