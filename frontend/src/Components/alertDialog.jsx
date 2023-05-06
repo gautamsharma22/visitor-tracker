@@ -19,7 +19,7 @@ const showResponseAlert = (statusCode, message) => {
     case 201:
       return (
         <Alert severity="success">
-          <AlertTitle>Created</AlertTitle>
+          <AlertTitle>Success</AlertTitle>
           <strong>{message}</strong>
         </Alert>
       );

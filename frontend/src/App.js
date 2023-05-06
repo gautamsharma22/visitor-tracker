@@ -4,13 +4,13 @@ import "./App.css";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MenuBar from "./Components/MenuBar";
+import Register from "./Components/Pages/Register";
 import Login from "./Components/HomePage/Login.jsx";
-import AdminDashboard from "./Components/AdminDashboard";
-import UserRequests from "./Components/HomePage/UserRequests";
-import NewRegister from "./Components/HomePage/newRegister";
-import { Route, Switch } from "react-router";
 import LandingPage from "./Components/HomePage/LandingPage";
-import Requests from "./Components/Requests";
+import ViewRequests from "./Components/Pages/ViewRequests";
+import MakeRequests from "./Components/Pages/MakeRequest";
+import AdminDashboard from "./Components/Pages/AdminDashboard"
+import { Route, Switch } from "react-router";
 export const TokenContext = createContext();
 export const UserContext = createContext();
 function App() {
@@ -41,16 +41,16 @@ function App() {
               <Login currentTheme={theme} />
             </Route>
             <Route exact path="/Register">
-              < NewRegister currentTheme={theme}/>
+              < Register currentTheme={theme}/>
             </Route>
             <Route exact path="/Requests">
-              <Requests currentTheme={theme} />
+              <MakeRequests currentTheme={theme} />
             </Route>
             <Route exact path="/Home">
               <LandingPage />
             </Route>
             <Route exact path="/View">
-              <UserRequests currentTheme={theme} />
+              <ViewRequests currentTheme={theme} />
             </Route>
             <Route exact path="/Admin">
               <AdminDashboard currentTheme={theme} />

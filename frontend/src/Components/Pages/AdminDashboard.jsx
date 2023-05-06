@@ -7,8 +7,8 @@ import { FormControl, InputLabel, Box } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { Grid } from "@mui/material";
-import RequestCard from './RequestCard';
-import { TokenContext } from "../App";
+import RequestCard from '../../Components/RequestCard';
+import { TokenContext } from "../../App";
 const AdminDashboard = (props) => {
   /*
     Removed Token Authentication from backend for testing please add it back when you're done...
