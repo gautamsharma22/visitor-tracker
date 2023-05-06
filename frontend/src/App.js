@@ -4,16 +4,16 @@ import "./App.css";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MenuBar from "./Components/MenuBar";
-import RegisterUserForm from "./Components/HomePage/RegisterUserForm.jsx";
 import Login from "./Components/HomePage/Login.jsx";
 import AdminDashboard from "./Components/AdminDashboard";
+import UserRequests from "./Components/HomePage/UserRequests";
 import NewRegister from "./Components/HomePage/newRegister";
 import { Route, Switch } from "react-router";
 import LandingPage from "./Components/HomePage/LandingPage";
 import Requests from "./Components/Requests";
-export const UserContext = createContext();
+export const TokenContext = createContext();
 function App() {
-  const [currentUser, setcurrentUser] = useState({Username:"", LoggedIn: false });
+  const [jwtToken, setJwtToken] = useState(null);
   const [theme, settheme] = useState(true);
   const darkTheme = createTheme({
     palette: {
@@ -25,7 +25,7 @@ function App() {
   };
   return (
     <div className="App">
-      <UserContext.Provider value={{currentUser, setcurrentUser}}>
+      <TokenContext.Provider value={{jwtToken, setJwtToken}}>
         <ThemeProvider theme={darkTheme}>
           <CssBaseline />
           <MenuBar onChange={handleChange} currentTheme={theme} />
@@ -48,13 +48,17 @@ function App() {
               <LandingPage />
             </Route>
             <Route exact path="/View">
-              <AdminDashboard currentTheme={theme} />
+              <UserRequests currentTheme={theme} />
+              
+              {/* <AdminDashboard currentTheme={theme} />
+               */}
+              
             </Route>
           </Switch>
           {/* <TestFile/> */}
          
         </ThemeProvider>
-      </UserContext.Provider>
+      </TokenContext.Provider>
     </div>
   );
 }

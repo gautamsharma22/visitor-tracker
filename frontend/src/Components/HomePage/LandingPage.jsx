@@ -1,8 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Typography, Box, Grow, Zoom } from "@mui/material";
-import { UserContext } from "../../App";
 const LandingPage = () => {
-  const { currentUser, setcurrentUser } = useContext(UserContext);
   const [checked, setChecked] = React.useState(false);
   React.useEffect(() => {
     setChecked(true);
@@ -24,7 +22,7 @@ const LandingPage = () => {
         {...(checked ? { timeout: 1500 } : {})}
       >
         <Typography variant="h1" align="center" color={"#1976d2"}>
-          Welcome {currentUser.LoggedIn && currentUser.firstName}!
+          Welcome
         </Typography>
       </Grow>
       <Grow

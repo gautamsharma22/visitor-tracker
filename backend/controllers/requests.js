@@ -27,7 +27,7 @@ const createRequest = async (req, res) => {
 const viewRequest = async (req, res) => {
   const { email } = req.visitorID;
   try {
-    const requests = await VisitorRequest.findOne({ email });
+    const requests = await VisitorRequest.find({ email });
     res.status(200).json(requests);
   } catch (error) {
     res.status(500).json({

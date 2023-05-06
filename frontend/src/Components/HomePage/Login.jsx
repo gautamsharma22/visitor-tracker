@@ -1,4 +1,4 @@
-import React, { useState,useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Redirect } from "react-router-dom";
 import {
   Avatar,
@@ -9,16 +9,18 @@ import {
   Box,
   Paper,
   TextField,
-  Alert,
-  AlertTitle,
   Grow,
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import image1 from "../../images/bg3.jpg";
 import image2 from "../../images/bg2.jpg";
-import { UserContext } from "../../App";
+import { TokenContext } from "../../App";
+import showAlert from "../../Components/alertDialog";
+
 export default function Login(props) {
+  const { jwtToken, setJwtToken } = useContext(TokenContext);
   const [checked, setChecked] = React.useState(false);
+  const [AlertComponent, setAlertComponent] = useState(null);
   React.useEffect(() => {
     setChecked(true);
   }, []);
@@ -29,34 +31,27 @@ export default function Login(props) {
     const value = event.target.value;
     setUser({ ...user, [name]: value });
   };
-  const { currentUser, setcurrentUser } = useContext(UserContext);
   const [redirect, setRedirect] = React.useState(false);
-  const [alertMessage, setAlertMessage] = React.useState("");
-  const [jwtToken, setJwtToken] = useState("");
-  const handleLogout = () => {
-    localStorage.removeItem("jwtToken");
-    setJwtToken("");
-  };
   React.useEffect(() => {
-    if (currentUser.LoggedIn) {
+    if (jwtToken) {
       const redirectTimer = setTimeout(() => {
         setRedirect(true);
       }, 1000);
       return () => clearTimeout(redirectTimer);
     }
-  }, [currentUser.LoggedIn]);
+  }, [jwtToken]);
 
   React.useEffect(() => {
-    if (alertMessage) {
+    if (AlertComponent) {
       const timer = setTimeout(() => {
-        setAlertMessage(null);
+        setAlertComponent(null);
       }, 2000);
 
       return () => {
         clearTimeout(timer);
       };
     }
-  }, [alertMessage]);
+  }, [AlertComponent]);
   const handleSubmit = async (event) => {
     event.preventDefault();
     const { email, password } = user;
@@ -67,15 +62,17 @@ export default function Login(props) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          localStorage.setItem("jwtToken", data.token);
-          setJwtToken(data.token);
-          //setAlertMessage(data);
-          setcurrentUser({ ...currentUser, ...data });
-          console.log(jwtToken);
-        });
+      });
+    
+      const data = await res.json();
+    
+      if (!res.ok) {
+        const alert = showAlert(res.status);
+        setAlertComponent(alert);
+      } else {
+        console.log(data);
+        setJwtToken(data.token);
+      }
     } catch (err) {
       console.log("Error -> ", err);
     }
@@ -128,13 +125,7 @@ export default function Login(props) {
             <Typography variant="h3" align="center">
               Login
             </Typography>
-            {alertMessage && (
-              <Alert severity={alertMessage.type}>
-                <AlertTitle>{alertMessage.title}</AlertTitle>
-                {alertMessage.text}
-                <strong>{alertMessage.secondrytext}</strong>
-              </Alert>
-            )}
+            {AlertComponent && AlertComponent}
             <Box
               component="form"
               noValidate

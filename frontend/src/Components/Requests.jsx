@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState,useContext } from "react";
 import {
   TextField,
   Button,
@@ -16,18 +16,23 @@ import Select from "@mui/material/Select";
 import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import showAlert from "../Components/alertDialog"
+import { TokenContext } from "../App";
+
 const Requests = (props) => {
-  const [alertMessage, setAlertMessage] = React.useState("");
+  const { jwtToken, setJwtToken } = useContext(TokenContext);
+  const [AlertComponent, setAlertComponent] = useState(null);
   React.useEffect(() => {
-    if (alertMessage) {
+    if (AlertComponent) {
       const timer = setTimeout(() => {
-        setAlertMessage(null);
+        setAlertComponent(null);
       }, 2000);
+
       return () => {
         clearTimeout(timer);
       };
     }
-  }, [alertMessage]);
+  }, [AlertComponent]);
   const [userData, setUserData] = React.useState({
     reason: "",
     visitortype: "",
@@ -49,12 +54,7 @@ const Requests = (props) => {
     setUserData({ ...userData, visitingDate: isoDateAndTime });
     console.log(userData);
     if (userData.visitingDate === "") {
-      return setAlertMessage({
-        type: "warning",
-        title: "Oops!",
-        text: "Date and Time not Selected Properly, ",
-        secondrytext: "Please Check Again",
-      });
+      showAlert(260);
     }
     const { reason, visitortype, visitingDate } = userData;
     try {
@@ -70,10 +70,10 @@ const Requests = (props) => {
           visitingDate,
         }),
       })
-        .then((response) => response.json())
-        .then((data) => {
-          setAlertMessage(data);
-        });
+        .then((response) => {
+          const alert = showAlert(response.status);
+          setAlertComponent(alert);
+        })
     } catch (error) {
       console.log(error);
     }
@@ -90,13 +90,7 @@ const Requests = (props) => {
           <Typography variant="h2" align="center">
             Request For a Visit
           </Typography>
-          {alertMessage && (
-            <Alert severity={alertMessage.type}>
-              <AlertTitle>{alertMessage.title}</AlertTitle>
-              {alertMessage.text}
-              <strong>{alertMessage.secondrytext}</strong>
-            </Alert>
-          )}
+          {AlertComponent && AlertComponent}
           <FormControl fullWidth sx={{ mb: 3 }} required>
             <InputLabel id="visitor-type">Visitor Type</InputLabel>
             <Select

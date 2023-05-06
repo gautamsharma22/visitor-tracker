@@ -19,17 +19,16 @@ import Brightness7Icon from "@mui/icons-material/Brightness7";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import MapSharpIcon from "@mui/icons-material/MapSharp";
 import { Link } from "react-router-dom";
-import { UserContext } from "../App";
+import { TokenContext } from "../App";
 
 const MenuBar = (props) => {
+  const { jwtToken, setJwtToken } = useContext(TokenContext);
+  const handleLogout = () => {
+    localStorage.removeItem("jwtToken");
+    setJwtToken("");
+  };
   const drawerWidth = 240;
   const navItems = ["Home", "Register", "Login"];
-  const { currentUser, setcurrentUser } = useContext(UserContext);
-  const handlecurrentUserChange = () => {
-    if (currentUser.LoggedIn) {
-      setcurrentUser({...currentUser,LoggedIn: false})
-    }
-  }
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const handleDrawerToggle = () => {
@@ -53,12 +52,12 @@ const MenuBar = (props) => {
     </Box>
   );
   function handleHoverColor(e) {
-    e.target.style.color = props.currentTheme ? "#FFC107" : '#FFFFFF';
+    e.target.style.color = props.currentTheme ? "#FFC107" : "#FFFFFF";
   }
   function handleHoverColorBack(e) {
-    e.target.style.color = '#FFFFFF';
+    e.target.style.color = "#FFFFFF";
   }
-  const container = 
+  const container =
     window !== undefined ? () => window().document.body : undefined;
   return (
     <>
@@ -102,47 +101,53 @@ const MenuBar = (props) => {
                   Home
                 </Link>
               </Button>
-               <Button key={currentUser.LoggedIn ? "Sign Out" : "Login"}>
+              <Button key={jwtToken ? "Sign Out" : "Login"}>
                 <Link
-                  to={currentUser.LoggedIn ? "/Home" : "/Login"}
+                  to={jwtToken ? "/Home" : "/Login"}
                   style={{ textDecoration: "none", color: "#fff" }}
-                  onClick={handlecurrentUserChange}
+                  onClick={handleLogout}
                   onMouseEnter={handleHoverColor}
                   onMouseLeave={handleHoverColorBack}
                 >
-                  {currentUser.LoggedIn ? "Logout" : "Log In"}
+                  {jwtToken ? "Logout" : "Log In"}
                 </Link>
               </Button>
-              {!currentUser.LoggedIn && <Button key="Register">
-                <Link
-                  to="/Register"
-                  style={{ textDecoration: "none", color: "#fff" }}
-                  onMouseEnter={handleHoverColor}
-                  onMouseLeave={handleHoverColorBack}
-                >
-                  Register
-                </Link>
-              </Button>}
-              {currentUser.LoggedIn && <Button key="View">
-                <Link
-                  to="/View"
-                  style={{ textDecoration: "none", color: "#fff" }}
-                  onMouseEnter={handleHoverColor}
-                  onMouseLeave={handleHoverColorBack}
-                >
-                  View Requests
-                </Link>
-              </Button>}
-              {currentUser.LoggedIn && <Button key="Requests">
-                <Link
-                  to="/Requests"
-                  style={{ textDecoration: "none", color: "#fff" }}
-                  onMouseEnter={handleHoverColor}
-                  onMouseLeave={handleHoverColorBack}
-                >
-                  Requests
-                </Link>
-              </Button>}
+              {!jwtToken && (
+                <Button key="Register">
+                  <Link
+                    to="/Register"
+                    style={{ textDecoration: "none", color: "#fff" }}
+                    onMouseEnter={handleHoverColor}
+                    onMouseLeave={handleHoverColorBack}
+                  >
+                    Register
+                  </Link>
+                </Button>
+              )}
+              {jwtToken && (
+                <Button key="View">
+                  <Link
+                    to="/View"
+                    style={{ textDecoration: "none", color: "#fff" }}
+                    onMouseEnter={handleHoverColor}
+                    onMouseLeave={handleHoverColorBack}
+                  >
+                    View Requests
+                  </Link>
+                </Button>
+              )}
+              {jwtToken && (
+                <Button key="Requests">
+                  <Link
+                    to="/Requests"
+                    style={{ textDecoration: "none", color: "#fff" }}
+                    onMouseEnter={handleHoverColor}
+                    onMouseLeave={handleHoverColorBack}
+                  >
+                    Requests
+                  </Link>
+                </Button>
+              )}
             </Box>
           </Toolbar>
         </AppBar>
@@ -169,7 +174,7 @@ const MenuBar = (props) => {
         </Box>
         <Box component="main" sx={{ p: 3 }}>
           {/* <Toolbar /> */}
-        </Box>        
+        </Box>
       </Box>
     </>
   );
