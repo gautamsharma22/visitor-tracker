@@ -1,29 +1,24 @@
 const express = require("express");
-const cors = require("cors");
+const dotenv = require("dotenv");
+const mongoose = require("mongoose");
+const registerUser = require("./routes/user");
+const manageRequest = require("./routes/requests");
 const app = express();
-const port = 5000;
+const cors = require("cors");
+dotenv.config();
 app.use(cors());
 app.use(express.json());
+const connectionURI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.s1a1yrw.mongodb.net/?retryWrites=true&w=majority`;
+mongoose
+  .connect(connectionURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log("Database connected! You're Good to go.");
+  })
+  .catch((err) => console.error("Could not connect to MongoDB", err));
 
-app.post("/login", (req, res) => {
-  res.sendStatus(200);
-  // console.log(req.body);
-  const { email, password } = req.body;
-  co = console.log(email, password);
-});
+app.use("/users", registerUser);
+app.use("/request", manageRequest);
 
-
-app.get("/view/:visitorType", (req, res) => {
-  console.log(req.params);
-  const filteredData = data.filter(
-    (item) =>
-      item.visitorType === req.params.visitorType ||
-      req.params.visitorType === "*"
-  );
-  console.log(filteredData);
-  res.json(filteredData);
-});
-
-app.listen(port, () => {
-  console.log("app is listning on post 5000");
-});
+app.listen(process.env.LISTEN_PORT, () =>
+  console.log(`Server listening on port ${process.env.LISTEN_PORT}`)
+);
