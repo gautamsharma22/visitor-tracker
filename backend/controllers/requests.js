@@ -41,7 +41,7 @@ const acceptRequest = async (req, res) => {
   try {
     const result = await VisitorRequest.findByIdAndUpdate(
       id,
-      { reqAccepted: true },
+      { reqStatus: "Accepted" },
       { new: true }
     );
 
@@ -63,7 +63,7 @@ const rejectRequest = async (req, res) => {
   try {
     const result = await VisitorRequest.findByIdAndUpdate(
       id,
-      { reqRejected: true },
+      { reqStatus: "Rejected" },
       { new: true }
     );
 
@@ -80,4 +80,15 @@ const rejectRequest = async (req, res) => {
   }
 };
 
-module.exports = { createRequest, acceptRequest, viewRequest, rejectRequest };
+const adminRequest = async (req, res) => {
+  try {
+    const requests = await VisitorRequest.find();
+    res.status(200).json(requests);
+  } catch (error) {
+    res.status(500).json({
+      message: "Something Went Wrong",
+    });
+  }
+};
+
+module.exports = { createRequest, acceptRequest, viewRequest, rejectRequest,adminRequest };

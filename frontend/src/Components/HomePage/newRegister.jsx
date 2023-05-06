@@ -74,12 +74,10 @@ export default function NewRegister(props) {
           password,
         }),
       });
-      if (res.ok) {
-        const alert = showAlert(res.status);
-        setAlertComponent(alert);
-      } else {
-        console.log("Error Occured At Register Page");
-      }
+      const response = await res.json();
+      const errMessage = response.message;
+      const alert = showAlert(res.status,errMessage);
+      setAlertComponent(alert);
     } catch (error) {
       console.log(error);
     }

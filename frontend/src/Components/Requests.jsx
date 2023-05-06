@@ -1,4 +1,4 @@
-import React, { useState,useContext } from "react";
+import React, { useState, useContext } from "react";
 import {
   TextField,
   Button,
@@ -6,8 +6,6 @@ import {
   Typography,
   InputLabel,
   Box,
-  Alert,
-  AlertTitle,
   FormControl,
 } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
@@ -16,7 +14,7 @@ import Select from "@mui/material/Select";
 import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import showAlert from "../Components/alertDialog"
+import showAlert from "../Components/alertDialog";
 import { TokenContext } from "../App";
 
 const Requests = (props) => {
@@ -45,37 +43,41 @@ const Requests = (props) => {
   };
   const [DateAndTime, setDateAndTime] = React.useState(dayjs().add(1, "day"));
   const handleDateChange = (newDate) => {
-    console.log(formatISO(newDate.toDate()));
     setDateAndTime(newDate);
   };
   async function handleSubmit(event) {
     event.preventDefault();
     const isoDateAndTime = formatISO(DateAndTime.toDate());
-    setUserData({ ...userData, visitingDate: isoDateAndTime });
+    setUserData((prevUserData) => ({
+      ...prevUserData,
+      visitingDate: isoDateAndTime,
+    }));
     console.log(userData);
     if (userData.visitingDate === "") {
-      showAlert(260);
-    }
-    const { reason, visitortype, visitingDate } = userData;
-    try {
-      console.log("request made");
-      const res = await fetch("http://localhost:5000/request", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          reason,
-          visitortype,
-          visitingDate,
-        }),
-      })
-        .then((response) => {
-          const alert = showAlert(response.status);
-          setAlertComponent(alert);
+      const alert = showAlert(260);
+      return setAlertComponent(alert);
+    } else {
+      const { reason, visitortype, visitingDate } = userData;
+      try {
+        console.log("request made");
+        const res = await fetch("http://localhost:5000/request/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${jwtToken}`,
+          },
+          body: JSON.stringify({
+            reason,
+            visitortype,
+            visitingDate,
+          }),
         })
-    } catch (error) {
-      console.log(error);
+        const response = await res.json();
+        const errMessage = response.message;
+        const alert = showAlert(res.status,errMessage);
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
   return (

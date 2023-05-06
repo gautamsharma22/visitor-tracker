@@ -148,6 +148,18 @@ const MenuBar = (props) => {
                   </Link>
                 </Button>
               )}
+              {true && (
+                <Button key="AdminPanel">
+                  <Link
+                    to="/Admin"
+                    style={{ textDecoration: "none", color: "#fff" }}
+                    onMouseEnter={handleHoverColor}
+                    onMouseLeave={handleHoverColorBack}
+                  >
+                    Admin
+                  </Link>
+                </Button>
+              )}
             </Box>
           </Toolbar>
         </AppBar>

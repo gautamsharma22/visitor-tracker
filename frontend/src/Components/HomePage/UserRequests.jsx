@@ -10,6 +10,7 @@ import { TokenContext } from "../../App";
 
 import { Grid } from "@mui/material";
 const UserRequests = (props) => {
+  if (!jwtToken) return <Redirect to="/home" />;
   const { jwtToken, setJwtToken } = useContext(TokenContext);
   const [redirect, setRedirect] = React.useState(false);
   const [Requests, setRequests] = useState([]);
@@ -36,16 +37,20 @@ const UserRequests = (props) => {
     }
     fetchData();
   }, []);
+  const handleCardClick = (req) => {
+    console.log('Card clicked:', req.name);
+  }
 
   const req = Requests.map((req) => {
     return (
       <>
-        {!jwtToken && <Redirect to="/home" />}
-        <Grid item xs={12} sm={2} md={3}>
+        <Grid item xs={12} sm={2} md={3} key={req.id}>
           <Card>
-            <CardActionArea>
+            <CardActionArea onClick={() => {
+              handleCardClick(req)}
+            }>
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography gutterBottom variant="h5" component="div" id={req.name}>
                   {req.name}
                 </Typography>
                 <Typography gutterBottom variant="body1" component="div">
@@ -57,15 +62,21 @@ const UserRequests = (props) => {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              <Button size="small" color="error" variant="contained">
-                Decline
-              </Button>
-              <Button size="small" color="warning" variant="contained">
-                Reschedule
-              </Button>
-              <Button size="small" color="success" variant="contained">
-                Accept
-              </Button>
+              {req.reqRejected && (
+                <Button size="small" color="error" variant="contained">
+                  Request Rejected
+                </Button>
+              )}
+              {req.reqAccepted && (
+                <Button size="small" color="success" variant="contained">
+                  Request Accepted
+                </Button>
+              )}
+              {!req.reqRejected && !req.reqAccepted && (
+                <Button size="small" color="warning" variant="contained">
+                  Request Pending
+                </Button>
+              )}
             </CardActions>
           </Card>
         </Grid>

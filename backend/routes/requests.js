@@ -4,6 +4,7 @@ const {
   acceptRequest,
   viewRequest,
   rejectRequest,
+  adminRequest,
 } = require("../controllers/requests");
 const authUser = require("../controllers/userAuth");
 
@@ -20,5 +21,8 @@ router.put("/reject/:visitorID", authUser, rejectRequest);
 
 // View requests
 router.get("/", authUser, viewRequest);
+
+// Admin requests
+router.get("/admin", authUser, adminRequest);
 
 module.exports = router;

@@ -18,13 +18,9 @@ const VisitorRequestSchema = new mongoose.Schema(
       type: Date,
       default: Date.now(),
     },
-    reqAccepted: {
-      type: Boolean,
-      default: false,
-    },
-    reqRejected: {
-      type: Boolean,
-      default: false,
+    reqStatus: {
+      type: String,
+      default: "Pending",
     },
   },
   { timestamps: true }

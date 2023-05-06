@@ -12,8 +12,10 @@ import { Route, Switch } from "react-router";
 import LandingPage from "./Components/HomePage/LandingPage";
 import Requests from "./Components/Requests";
 export const TokenContext = createContext();
+export const UserContext = createContext();
 function App() {
   const [jwtToken, setJwtToken] = useState(null);
+  const [user, setUser] = useState(null);
   const [theme, settheme] = useState(true);
   const darkTheme = createTheme({
     palette: {
@@ -26,6 +28,7 @@ function App() {
   return (
     <div className="App">
       <TokenContext.Provider value={{jwtToken, setJwtToken}}>
+      <UserContext.Provider value={{user,setUser}}>
         <ThemeProvider theme={darkTheme}>
           <CssBaseline />
           <MenuBar onChange={handleChange} currentTheme={theme} />
@@ -38,7 +41,6 @@ function App() {
               <Login currentTheme={theme} />
             </Route>
             <Route exact path="/Register">
-              {/* <RegisterUserForm currentTheme={theme} /> */}
               < NewRegister currentTheme={theme}/>
             </Route>
             <Route exact path="/Requests">
@@ -49,15 +51,13 @@ function App() {
             </Route>
             <Route exact path="/View">
               <UserRequests currentTheme={theme} />
-              
-              {/* <AdminDashboard currentTheme={theme} />
-               */}
-              
+            </Route>
+            <Route exact path="/Admin">
+              <AdminDashboard currentTheme={theme} />
             </Route>
           </Switch>
-          {/* <TestFile/> */}
-         
-        </ThemeProvider>
+          </ThemeProvider>
+          </UserContext.Provider>
       </TokenContext.Provider>
     </div>
   );

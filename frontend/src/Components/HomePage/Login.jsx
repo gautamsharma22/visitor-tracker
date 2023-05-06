@@ -67,10 +67,13 @@ export default function Login(props) {
       const data = await res.json();
     
       if (!res.ok) {
-        const alert = showAlert(res.status);
+        const errMessage = data.message;
+        const alert = showAlert(res.status,errMessage);
         setAlertComponent(alert);
       } else {
-        console.log(data);
+        const errMessage = data.message;
+        const alert = showAlert(res.status,errMessage);
+        setAlertComponent(alert);
         setJwtToken(data.token);
       }
     } catch (err) {
