@@ -16,7 +16,6 @@ import {
   Paper,
   Avatar,
 } from "@mui/material";
-import { Redirect } from "react-router-dom";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import image1 from "../../images/bg3.jpg";
 import image2 from "../../images/bg2.jpg";
@@ -27,7 +26,6 @@ export default function NewRegister(props) {
   React.useEffect(() => {
     setChecked(true);
   }, []);
-  const [redirect, setRedirect] = React.useState(false);
   const [AlertComponent, setAlertComponent] = useState(null);
   React.useEffect(() => {
     if (AlertComponent) {

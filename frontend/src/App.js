@@ -15,7 +15,7 @@ export const TokenContext = createContext();
 export const UserContext = createContext();
 function App() {
   const [jwtToken, setJwtToken] = useState(null);
-  const [user, setUser] = useState(null);
+  const [UserCon, setUserCon] = useState(null);
   const [theme, settheme] = useState(true);
   const darkTheme = createTheme({
     palette: {
@@ -28,7 +28,7 @@ function App() {
   return (
     <div className="App">
       <TokenContext.Provider value={{jwtToken, setJwtToken}}>
-      <UserContext.Provider value={{user,setUser}}>
+      <UserContext.Provider value={{UserCon, setUserCon}}>
         <ThemeProvider theme={darkTheme}>
           <CssBaseline />
           <MenuBar onChange={handleChange} currentTheme={theme} />

@@ -20,13 +20,10 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import MapSharpIcon from "@mui/icons-material/MapSharp";
 import { Link } from "react-router-dom";
 import { TokenContext } from "../App";
-
+import { UserContext } from "../App";
 const MenuBar = (props) => {
+  const { setUserCon } = useContext(UserContext);
   const { jwtToken, setJwtToken } = useContext(TokenContext);
-  const handleLogout = () => {
-    localStorage.removeItem("jwtToken");
-    setJwtToken("");
-  };
   const drawerWidth = 240;
   const navItems = ["Home", "Register", "Login"];
   const { window } = props;
@@ -101,29 +98,6 @@ const MenuBar = (props) => {
                   Home
                 </Link>
               </Button>
-              <Button key={jwtToken ? "Sign Out" : "Login"}>
-                <Link
-                  to={jwtToken ? "/Home" : "/Login"}
-                  style={{ textDecoration: "none", color: "#fff" }}
-                  onClick={handleLogout}
-                  onMouseEnter={handleHoverColor}
-                  onMouseLeave={handleHoverColorBack}
-                >
-                  {jwtToken ? "Logout" : "Log In"}
-                </Link>
-              </Button>
-              {!jwtToken && (
-                <Button key="Register">
-                  <Link
-                    to="/Register"
-                    style={{ textDecoration: "none", color: "#fff" }}
-                    onMouseEnter={handleHoverColor}
-                    onMouseLeave={handleHoverColorBack}
-                  >
-                    Register
-                  </Link>
-                </Button>
-              )}
               {jwtToken && (
                 <Button key="View">
                   <Link
@@ -144,11 +118,11 @@ const MenuBar = (props) => {
                     onMouseEnter={handleHoverColor}
                     onMouseLeave={handleHoverColorBack}
                   >
-                    Requests
+                    Make Request
                   </Link>
                 </Button>
               )}
-              {true && (
+              {jwtToken && (
                 <Button key="AdminPanel">
                   <Link
                     to="/Admin"
@@ -157,6 +131,47 @@ const MenuBar = (props) => {
                     onMouseLeave={handleHoverColorBack}
                   >
                     Admin
+                  </Link>
+                </Button>
+              )}
+              {!jwtToken && (
+                <Button key="Login">
+                  <Link
+                    to="/Login"
+                    style={{ textDecoration: "none", color: "#fff" }}
+                    onMouseEnter={handleHoverColor}
+                    onMouseLeave={handleHoverColorBack}
+                  >
+                    Log In
+                  </Link>
+                </Button>
+              )}
+              {jwtToken && (
+                <Button key="Log Out">
+                  <Link
+                    to="/Home"
+                    style={{ textDecoration: "none", color: "#fff" }}
+                    onMouseEnter={handleHoverColor}
+                    onMouseLeave={handleHoverColorBack}
+                    onClick={() => {
+                      localStorage.removeItem("jwtToken");
+                      setJwtToken("");
+                      setUserCon("");
+                    }}
+                  >
+                    Log Out
+                  </Link>
+                </Button>
+              )}
+              {!jwtToken && (
+                <Button key="Register">
+                  <Link
+                    to="/Register"
+                    style={{ textDecoration: "none", color: "#fff" }}
+                    onMouseEnter={handleHoverColor}
+                    onMouseLeave={handleHoverColorBack}
+                  >
+                    Register
                   </Link>
                 </Button>
               )}

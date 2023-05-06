@@ -18,7 +18,7 @@ import showAlert from "../Components/alertDialog";
 import { TokenContext } from "../App";
 
 const Requests = (props) => {
-  const { jwtToken, setJwtToken } = useContext(TokenContext);
+  const { jwtToken} = useContext(TokenContext);
   const [AlertComponent, setAlertComponent] = useState(null);
   React.useEffect(() => {
     if (AlertComponent) {
@@ -75,6 +75,7 @@ const Requests = (props) => {
         const response = await res.json();
         const errMessage = response.message;
         const alert = showAlert(res.status,errMessage);
+        setAlertComponent(alert);
       } catch (error) {
         console.log(error);
       }

@@ -5,14 +5,12 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions } from "@mui/material";
-import { FormControl, InputLabel, Box } from "@mui/material";
 import { TokenContext } from "../../App";
 
 import { Grid } from "@mui/material";
 const UserRequests = (props) => {
+  const { jwtToken } = useContext(TokenContext);
   if (!jwtToken) return <Redirect to="/home" />;
-  const { jwtToken, setJwtToken } = useContext(TokenContext);
-  const [redirect, setRedirect] = React.useState(false);
   const [Requests, setRequests] = useState([]);
   useEffect(() => {
     async function fetchData() {

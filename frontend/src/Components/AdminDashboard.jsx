@@ -1,23 +1,21 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { Redirect } from "react-router-dom";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { Button, CardActionArea, CardActions } from "@mui/material";
+import { Button } from "@mui/material";
 import { FormControl, InputLabel, Box } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { Grid } from "@mui/material";
-import TestData from "../Components/TestData";
+import RequestCard from './RequestCard';
 import { TokenContext } from "../App";
 const AdminDashboard = (props) => {
-  if (!jwtToken) return <Redirect to="/home" />;
   /*
     Removed Token Authentication from backend for testing please add it back when you're done...
    */
   const [Requests, setRequests] = useState([]);
-  const { jwtToken } = useContext(TokenContext);
+  const { jwtToken} = useContext(TokenContext);
+  if (!jwtToken) return <Redirect to="/home" />;
 
   const [VisitorType, setVisitorType] = React.useState("");
 
@@ -56,7 +54,6 @@ const AdminDashboard = (props) => {
   }
   async function handleRequest(req) {
     const status = getStatusMessage(req.reqStatus);
-    const id = req._id;
     const res = await fetch(
       `http://localhost:5000/request/${status}/${req._id}`,
       {
@@ -80,92 +77,9 @@ const AdminDashboard = (props) => {
     event.preventDefault();
   }
 
-  const req = Requests.map((req) => {
-    const visitingDate = new Date(req.visitingDate).toLocaleString("en-US", {
-      weekday: "short",
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-      hour: "numeric",
-      minute: "numeric",
-      hour12: true,
-    });
+  const reqCards = Requests.map((req) => {
     return (
-      <>
-        <Grid item xs={12} sm={2} md={3}>
-          <Card>
-            <CardActionArea>
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  {req.name}
-                </Typography>
-                <Typography gutterBottom variant="body1" component="div">
-                  {req.visitorType}
-                </Typography>
-                <Typography variant="body1" color="text.primary" gutterBottom>
-                  {visitingDate}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {req.reason}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {req.reqStatus}
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-            <CardActions>
-              {req.reqStatus === "Accepted" && (
-                <Button
-                  size="small"
-                  color="error"
-                  variant="contained"
-                  onClick={() => {
-                    handleRequest(req);
-                  }}
-                >
-                  Reject
-                </Button>
-              )}
-              {req.reqStatus === "Rejected" && (
-                <Button
-                  size="small"
-                  color="success"
-                  variant="contained"
-                  onClick={() => {
-                    handleRequest(req);
-                  }}
-                >
-                  Accept
-                </Button>
-              )}
-              {req.reqStatus === "Pending" && (
-                <>
-                  <Button
-                    size="small"
-                    color="success"
-                    variant="contained"
-                    onClick={() => {
-                      handleRequest(req);
-                    }}
-                  >
-                    Accept
-                  </Button>
-                  <Button
-                    size="small"
-                    color="error"
-                    variant="contained"
-                    onClick={() => {
-                      handleRequest(req);
-                    }}
-                  >
-                    Reject
-                  </Button>
-                </>
-              )}
-            </CardActions>
-          </Card>
-        </Grid>
-      </>
+      <RequestCard req={req} handleRequest={handleRequest} />
     );
   });
   return (
@@ -214,7 +128,7 @@ const AdminDashboard = (props) => {
         mt={2}
         spacing={3}
       >
-        {req}
+        {reqCards}
       </Grid>
     </>
   );

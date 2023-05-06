@@ -16,8 +16,9 @@ import image1 from "../../images/bg3.jpg";
 import image2 from "../../images/bg2.jpg";
 import { TokenContext } from "../../App";
 import showAlert from "../../Components/alertDialog";
-
+import { UserContext } from "../../App";
 export default function Login(props) {
+  const {setUserCon } = useContext(UserContext);
   const { jwtToken, setJwtToken } = useContext(TokenContext);
   const [checked, setChecked] = React.useState(false);
   const [AlertComponent, setAlertComponent] = useState(null);
@@ -75,6 +76,8 @@ export default function Login(props) {
         const alert = showAlert(res.status,errMessage);
         setAlertComponent(alert);
         setJwtToken(data.token);
+        setUserCon(data.user)
+        localStorage.setItem('jwtToken', data.token);
       }
     } catch (err) {
       console.log("Error -> ", err);
