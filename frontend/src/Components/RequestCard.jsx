@@ -66,7 +66,7 @@ const RequestCard = ({ req, handleRequest }) => {
                 color="success"
                 variant="contained"
                 onClick={() => {
-                  handleRequest(req);
+                  handleRequest(req,"Accept");
                 }}
               >
                 Accept
@@ -76,7 +76,7 @@ const RequestCard = ({ req, handleRequest }) => {
                 color="error"
                 variant="contained"
                 onClick={() => {
-                  handleRequest(req);
+                  handleRequest(req,"Reject");
                 }}
               >
                 Reject

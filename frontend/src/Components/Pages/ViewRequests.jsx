@@ -35,18 +35,14 @@ const UserRequests = (props) => {
     }
     fetchData();
   }, []);
-  const handleCardClick = (req) => {
-    console.log('Card clicked:', req.name);
-  }
 
   const req = Requests.map((req) => {
+    const visitingDate = new Date(req.visitingDate).toLocaleString();
     return (
       <>
         <Grid item xs={12} sm={2} md={3} key={req.id}>
           <Card>
-            <CardActionArea onClick={() => {
-              handleCardClick(req)}
-            }>
+            <CardActionArea >
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div" id={req.name}>
                   {req.name}
@@ -55,22 +51,22 @@ const UserRequests = (props) => {
                   {req.reason}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  {req.visitingDate}
+                  {visitingDate}
                 </Typography>
               </CardContent>
             </CardActionArea>
             <CardActions>
-              {req.reqRejected && (
+              {req.reqStatus==="Rejected" && (
                 <Button size="small" color="error" variant="contained">
                   Request Rejected
                 </Button>
               )}
-              {req.reqAccepted && (
+              {req.reqStatus==="Accepted" && (
                 <Button size="small" color="success" variant="contained">
                   Request Accepted
                 </Button>
               )}
-              {!req.reqRejected && !req.reqAccepted && (
+              {req.reqStatus==="Pending" && (
                 <Button size="small" color="warning" variant="contained">
                   Request Pending
                 </Button>

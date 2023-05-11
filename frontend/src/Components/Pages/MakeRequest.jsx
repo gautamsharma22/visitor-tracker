@@ -8,6 +8,7 @@ import {
   Box,
   FormControl,
 } from "@mui/material";
+import { Redirect } from "react-router-dom";
 import MenuItem from "@mui/material/MenuItem";
 import { formatISO } from "date-fns";
 import Select from "@mui/material/Select";
@@ -19,6 +20,7 @@ import { TokenContext } from "../../App";
 
 const Requests = (props) => {
   const { jwtToken} = useContext(TokenContext);
+  if (!jwtToken) return <Redirect to="/home" />;
   const [AlertComponent, setAlertComponent] = useState(null);
   React.useEffect(() => {
     if (AlertComponent) {

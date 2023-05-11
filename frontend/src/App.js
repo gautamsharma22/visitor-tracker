@@ -5,8 +5,8 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MenuBar from "./Components/MenuBar";
 import Register from "./Components/Pages/Register";
-import Login from "./Components/HomePage/Login.jsx";
-import LandingPage from "./Components/HomePage/LandingPage";
+import Login from "./Components/Pages/Login.jsx";
+import LandingPage from "./Components/Pages/Landing";
 import ViewRequests from "./Components/Pages/ViewRequests";
 import MakeRequests from "./Components/Pages/MakeRequest";
 import AdminDashboard from "./Components/Pages/AdminDashboard"

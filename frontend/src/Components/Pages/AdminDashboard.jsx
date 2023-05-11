@@ -41,19 +41,22 @@ const AdminDashboard = (props) => {
     fetchData();
   }, []);
 
-  function getStatusMessage(status) {
+  function getStatusMessage(status,action) {
     if (status === "Accepted") {
       return "reject";
     } else if (status === "Rejected") {
       return "accept";
     } else if (status === "Pending") {
-      return "accept";
+      if(action==="Accept")
+        return "accept";
+      else if(action==="Reject")
+        return "reject";
     } else {
       return "";
     }
   }
-  async function handleRequest(req) {
-    const status = getStatusMessage(req.reqStatus);
+  async function handleRequest(req,action) {
+    const status = getStatusMessage(req.reqStatus,action);
     const res = await fetch(
       `http://localhost:5000/request/${status}/${req._id}`,
       {
