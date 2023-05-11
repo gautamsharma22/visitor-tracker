@@ -11,6 +11,7 @@ import ViewRequests from "./Components/Pages/ViewRequests";
 import MakeRequests from "./Components/Pages/MakeRequest";
 import AdminDashboard from "./Components/Pages/AdminDashboard"
 import { Route, Switch } from "react-router";
+import {Box }from "@mui/material"
 export const TokenContext = createContext();
 export const UserContext = createContext();
 function App() {
@@ -30,9 +31,8 @@ function App() {
       <TokenContext.Provider value={{jwtToken, setJwtToken}}>
       <UserContext.Provider value={{UserCon, setUserCon}}>
         <ThemeProvider theme={darkTheme}>
-          <CssBaseline />
-          <MenuBar onChange={handleChange} currentTheme={theme} />
-
+            <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+            <MenuBar onChange={handleChange} currentTheme={theme} />
           <Switch>
             <Route exact path="/">
               <LandingPage currentTheme={theme} />
@@ -55,7 +55,9 @@ function App() {
             <Route exact path="/Admin">
               <AdminDashboard currentTheme={theme} />
             </Route>
-          </Switch>
+            </Switch>
+            
+            </Box>
           </ThemeProvider>
           </UserContext.Provider>
       </TokenContext.Provider>

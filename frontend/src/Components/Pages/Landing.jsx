@@ -1,30 +1,19 @@
-import React,{useContext} from "react";
+import React, { useContext } from "react";
 import { Typography, Box, Grow, Zoom } from "@mui/material";
 import { UserContext } from "../../App";
 const LandingPage = () => {
-  const { UserCon} = useContext(UserContext);
+  const { UserCon } = useContext(UserContext);
   const [checked, setChecked] = React.useState(false);
   React.useEffect(() => {
     setChecked(true);
   }, []);
   return (
     <Box
-      sx={{
-        p: 1,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        flexDirection: "column",
-      }}
-      mt={4}
-      height={"90vh"}
+      m={3}
     >
-      <Grow
-        in={checked}
-        {...(checked ? { timeout: 1500 } : {})}
-      >
-        <Typography variant="h1" align="center" color={"#1976d2"}>
-          Welcome { UserCon}
+      <Grow in={checked} {...(checked ? { timeout: 1500 } : {})}>
+        <Typography variant="h2" align="center" color={"#1976d2"}>
+          Welcome to
         </Typography>
       </Grow>
       <Grow
@@ -32,16 +21,23 @@ const LandingPage = () => {
         style={{ transformOrigin: "0 0 0" }}
         {...(checked ? { timeout: 1500 } : {})}
       >
-        <Typography variant="h1" align="center" color={"#FFC107"}>
-          Currently This App is Under
+        <Typography variant="h3" align="center" color={"#FFC107"} gutterBottom>
+          VISOR (Advanced Visitor Tracking Sytem)
         </Typography>
       </Grow>
-      <Zoom in={checked} style={{ transitionDelay: checked ? '1000ms' : '0ms' }}>
-        <Typography variant="h1" gutterBottom align="center" color={"#f44336"}>
-          Development
+      <Zoom
+        in={checked}
+        style={{ transitionDelay: checked ? "1000ms" : "0ms" }}
+      >
+        <Typography variant="h4" align="justify">
+          We provide a simple and efficient solution to manage visitor
+          requests in organizations. The system's features, such as real-time
+          tracking of visitor requests, and user-friendly interface, will ensure
+          that the process of managing visitor requests is streamlined and
+          secure.
         </Typography>
       </Zoom>
-    </Box>
+      </Box>
   );
 };
 

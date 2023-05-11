@@ -4,10 +4,10 @@ import { Redirect } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { Button, CardActionArea, CardActions } from "@mui/material";
+import { Box, Button, CardActionArea, CardActions } from "@mui/material";
 import { TokenContext } from "../../App";
-
-import { Grid } from "@mui/material";
+import { UserContext } from "../../App";
+import { Grid, Grow,Zoom } from "@mui/material";
 const UserRequests = (props) => {
   const { jwtToken } = useContext(TokenContext);
   if (!jwtToken) return <Redirect to="/home" />;
@@ -36,19 +36,26 @@ const UserRequests = (props) => {
     fetchData();
   }, []);
 
+  const { UserCon } = useContext(UserContext);
+  const [checked, setChecked] = React.useState(false);
+  React.useEffect(() => {
+    setChecked(true);
+  }, []);
+
   const req = Requests.map((req) => {
     const visitingDate = new Date(req.visitingDate).toLocaleString();
     return (
       <>
         <Grid item xs={12} sm={2} md={3} key={req.id}>
-          <Card>
-            <CardActionArea >
+        <Zoom in={checked} style={{ transitionDelay: checked ? '500ms' : '0ms' }}>
+          <Card sx={{ width: "300px", height: "200px" }}>
+            <CardActionArea>
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div" id={req.name}>
-                  {req.name}
+                <Typography gutterBottom variant="h5" component="div">
+                {req.visitortype}
                 </Typography>
                 <Typography gutterBottom variant="body1" component="div">
-                  {req.reason}
+                {req.reason}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   {visitingDate}
@@ -56,38 +63,41 @@ const UserRequests = (props) => {
               </CardContent>
             </CardActionArea>
             <CardActions>
-              {req.reqStatus==="Rejected" && (
-                <Button size="small" color="error" variant="contained">
+              {req.reqStatus === "Rejected" && (
+                <Button size="small" color="error" variant="contained" alignSelf="flex-end">
                   Request Rejected
                 </Button>
               )}
-              {req.reqStatus==="Accepted" && (
+              {req.reqStatus === "Accepted" && (
                 <Button size="small" color="success" variant="contained">
                   Request Accepted
                 </Button>
               )}
-              {req.reqStatus==="Pending" && (
+              {req.reqStatus === "Pending" && (
                 <Button size="small" color="warning" variant="contained">
                   Request Pending
                 </Button>
               )}
             </CardActions>
-          </Card>
+            </Card>
+            </Zoom>
         </Grid>
       </>
     );
   });
   return (
-    <>
-      <Grid
-        container
-        direction={{ xs: "column", sm: "row" }}
-        mt={2}
-        spacing={3}
-      >
+    <Box m={3}>
+      {UserCon && (
+        <Grow in={checked} {...(checked ? { timeout: 2000 } : {})}>
+          <Typography variant="h3" align="center" gutterBottom>
+            Hello, {UserCon}
+          </Typography>
+        </Grow>
+      )}
+      <Grid container direction={{ xs: "column", sm: "row" }} spacing={3}>
         {req}
       </Grid>
-    </>
+    </Box>
   );
 };
 export default UserRequests;

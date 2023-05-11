@@ -37,7 +37,7 @@ export default function Login(props) {
     if (jwtToken) {
       const redirectTimer = setTimeout(() => {
         setRedirect(true);
-      }, 1000);
+      }, 600);
       return () => clearTimeout(redirectTimer);
     }
   }, [jwtToken]);
@@ -86,7 +86,7 @@ export default function Login(props) {
 
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
-      {redirect && <Redirect to="/home" />}
+      {redirect && <Redirect to="/View" />}
       <CssBaseline />
       <Grid
         item

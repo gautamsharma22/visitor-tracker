@@ -85,19 +85,20 @@ const MenuBar = (props) => {
               <DarkModeIcon onClick={props.onChange} />
             )}
             <Box sx={{ display: { xs: "none", sm: "block" } }}>
-              <Button key="Home">
-                <Link
-                  to="/Home"
-                  style={{
-                    textDecoration: "none",
-                    color: "#FFFFFF",
-                  }}
-                  onMouseEnter={handleHoverColor}
-                  onMouseLeave={handleHoverColorBack}
-                >
-                  Home
-                </Link>
-              </Button>
+              {!jwtToken && (
+                <Button key="Home">
+                  <Link
+                    to="/Home"
+                    style={{
+                      textDecoration: "none",
+                      color: "#FFFFFF",
+                    }}
+                    onMouseEnter={handleHoverColor}
+                    onMouseLeave={handleHoverColorBack}
+                  >
+                    Home
+                  </Link>
+                </Button>)}
               {jwtToken && (
                 <Button key="View">
                   <Link
