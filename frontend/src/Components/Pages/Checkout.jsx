@@ -87,28 +87,36 @@ export default function DataTable(props) {
   };
 
   const handleSubmit = () => {
-    if (selectedRows.length===0) {
+    if (selectedRows.length === 0) {
       const alert = showAlert(269, "You forgot to Select Any Visitors ");
       setAlertComponent(alert);
       return;
     }
     selectedRows.forEach(async (id) => {
-      try {
-        const res = await fetch(`http://localhost:5000/request/chekout/${id}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            // Authorization: `Bearer ${jwtToken}`,
-          },
-        });
-        const response = await res.json();
-        const errMessage = response.message;
-        const alert = showAlert(res.status, errMessage);
-        setAlertComponent(alert);
-      } catch (error) {
-        console.log(error);
-        const alert = showAlert(500, "Error In Checkout");
-        setAlertComponent(alert);
+      const nonVisitedUser = Requests.find(
+        (req) => req.checkOutTime === null && req._id === id
+      );
+      if (nonVisitedUser) {
+        try {
+          const res = await fetch(
+            `http://localhost:5000/request/chekout/${id}`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                // Authorization: `Bearer ${jwtToken}`,
+              },
+            }
+          );
+          const response = await res.json();
+          const errMessage = response.message;
+          const alert = showAlert(res.status, errMessage);
+          setAlertComponent(alert);
+        } catch (error) {
+          console.log(error);
+          const alert = showAlert(500, "Error In Checkout");
+          setAlertComponent(alert);
+        }
       }
     });
     fetchData();
