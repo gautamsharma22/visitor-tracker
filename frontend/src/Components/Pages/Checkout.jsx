@@ -3,27 +3,8 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Box, Button, Typography } from "@mui/material";
 import { TokenContext } from "../../App";
 import showAlert from "../../Components/alertDialog";
-
 import { Redirect } from "react-router-dom";
-
-const columns = [
-  { field: "firstName", headerName: "First Name", width: 200, sortable: false },
-  { field: "lastName", headerName: "Last Name", width: 200, sortable: false },
-  {
-    field: "visitortype",
-    headerName: "Visitor Type",
-    width: 200,
-    sortable: false,
-  },
-  {
-    field: "phoneNumber",
-    headerName: "Phone Number",
-    width: 200,
-    sortable: false,
-  },
-  { field: "checkInTime", headerName: "Check In Time", width: 200 },
-  { field: "checkOutTime", headerName: "Check Out Time", width: 200 },
-];
+import Columns from "./DatagridColums"
 
 export default function DataTable(props) {
   const [checked, setChecked] = React.useState(false);
@@ -45,7 +26,7 @@ export default function DataTable(props) {
 
   const [Requests, setRequests] = useState([]);
   const { jwtToken } = useContext(TokenContext);
-  // if (!jwtToken) return <Redirect to="/home" />;
+  if (!jwtToken) return <Redirect to="/home" />;
   async function fetchData() {
     const res = await fetch("http://localhost:5000/request/admin", {
       method: "GET",
@@ -81,9 +62,6 @@ export default function DataTable(props) {
 
   const handleSelectionModelChange = (selectionModel) => {
     setSelectedRows(selectionModel);
-    if (selectionModel.length > 0) {
-      const selectedRow = Requests.find((row) => row._id === selectionModel[0]);
-    }
   };
 
   const handleSubmit = () => {
@@ -137,7 +115,7 @@ export default function DataTable(props) {
       {AlertComponent && AlertComponent}
       <DataGrid
         rows={Requests}
-        columns={columns}
+        columns={Columns}
         getRowId={getRowId}
         onRowSelectionModelChange={handleSelectionModelChange}
         checkboxSelection
@@ -150,7 +128,7 @@ export default function DataTable(props) {
         sx={{ mt: 4 }}
         onClick={handleSubmit}
       >
-        Submit Request
+        Check Out Selected Visitors 
       </Button>
     </Box>
   );
