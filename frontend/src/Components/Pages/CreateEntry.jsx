@@ -6,6 +6,8 @@ import {
   Typography,
   InputLabel,
   Box,
+  Grid,
+  Paper,
   FormControl,
 } from "@mui/material";
 import { Redirect } from "react-router-dom";
@@ -17,10 +19,12 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import showAlert from "../../Components/alertDialog";
 import { TokenContext } from "../../App";
-
-const Requests = (props) => {
-  const { jwtToken} = useContext(TokenContext);
-  if (!jwtToken) return <Redirect to="/home" />;
+/*
+    Disabled Redirect for testing please add it back 
+*/
+const CreateEntry = (props) => {
+  const { jwtToken } = useContext(TokenContext);
+  // if (!jwtToken) return <Redirect to="/home" />;
   const [AlertComponent, setAlertComponent] = useState(null);
   React.useEffect(() => {
     if (AlertComponent) {
@@ -34,32 +38,44 @@ const Requests = (props) => {
     }
   }, [AlertComponent]);
   const [userData, setUserData] = React.useState({
+    firstName: "",
+    lastName: "",
     reason: "",
+    email: "",
     visitortype: "",
-    visitingDate: "",
+    phoneNumber: "",
+    aadharNumber: "",
   });
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
     setUserData({ ...userData, [name]: value });
   };
-  const [DateAndTime, setDateAndTime] = React.useState(dayjs().add(1, "day"));
-  const handleDateChange = (newDate) => {
-    setDateAndTime(newDate);
-  };
+  const [checkInTime, setcheckInTime] = React.useState(
+    dayjs().add(1, "minute")
+  );
   async function handleSubmit(event) {
     event.preventDefault();
-    const isoDateAndTime = formatISO(DateAndTime.toDate());
+    const isoCheckIn = formatISO(checkInTime.toDate());
     setUserData((prevUserData) => ({
       ...prevUserData,
-      visitingDate: isoDateAndTime,
+      checkInTime: isoCheckIn,
     }));
-    console.log(userData);
-    if (userData.visitingDate === "") {
+    if (userData.checkInTime === "") {
       const alert = showAlert(260);
       return setAlertComponent(alert);
     } else {
-      const { reason, visitortype, visitingDate } = userData;
+      const {
+        firstName,
+        lastName,
+        email,
+        reason,
+        visitortype,
+        phoneNumber,
+        aadharNumber,
+        checkInTime,
+      } = userData;
+      console.log(userData);
       try {
         console.log("request made");
         const res = await fetch("http://localhost:5000/request/", {
@@ -69,14 +85,19 @@ const Requests = (props) => {
             Authorization: `Bearer ${jwtToken}`,
           },
           body: JSON.stringify({
+            firstName,
+            lastName,
+            email,
             reason,
             visitortype,
-            visitingDate,
+            phoneNumber,
+            aadharNumber,
+            checkInTime,
           }),
-        })
+        });
         const response = await res.json();
         const errMessage = response.message;
-        const alert = showAlert(res.status,errMessage);
+        const alert = showAlert(res.status, errMessage);
         setAlertComponent(alert);
       } catch (error) {
         console.log(error);
@@ -87,15 +108,70 @@ const Requests = (props) => {
     <>
       <Box
         sx={{
-          p: 1,
+          my: 2,
+          mx: 2,
+          display: "flex",
+          flexDirection: "column",
         }}
-        mt={4}
       >
         <form onSubmit={handleSubmit}>
-          <Typography variant="h2" align="center">
-            Request For a Visit
+          <Typography variant="h2" align="center" gutterBottom>
+            Create an Entry for Visitor
           </Typography>
           {AlertComponent && AlertComponent}
+          <Stack spacing={2} direction="row" sx={{ mb: 3, width: "100%" }}>
+            <TextField
+              name="firstName"
+              type="text"
+              variant="outlined"
+              color="primary"
+              label="First Name"
+              onChange={handleChange}
+              value={userData.firstName}
+              fullWidth
+            />
+            <TextField
+              name="lastName"
+              type="text"
+              variant="outlined"
+              color="primary"
+              label="Last Name"
+              onChange={handleChange}
+              value={userData.lastName}
+              fullWidth
+            />
+          </Stack>
+          <TextField
+            name="email"
+            id="outlined-textarea"
+            label="Email"
+            placeholder="Please Specify reason for Visit"
+            onChange={handleChange}
+            value={userData.email}
+            multiline
+            fullWidth
+            sx={{ mb: 3 }}
+          />
+          <Stack spacing={2} direction="row" sx={{ mb: 3, width: "100%" }}>
+            <TextField
+              name="phoneNumber"
+              id="outlined-textarea"
+              label="Phone Number "
+              placeholder="Enter Phone Number"
+              onChange={handleChange}
+              value={userData.phoneNumber}
+              sx={{ width: "50%" }}
+            />
+            <TextField
+              name="aadharNumber"
+              id="outlined-textarea"
+              label="Aadhar Number"
+              placeholder="Enter Aadhar Number"
+              onChange={handleChange}
+              value={userData.aadharNumber}
+              sx={{ width: "50%" }}
+            />
+          </Stack>
           <FormControl fullWidth sx={{ mb: 3 }} required>
             <InputLabel id="visitor-type">Visitor Type</InputLabel>
             <Select
@@ -125,15 +201,19 @@ const Requests = (props) => {
             fullWidth
             sx={{ mb: 3 }}
           />
-          <Stack>
+
+          <Stack sx={{ mb: 3 }}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <InputLabel htmlFor="DateAndTimePicker">
-                Select Visiting Date and Time :
+                Select Check In Time :
               </InputLabel>
               <DateTimePicker
-                value={DateAndTime}
-                onChange={handleDateChange}
+                value={checkInTime}
+                onChange={(time) => {
+                  setcheckInTime(time);
+                }}
                 views={["year", "month", "day", "hours", "minutes"]}
+                disablePast
                 required
               />
             </LocalizationProvider>
@@ -153,4 +233,4 @@ const Requests = (props) => {
     </>
   );
 };
-export default Requests;
+export default CreateEntry;

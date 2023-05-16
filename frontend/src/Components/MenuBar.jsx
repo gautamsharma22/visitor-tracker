@@ -100,26 +100,14 @@ const MenuBar = (props) => {
                   </Link>
                 </Button>)}
               {jwtToken && (
-                <Button key="View">
-                  <Link
-                    to="/View"
-                    style={{ textDecoration: "none", color: "#fff" }}
-                    onMouseEnter={handleHoverColor}
-                    onMouseLeave={handleHoverColorBack}
-                  >
-                    View Requests
-                  </Link>
-                </Button>
-              )}
-              {jwtToken && (
                 <Button key="Requests">
                   <Link
-                    to="/Requests"
+                    to="/CreateEntry"
                     style={{ textDecoration: "none", color: "#fff" }}
                     onMouseEnter={handleHoverColor}
                     onMouseLeave={handleHoverColorBack}
                   >
-                    Make Request
+                    Create Entry
                   </Link>
                 </Button>
               )}
@@ -161,18 +149,6 @@ const MenuBar = (props) => {
                     }}
                   >
                     Log Out
-                  </Link>
-                </Button>
-              )}
-              {!jwtToken && (
-                <Button key="Register">
-                  <Link
-                    to="/Register"
-                    style={{ textDecoration: "none", color: "#fff" }}
-                    onMouseEnter={handleHoverColor}
-                    onMouseLeave={handleHoverColorBack}
-                  >
-                    Register
                   </Link>
                 </Button>
               )}

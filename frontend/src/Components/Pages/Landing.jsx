@@ -30,9 +30,10 @@ const LandingPage = () => {
         style={{ transitionDelay: checked ? "1000ms" : "0ms" }}
       >
         <Typography variant="h4" align="justify">
-          We provide a simple and efficient solution to manage visitor
-          requests in organizations. The system's features, such as real-time
-          tracking of visitor requests, and user-friendly interface, will ensure
+          It's a simple and efficient solution to manage visitor
+          requests in organizations.<br/>
+          The system's features, such as real-time
+          tracking of visitor requests, and user-friendly interface, ensures
           that the process of managing visitor requests is streamlined and
           secure.
         </Typography>

@@ -1,7 +1,10 @@
 const mongoose = require("mongoose");
 const VisitorRequestSchema = new mongoose.Schema(
   {
-    name: {
+    firstName: {
+      type: String,
+    },
+    lastName: {
       type: String,
     },
     email: {
@@ -14,16 +17,23 @@ const VisitorRequestSchema = new mongoose.Schema(
     visitortype: {
       type: String,
     },
-    visitingDate: {
+    checkInTime: {
       type: Date,
-      default: Date.now(),
     },
-    reqStatus: {
+    checkOutTime: {
+      type: Date,
+    },
+    phoneNumber: {
       type: String,
-      default: "Pending",
+      maxlength: 10,
+      required:true,
     },
-  },
-  { timestamps: true }
+    aadharNumber: {
+      type: String,
+      maxlength: 12,
+      required:true,
+    },
+  }
 );
 const VisitorRequest = mongoose.model("VisitorRequest", VisitorRequestSchema);
 module.exports = VisitorRequest;

@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
 dotenv.config();
-const VisitorSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
   firstName: {
     type: String,
     required: true,
@@ -25,7 +25,7 @@ const VisitorSchema = new mongoose.Schema({
   },
 });
 
-VisitorSchema.pre("save", async function (next) {
+UserSchema.pre("save", async function (next) {
   try {
     const saltRounds = parseInt(process.env.SALT_ROUNDS);
     const salt = await bcrypt.genSalt(saltRounds);
@@ -37,6 +37,6 @@ VisitorSchema.pre("save", async function (next) {
   }
 });
 
-const MyModel = mongoose.model("Visitor", VisitorSchema);
+const MyModel = mongoose.model("User", UserSchema);
 
 module.exports = MyModel;

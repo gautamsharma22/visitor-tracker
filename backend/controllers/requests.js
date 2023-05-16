@@ -1,18 +1,30 @@
 const VisitorRequest = require("../models/visitor-request");
 const createRequest = async (req, res) => {
   console.log(req.body);
-  const { reason, visitortype, visitingDate } = req.body;
-  const { email, name } = req.visitorID;
-  const request = new VisitorRequest({
+  const {
+    firstName,
+    lastName,
     email,
-    name,
     reason,
     visitortype,
-    visitingDate,
+    phoneNumber,
+    aadharNumber,
+    checkInTime,
+  } = req.body;
+  const request = new VisitorRequest({
+    firstName,
+    lastName,
+    email,
+    reason,
+    visitortype,
+    phoneNumber,
+    aadharNumber,
+    checkInTime,
   });
   try {
     const result = await request.save();
     if (result) {
+      console.log(result);
       res.status(201).json({
         message: "Request Sent Successfully",
       });
@@ -35,50 +47,6 @@ const viewRequest = async (req, res) => {
     });
   }
 };
-const acceptRequest = async (req, res) => {
-  const id = req.params.visitorID;
-  console.log(id);
-  try {
-    const result = await VisitorRequest.findByIdAndUpdate(
-      id,
-      { reqStatus: "Accepted" },
-      { new: true }
-    );
-
-    if (!result) {
-      return res.status(404).send("Visitor request not found");
-    }
-
-    res.status(200).json({ message: "Updated Successfully", data: result });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      message: "Something Went Wrong",
-    });
-  }
-};
-const rejectRequest = async (req, res) => {
-  const id = req.params.visitorID;
-  console.log(id);
-  try {
-    const result = await VisitorRequest.findByIdAndUpdate(
-      id,
-      { reqStatus: "Rejected" },
-      { new: true }
-    );
-
-    if (!result) {
-      return res.status(404).send("Visitor request not found");
-    }
-
-    res.status(200).json({ message: "Request Rejected", data: result });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      message: "Something Went Wrong",
-    });
-  }
-};
 
 const adminRequest = async (req, res) => {
   try {
@@ -91,4 +59,8 @@ const adminRequest = async (req, res) => {
   }
 };
 
-module.exports = { createRequest, acceptRequest, viewRequest, rejectRequest,adminRequest };
+module.exports = {
+  createRequest,
+  viewRequest,
+  adminRequest,
+};

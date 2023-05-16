@@ -1,4 +1,4 @@
-const Visitor = require("../models/visitor");
+const User = require("../models/users");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
@@ -6,7 +6,7 @@ dotenv.config();
 
 const userLogin = async (req, res) => {
   const { email, password } = req.body;
-  const existingUser = await Visitor.findOne({ email });
+  const existingUser = await User.findOne({ email });
   if (!existingUser) {
     return res.status(400).json({
       message: "User Not found with this Email, ",
@@ -21,7 +21,7 @@ const userLogin = async (req, res) => {
     }
     if (result) {
       const name = firstName + " " + lastName;
-      const token = jwt.sign({ name, email }, process.env.SECRET_KEY);
+      const token = jwt.sign({ name, email}, process.env.SECRET_KEY);
       res.status(200).json({
         message: "Logged in succesfully",
         token: token,
