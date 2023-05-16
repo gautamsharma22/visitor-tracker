@@ -36,12 +36,37 @@ const createRequest = async (req, res) => {
     });
   }
 };
+
 const viewRequest = async (req, res) => {
   const { email } = req.visitorID;
   try {
     const requests = await VisitorRequest.find({ email });
     res.status(200).json(requests);
   } catch (error) {
+    res.status(500).json({
+      message: "Something Went Wrong",
+    });
+  }
+};
+
+const checkOutRequest = async (req, res) => {
+  const id = req.params.id;
+  console.log(id)
+  try {
+    const checkOutDate = new Date().toLocaleString();
+    const resp= await VisitorRequest.findOneAndUpdate({ _id :id }, { $set: { checkOutTime: checkOutDate } })
+
+      if (!resp) {
+        return res.status(500).json({
+          message: "Database Error at FindOneAndUpdate",
+        });
+      }
+      res.status(200).json({
+        message: "Checkout Success",
+      });
+  
+  } catch (error) {
+    console.log(error)
     res.status(500).json({
       message: "Something Went Wrong",
     });
@@ -62,5 +87,6 @@ const adminRequest = async (req, res) => {
 module.exports = {
   createRequest,
   viewRequest,
+  checkOutRequest,
   adminRequest,
 };

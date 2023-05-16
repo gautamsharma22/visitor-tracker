@@ -100,14 +100,26 @@ const MenuBar = (props) => {
                   </Link>
                 </Button>)}
               {jwtToken && (
-                <Button key="Requests">
+                <Button key="Checkin">
                   <Link
-                    to="/CreateEntry"
+                    to="/Checkin"
                     style={{ textDecoration: "none", color: "#fff" }}
                     onMouseEnter={handleHoverColor}
                     onMouseLeave={handleHoverColorBack}
                   >
-                    Create Entry
+                    Check In
+                  </Link>
+                </Button>
+              )}
+              {jwtToken && (
+                <Button key="Checkout">
+                  <Link
+                    to="/Checkout"
+                    style={{ textDecoration: "none", color: "#fff" }}
+                    onMouseEnter={handleHoverColor}
+                    onMouseLeave={handleHoverColorBack}
+                  >
+                    Check Out
                   </Link>
                 </Button>
               )}

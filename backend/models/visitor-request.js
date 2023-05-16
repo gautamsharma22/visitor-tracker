@@ -22,6 +22,7 @@ const VisitorRequestSchema = new mongoose.Schema(
     },
     checkOutTime: {
       type: Date,
+      default:null,
     },
     phoneNumber: {
       type: String,

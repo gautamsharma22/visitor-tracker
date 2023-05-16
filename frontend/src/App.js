@@ -3,12 +3,13 @@ import { useState, createContext } from "react";
 import "./App.css";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import Test from "./Components/Pages/Test"
+import Admin from "./Components/Pages/Admin"
+import Checkout from "./Components/Pages/Checkout"
+import Checkin from "./Components/Pages/Checkin"
 import MenuBar from "./Components/MenuBar";
 import Register from "./Components/Pages/Register";
 import Login from "./Components/Pages/Login.jsx";
 import LandingPage from "./Components/Pages/Landing";
-import CreateEntry from "./Components/Pages/CreateEntry";
 import { Route, Switch } from "react-router";
 import {Box }from "@mui/material"
 export const TokenContext = createContext();
@@ -42,14 +43,17 @@ function App() {
             <Route exact path="/Register">
               < Register currentTheme={theme}/>
             </Route>
-            <Route exact path="/CreateEntry">
-              <CreateEntry currentTheme={theme} />
+            <Route exact path="/Checkin">
+              <Checkin currentTheme={theme} />
             </Route>
             <Route exact path="/Home">
               <LandingPage />
             </Route>
             <Route exact path="/Admin">
-              <Test currentTheme={theme} />
+              <Admin currentTheme={theme} />
+            </Route>
+            <Route exact path="/Checkout">
+              <Checkout currentTheme={theme} />
             </Route>
             </Switch>
             </Box>

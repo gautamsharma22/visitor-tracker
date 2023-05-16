@@ -51,6 +51,13 @@ const showResponseAlert = (statusCode, message) => {
           <strong>{message}</strong>
         </Alert>
       );
+    case 269:
+      return (
+        <Alert severity="info">
+          <AlertTitle>Oops! </AlertTitle>
+          <strong> {message}</strong>
+        </Alert>
+      );
     default:
       return (
         <Alert severity="info">

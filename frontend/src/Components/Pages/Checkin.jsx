@@ -61,8 +61,9 @@ const CreateEntry = (props) => {
       ...prevUserData,
       checkInTime: isoCheckIn,
     }));
-    if (userData.checkInTime === "") {
-      const alert = showAlert(260);
+    if (userData.checkInTime === "" || !userData.checkInTime) {
+      const message="Date not selected properly."
+      const alert = showAlert(260,message);
       return setAlertComponent(alert);
     } else {
       const {
@@ -77,6 +78,7 @@ const CreateEntry = (props) => {
       } = userData;
       console.log(userData);
       try {
+        console.log(checkInTime)
         console.log("request made");
         const res = await fetch("http://localhost:5000/request/", {
           method: "POST",
