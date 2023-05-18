@@ -12,17 +12,15 @@ const router = express.Router();
 // Disabling Auth User please add it back
 
 //Create Request
-// router.post("/", authUser, createRequest);
-router.post("/", createRequest);
+router.post("/", authUser, createRequest);
 
 // Check Out User
-router.post("/chekout/:id", checkOutRequest);
+router.post("/chekout/:id",authUser, checkOutRequest);
 
 // View requests
 router.get("/", authUser, viewRequest);
 
 // Admin requests
-// router.get("/admin", authUser, adminRequest);
-router.get("/admin", adminRequest);
+router.get("/admin",authUser, adminRequest);
 
 module.exports = router;

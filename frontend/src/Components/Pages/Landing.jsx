@@ -1,44 +1,53 @@
 import React, { useContext } from "react";
-import { Typography, Box, Grow, Zoom } from "@mui/material";
+import { Typography, Box } from "@mui/material";
+import Image1 from "../../images/Visitor-Management-main-image-768x728.svg";
 import { UserContext } from "../../App";
 const LandingPage = () => {
   const { UserCon } = useContext(UserContext);
-  const [checked, setChecked] = React.useState(false);
-  React.useEffect(() => {
-    setChecked(true);
-  }, []);
   return (
     <Box
-      m={3}
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "column",
+      }}
+      mt={4}
+      height={"90vh"}
     >
-      <Grow in={checked} {...(checked ? { timeout: 1500 } : {})}>
-        <Typography variant="h2" align="center" color={"#1976d2"}>
-          Welcome to
-        </Typography>
-      </Grow>
-      <Grow
-        in={checked}
-        style={{ transformOrigin: "0 0 0" }}
-        {...(checked ? { timeout: 1500 } : {})}
+      <Typography variant="h2" gutterBottom>
+        Visitor Tracking System
+      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+        }}
       >
-        <Typography variant="h3" align="center" color={"#FFC107"} gutterBottom>
-          VISOR (Advanced Visitor Tracking Sytem)
-        </Typography>
-      </Grow>
-      <Zoom
-        in={checked}
-        style={{ transitionDelay: checked ? "1000ms" : "0ms" }}
-      >
-        <Typography variant="h4" align="justify">
-          It's a simple and efficient solution to manage visitor
-          requests in organizations.<br/>
-          The system's features, such as real-time
-          tracking of visitor requests, and user-friendly interface, ensures
-          that the process of managing visitor requests is streamlined and
-          secure.
-        </Typography>
-      </Zoom>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "flex-start",
+            flexDirection: "column",
+            m: 4,
+          }}
+        >
+          <Typography variant="h5" gutterBottom>
+            The Visitor Tracking System provides a simple and efficient
+            solution to manage visitor requests in organizations.
+          </Typography>
+          <Typography variant="h5" gutterBottom>
+            The system's features, such as the automated confirmation and
+            rejection process, real-time tracking of visitor requests, and
+            user-friendly interface.
+          </Typography>
+          <Typography variant="h5">
+            It also ensures that the process of managing visitor requests is
+            streamlined and secure.
+          </Typography>
+        </Box>
+        <img src={Image1} height={600} width={600} />
       </Box>
+    </Box>
   );
 };
 

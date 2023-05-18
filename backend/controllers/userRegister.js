@@ -1,12 +1,13 @@
 const Visitor = require("../models/users");
 const userRegister = async (req, res) => {
-  const { firstName, lastName, email, password } = req.body;
+  const { firstName, lastName, email, password,isAdmin } = req.body;
   console.log(req.body);
   const visitor = new Visitor({
     firstName,
     lastName,
     email,
     password,
+    isAdmin,
   });
   const existingUser = await Visitor.findOne({ email });
   if (existingUser) {

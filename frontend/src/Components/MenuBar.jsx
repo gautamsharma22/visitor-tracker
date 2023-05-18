@@ -22,8 +22,9 @@ import { Link } from "react-router-dom";
 import { TokenContext } from "../App";
 import { UserContext } from "../App";
 const MenuBar = (props) => {
-  const { setUserCon } = useContext(UserContext);
+  const { UserCon,setUserCon } = useContext(UserContext);
   const { jwtToken, setJwtToken } = useContext(TokenContext);
+  console.log("User Context", UserCon);
   const drawerWidth = 240;
   const navItems = ["Home", "Register", "Login"];
   const { window } = props;
@@ -99,7 +100,7 @@ const MenuBar = (props) => {
                     Home
                   </Link>
                 </Button>)}
-              {jwtToken && (
+              {jwtToken && !UserCon.admin &&(
                 <Button key="Checkin">
                   <Link
                     to="/Checkin"
@@ -111,7 +112,7 @@ const MenuBar = (props) => {
                   </Link>
                 </Button>
               )}
-              {jwtToken && (
+              {jwtToken && !UserCon.admin &&(
                 <Button key="Checkout">
                   <Link
                     to="/Checkout"
@@ -123,7 +124,7 @@ const MenuBar = (props) => {
                   </Link>
                 </Button>
               )}
-              {jwtToken && (
+              {jwtToken && UserCon.admin &&(
                 <Button key="AdminPanel">
                   <Link
                     to="/Admin"
@@ -132,6 +133,18 @@ const MenuBar = (props) => {
                     onMouseLeave={handleHoverColorBack}
                   >
                     Admin
+                  </Link>
+                </Button>
+              )}
+              {jwtToken && UserCon.admin &&(
+                <Button key="Register">
+                  <Link
+                    to="/Register"
+                    style={{ textDecoration: "none", color: "#fff" }}
+                    onMouseEnter={handleHoverColor}
+                    onMouseLeave={handleHoverColorBack}
+                  >
+                    Register
                   </Link>
                 </Button>
               )}

@@ -5,14 +5,14 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const userLogin = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password} = req.body;
   const existingUser = await User.findOne({ email });
   if (!existingUser) {
     return res.status(400).json({
       message: "User Not found with this Email, ",
     });
   }
-  const { firstName, lastName } = existingUser;
+  const { firstName, lastName,isAdmin } = existingUser;
   const hashedPassword = existingUser.password;
   bcrypt.compare(password, hashedPassword, (err, result) => {
     if (err) {
@@ -25,7 +25,8 @@ const userLogin = async (req, res) => {
       res.status(200).json({
         message: "Logged in succesfully",
         token: token,
-        user:name,
+        user: name,
+        admin:isAdmin,
       });
     } else {
       res.status(401).json({

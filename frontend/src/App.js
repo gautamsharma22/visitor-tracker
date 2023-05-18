@@ -12,12 +12,13 @@ import Login from "./Components/Pages/Login.jsx";
 import LandingPage from "./Components/Pages/Landing";
 import { Route, Switch } from "react-router";
 import {Box }from "@mui/material"
+import Welcome from "./Components/Pages/Welcome";
 export const TokenContext = createContext();
 export const UserContext = createContext();
 function App() {
   const [jwtToken, setJwtToken] = useState(null);
-  const [UserCon, setUserCon] = useState(null);
-  const [theme, settheme] = useState(true);
+  const [UserCon, setUserCon] = useState({user:"",admin:false});
+  const [theme, settheme] = useState(false);
   const darkTheme = createTheme({
     palette: {
       mode: theme ? "dark" : "light",
@@ -36,6 +37,9 @@ function App() {
           <Switch>
             <Route exact path="/">
               <LandingPage currentTheme={theme} />
+            </Route>
+            <Route exact path="/Welcome">
+              <Welcome currentTheme={theme} />
             </Route>
             <Route exact path="/Login">
               <Login currentTheme={theme} />

@@ -9,8 +9,7 @@ const authUser = (req, res,next) => {
     } else {
       token = token.split(" ")[1];
       console.log(token)
-      const user = jwt.verify(token, process.env.SECRET_KEY);
-      req.visitorID = user;
+      jwt.verify(token, process.env.SECRET_KEY);
     }
     next();
   } catch (error) {

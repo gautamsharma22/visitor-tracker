@@ -12,8 +12,7 @@ import {
   Grow,
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
-import image1 from "../../images/bg3.jpg";
-import image2 from "../../images/bg2.jpg";
+import image1 from "../../images/Visitor-main-image-Banner.svg";
 import { TokenContext } from "../../App";
 import showAlert from "../../Components/alertDialog";
 import { UserContext } from "../../App";
@@ -76,8 +75,8 @@ export default function Login(props) {
         const alert = showAlert(res.status,errMessage);
         setAlertComponent(alert);
         setJwtToken(data.token);
-        setUserCon(data.user)
-        localStorage.setItem('jwtToken', data.token);
+        setUserCon({ user: data.user, admin: data.admin });
+        // localStorage.setItem('jwtToken', data.token);
       }
     } catch (err) {
       console.log("Error -> ", err);
@@ -85,8 +84,8 @@ export default function Login(props) {
   };
 
   return (
-    <Grid container component="main" sx={{ height: "100vh" }}>
-      {redirect && <Redirect to="/View" />}
+    <Grid container component="main" sx={{ height: "95vh" }}>
+      {redirect && <Redirect to="/Welcome" />}
       <CssBaseline />
       <Grid
         item
@@ -94,14 +93,13 @@ export default function Login(props) {
         sm={4}
         md={7}
         sx={{
-          backgroundImage: props.currentTheme
-            ? `url(${image1})`
-            : `url(${image2})`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
+          display: "flex",
+          alignItems: "center",
+          justifyContent:"center"
         }}
-      />
+      >
+        <img src={image1} height={600} width={600}/>
+        </Grid>
       <Grow in={checked} {...(checked ? { timeout: 800 } : {})}>
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box

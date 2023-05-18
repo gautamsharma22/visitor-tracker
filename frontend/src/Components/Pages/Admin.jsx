@@ -1,22 +1,20 @@
 import React, { useState, useContext } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Box,Button,Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { TokenContext } from "../../App";
 import { Redirect } from "react-router-dom";
-import Columns from "./DatagridColums"
-
-
+import Columns from "./DatagridColums";
 
 export default function DataTable(props) {
   const [Requests, setRequests] = useState([]);
   const { jwtToken } = useContext(TokenContext);
-  // if (!jwtToken) return <Redirect to="/home" />;
+  if (!jwtToken) return <Redirect to="/home" />;
   async function fetchData() {
     const res = await fetch("http://localhost:5000/request/admin", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        // Authorization: `Bearer ${jwtToken}`,
+        Authorization: `Bearer ${jwtToken}`,
       },
     })
       .then((res) => res.json())
@@ -30,7 +28,6 @@ export default function DataTable(props) {
               : new Date(item.checkOutTime).toLocaleString(),
         }));
         setRequests(dataArray);
-        console.log(dataArray);
       })
       .catch((err) => {
         console.log(err.message);
@@ -48,7 +45,6 @@ export default function DataTable(props) {
     setSelectedRows(selectionModel);
     if (selectionModel.length > 0) {
       const selectedRow = Requests.find((row) => row._id === selectionModel[0]);
-      console.log("Selected Row:", selectionModel);
     }
   };
 
@@ -61,26 +57,34 @@ export default function DataTable(props) {
         flexDirection: "column",
       }}
     >
-      <Typography variant="h2" align="center" gutterBottom>
-        Create an Entry for Visitor
-      </Typography>
-      <DataGrid
-        rows={Requests}
-        columns={Columns}
-        getRowId={getRowId}
-        onRowSelectionModelChange={handleSelectionModelChange}
-        checkboxSelection
-      />
-      <Button
-        variant="contained"
-        color={props.currentTheme ? "warning" : "primary"}
-        fullWidth
-        size="large"
-        sx={{ mt: 4 }}
-        // onClick={handleSubmit}
-      >
-        Submit Request
-      </Button>
+      {Requests.length > 0 ? (
+        <>
+          <Typography variant="h2" align="center" gutterBottom>
+            Showing all Visitors
+          </Typography>
+          <DataGrid
+            rows={Requests}
+            columns={Columns}
+            getRowId={getRowId}
+            onRowSelectionModelChange={handleSelectionModelChange}
+            checkboxSelection
+          />
+          <Button
+            variant="contained"
+            color={props.currentTheme ? "warning" : "primary"}
+            fullWidth
+            size="large"
+            sx={{ mt: 4 }}
+            // onClick={handleSubmit}
+          >
+            Show Details
+          </Button>
+        </>
+      ) : (
+        <Typography variant="h2" align="center" gutterBottom>
+          No Visitors Visited
+        </Typography>
+      )}
     </Box>
   );
 }

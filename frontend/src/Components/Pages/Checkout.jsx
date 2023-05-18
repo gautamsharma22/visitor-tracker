@@ -7,6 +7,8 @@ import { Redirect } from "react-router-dom";
 import Columns from "./DatagridColums"
 
 export default function DataTable(props) {
+  const { jwtToken } = useContext(TokenContext);
+  if (!jwtToken) return <Redirect to="/home" />;
   const [checked, setChecked] = React.useState(false);
   React.useEffect(() => {
     setChecked(true);
@@ -25,14 +27,12 @@ export default function DataTable(props) {
   }, [AlertComponent]);
 
   const [Requests, setRequests] = useState([]);
-  const { jwtToken } = useContext(TokenContext);
-  if (!jwtToken) return <Redirect to="/home" />;
   async function fetchData() {
     const res = await fetch("http://localhost:5000/request/admin", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        // Authorization: `Bearer ${jwtToken}`,
+        Authorization: `Bearer ${jwtToken}`,
       },
     })
       .then((res) => res.json())
@@ -46,7 +46,6 @@ export default function DataTable(props) {
               : new Date(item.checkOutTime).toLocaleString(),
         }));
         setRequests(dataArray);
-        console.log(dataArray);
       })
       .catch((err) => {
         console.log(err.message);

@@ -24,7 +24,7 @@ import { TokenContext } from "../../App";
 */
 const CreateEntry = (props) => {
   const { jwtToken } = useContext(TokenContext);
-  // if (!jwtToken) return <Redirect to="/home" />;
+  if (!jwtToken) return <Redirect to="/home" />;
   const [AlertComponent, setAlertComponent] = useState(null);
   React.useEffect(() => {
     if (AlertComponent) {

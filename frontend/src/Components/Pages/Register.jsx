@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import {
   TextField,
   Button,
@@ -17,11 +17,14 @@ import {
   Avatar,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import image1 from "../../images/bg3.jpg";
-import image2 from "../../images/bg2.jpg";
+import image1 from "../../images/online-registration-illustration-design-concept-websites-landing-pages-other_108061-938.avif";
 import showAlert from "../../Components/alertDialog";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { TokenContext } from "../../App";
+import { Redirect } from "react-router-dom";
 export default function NewRegister(props) {
+  const { jwtToken } = useContext(TokenContext);
+  if (!jwtToken) return <Redirect to="/home" />;
   const [checked, setChecked] = React.useState(false);
   React.useEffect(() => {
     setChecked(true);
@@ -90,14 +93,13 @@ export default function NewRegister(props) {
         sm={4}
         md={7}
         sx={{
-          backgroundImage: props.currentTheme
-            ? `url(${image1})`
-            : `url(${image2})`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
+          display: "flex",
+          alignItems: "center",
+          justifyContent:"center"
         }}
-      />
+      >
+        <img src={image1} height={600} width={600}/>
+        </Grid>
       <Grow in={checked} {...(checked ? { timeout: 800 } : {})}>
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
@@ -126,7 +128,7 @@ export default function NewRegister(props) {
             </Avatar>
             <form onSubmit={handleSubmit}>
               <Typography variant="h3" align="center">
-                Register
+                Enroll Security Staff
               </Typography>
               {AlertComponent && AlertComponent}
 
