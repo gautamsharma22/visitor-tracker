@@ -22,10 +22,10 @@ const userLogin = async (req, res) => {
     if (result) {
       const name = firstName + " " + lastName;
       const token = jwt.sign({ name, email }, process.env.SECRET_KEY);
-      res.cookie('cookieName', 'cookieValue', {
+      res.cookie('jwttoken', token, {
         sameSite: 'None',
         secure: true,
-        // Other cookie options...
+        expires:new Date(Date.now()+24 * 60 * 60 * 1000),
       });
       
       res.status(200).json({

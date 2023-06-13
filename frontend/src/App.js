@@ -12,6 +12,7 @@ import LandingPage from "./Components/Pages/Landing";
 import { Route, Switch } from "react-router";
 import {Box }from "@mui/material"
 import Welcome from "./Components/Pages/Welcome";
+import Cookies from "js-cookie"
 export const TokenContext = createContext();
 export const UserContext = createContext();
 function App() {
@@ -26,6 +27,12 @@ function App() {
   const handleChange = (event) => {
     settheme(!theme);
   };
+  React.useEffect(() => {
+    const cookieValue = Cookies.get("jwttoken");
+    if (cookieValue) {
+      setJwtToken(cookieValue);
+    }
+  }, []);
   return (
     <div className="App">
       <TokenContext.Provider value={{jwtToken, setJwtToken}}>

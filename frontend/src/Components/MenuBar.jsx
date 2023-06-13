@@ -14,6 +14,7 @@ import {
   Toolbar,
   Button,
 } from "@mui/material";
+import Cookies from "js-cookie";
 import MenuIcon from "@mui/icons-material/Menu";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
@@ -21,8 +22,9 @@ import MapSharpIcon from "@mui/icons-material/MapSharp";
 import { Link } from "react-router-dom";
 import { TokenContext } from "../App";
 import { UserContext } from "../App";
+
 const MenuBar = (props) => {
-  const { UserCon,setUserCon } = useContext(UserContext);
+  const { UserCon, setUserCon } = useContext(UserContext);
   const { jwtToken, setJwtToken } = useContext(TokenContext);
   console.log("User Context", UserCon);
   const drawerWidth = 240;
@@ -99,8 +101,9 @@ const MenuBar = (props) => {
                   >
                     Home
                   </Link>
-                </Button>)}
-              {jwtToken && !UserCon.admin &&(
+                </Button>
+              )}
+              {jwtToken && !UserCon.admin && (
                 <Button key="Checkin">
                   <Link
                     to="/Checkin"
@@ -112,7 +115,7 @@ const MenuBar = (props) => {
                   </Link>
                 </Button>
               )}
-              {jwtToken && !UserCon.admin &&(
+              {jwtToken && !UserCon.admin && (
                 <Button key="Checkout">
                   <Link
                     to="/Checkout"
@@ -124,7 +127,7 @@ const MenuBar = (props) => {
                   </Link>
                 </Button>
               )}
-              {jwtToken && UserCon.admin &&(
+              {jwtToken && UserCon.admin && (
                 <Button key="AdminPanel">
                   <Link
                     to="/Admin"
@@ -136,7 +139,7 @@ const MenuBar = (props) => {
                   </Link>
                 </Button>
               )}
-              {jwtToken && UserCon.admin &&(
+              {jwtToken && UserCon.admin && (
                 <Button key="Register">
                   <Link
                     to="/Register"
@@ -161,17 +164,19 @@ const MenuBar = (props) => {
                 </Button>
               )}
               {jwtToken && (
-                <Button key="Log Out">
+                <Button
+                  key="Log Out"
+                  onClick={() => {
+                    Cookies.remove("jwttoken", { path: "/" });
+                    setJwtToken("");
+                    setUserCon("");
+                  }}
+                >
                   <Link
                     to="/Home"
                     style={{ textDecoration: "none", color: "#fff" }}
                     onMouseEnter={handleHoverColor}
                     onMouseLeave={handleHoverColorBack}
-                    onClick={() => {
-                      localStorage.removeItem("jwtToken");
-                      setJwtToken("");
-                      setUserCon("");
-                    }}
                   >
                     Log Out
                   </Link>

@@ -11,6 +11,7 @@ import {
   TextField,
   Grow,
 } from "@mui/material";
+import Cookies from "js-cookie";
 import PersonIcon from "@mui/icons-material/Person";
 import image1 from "../../images/Visitor-main-image-Banner.svg";
 import { TokenContext } from "../../App";
@@ -19,6 +20,8 @@ import { UserContext } from "../../App";
 export default function Login(props) {
   const {setUserCon } = useContext(UserContext);
   const { jwtToken, setJwtToken } = useContext(TokenContext);
+  const cookieValue = Cookies.get('jwttoken');
+  if(cookieValue || jwtToken) return <Redirect to="/Welcome" />;
   const [checked, setChecked] = React.useState(false);
   const [AlertComponent, setAlertComponent] = useState(null);
   React.useEffect(() => {
@@ -64,11 +67,6 @@ export default function Login(props) {
         body: JSON.stringify({ email, password }),
         credentials: 'include',
       });
-      const cookieHeader = res.headers.get("set-cookie");
-      if (cookieHeader) {
-        const cookieValue = cookieHeader.split(';')[0].trim();
-        document.cookie = cookieValue;
-      }
       const data = await res.json();
     
       if (!res.ok) {
@@ -81,8 +79,6 @@ export default function Login(props) {
         setAlertComponent(alert);
         setJwtToken(data.token);
         setUserCon({ user: data.user, admin: data.admin });
-        // localStorage.setItem('jwtToken', data.token);
-
       }
     } catch (err) {
       console.log("Error -> ", err);
