@@ -71,9 +71,10 @@ export default function DataTable(props) {
     }
     selectedRows.forEach(async (id) => {
       const nonVisitedUser = Requests.find(
-        (req) => req.checkOutTime === null && req._id === id
+        (req) => req.checkOutTime === "--CHECKED IN--" && req._id === id
       );
       if (nonVisitedUser) {
+        console.log("Req recieved");
         try {
           const res = await fetch(
             `http://localhost:5000/request/chekout/${id}`,
@@ -81,7 +82,7 @@ export default function DataTable(props) {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
-                // Authorization: `Bearer ${jwtToken}`,
+                Authorization: `Bearer ${jwtToken}`,
               },
             }
           );

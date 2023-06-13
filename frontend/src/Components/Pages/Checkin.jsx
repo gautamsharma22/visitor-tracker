@@ -40,11 +40,11 @@ const CreateEntry = (props) => {
   const [userData, setUserData] = React.useState({
     firstName: "",
     lastName: "",
-    reason: "",
     email: "",
-    visitortype: "",
     phoneNumber: "",
     aadharNumber: "",
+    reason: "",
+    visitortype: "",
   });
   const handleChange = (event) => {
     const name = event.target.name;
@@ -76,7 +76,6 @@ const CreateEntry = (props) => {
         aadharNumber,
         checkInTime,
       } = userData;
-      console.log(userData);
       try {
         console.log(checkInTime)
         console.log("request made");
@@ -147,7 +146,7 @@ const CreateEntry = (props) => {
             name="email"
             id="outlined-textarea"
             label="Email"
-            placeholder="Please Specify reason for Visit"
+            placeholder="Email"
             onChange={handleChange}
             value={userData.email}
             multiline

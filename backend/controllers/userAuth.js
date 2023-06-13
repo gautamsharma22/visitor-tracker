@@ -8,7 +8,6 @@ const authUser = (req, res,next) => {
       return res.status(400).send("Invalid Token");
     } else {
       token = token.split(" ")[1];
-      console.log(token)
       jwt.verify(token, process.env.SECRET_KEY);
     }
     next();

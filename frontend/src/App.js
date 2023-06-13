@@ -2,7 +2,6 @@ import React from "react";
 import { useState, createContext } from "react";
 import "./App.css";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
 import Admin from "./Components/Pages/Admin"
 import Checkout from "./Components/Pages/Checkout"
 import Checkin from "./Components/Pages/Checkin"

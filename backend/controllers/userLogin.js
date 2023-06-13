@@ -21,7 +21,13 @@ const userLogin = async (req, res) => {
     }
     if (result) {
       const name = firstName + " " + lastName;
-      const token = jwt.sign({ name, email}, process.env.SECRET_KEY);
+      const token = jwt.sign({ name, email }, process.env.SECRET_KEY);
+      res.cookie('cookieName', 'cookieValue', {
+        sameSite: 'None',
+        secure: true,
+        // Other cookie options...
+      });
+      
       res.status(200).json({
         message: "Logged in succesfully",
         token: token,

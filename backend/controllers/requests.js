@@ -1,6 +1,5 @@
 const VisitorRequest = require("../models/visitor-request");
 const createRequest = async (req, res) => {
-  console.log(req.body);
   const {
     firstName,
     lastName,
@@ -38,20 +37,26 @@ const createRequest = async (req, res) => {
 };
 
 const viewRequest = async (req, res) => {
-  const { email } = req.visitorID;
-  try {
-    const requests = await VisitorRequest.find({ email });
-    res.status(200).json(requests);
-  } catch (error) {
-    res.status(500).json({
-      message: "Something Went Wrong",
-    });
+  if (req.visitorID) {
+    const { email } = req.visitorID;
+    try {
+      const requests = await VisitorRequest.find({ email });
+      res.status(200).json(requests);
+    } catch (error) {
+      res.status(500).json({
+        message: "Something Went Wrong",
+      });
+    }
+  } else {
+    return;
   }
+  
 };
 
 const checkOutRequest = async (req, res) => {
   const id = req.params.id;
   console.log(id)
+  console.log("Request Recieved:");
   try {
     const checkOutDate = new Date().toLocaleString();
     const resp= await VisitorRequest.findOneAndUpdate({ _id :id }, { $set: { checkOutTime: checkOutDate } })

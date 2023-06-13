@@ -62,8 +62,13 @@ export default function Login(props) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ email, password }),
+        credentials: 'include',
       });
-    
+      const cookieHeader = res.headers.get("set-cookie");
+      if (cookieHeader) {
+        const cookieValue = cookieHeader.split(';')[0].trim();
+        document.cookie = cookieValue;
+      }
       const data = await res.json();
     
       if (!res.ok) {
@@ -77,6 +82,7 @@ export default function Login(props) {
         setJwtToken(data.token);
         setUserCon({ user: data.user, admin: data.admin });
         // localStorage.setItem('jwtToken', data.token);
+
       }
     } catch (err) {
       console.log("Error -> ", err);
