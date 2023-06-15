@@ -9,7 +9,8 @@ const NavbarButtons = (props) => {
   const { UserCon, setUserCon } = useContext(UserContext);
   const { jwtToken, setJwtToken } = useContext(TokenContext);
   function handleHoverColor(e) {
-    e.target.style.color = props.currentTheme ? "#FFC107" : "#FFFFFF";
+    console.log(e.target.style.color)
+    e.target.style.color = "#FFC107";
   }
   function handleLogout(e) {
     Cookies.remove("jwttoken", { path: "/" });

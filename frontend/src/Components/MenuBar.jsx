@@ -5,7 +5,6 @@ import {
   CssBaseline,
   Typography,
   Toolbar,
-  Button,
 } from "@mui/material";
 
 import Brightness7Icon from "@mui/icons-material/Brightness7";
@@ -39,7 +38,7 @@ const MenuBar = (props) => {
               <DarkModeIcon onClick={props.onChange} />
             )}
             <Box sx={{ display: { xs: "none", sm: "block" } }}>
-              <NavbarButtons />
+              <NavbarButtons theme={props.currentTheme} />
             </Box>
           </Toolbar>
         </AppBar>
