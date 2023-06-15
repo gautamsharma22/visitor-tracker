@@ -3,82 +3,33 @@ import {
   AppBar,
   Box,
   CssBaseline,
-  Divider,
-  Drawer,
-  ListItemButton,
-  ListItem,
-  List,
-  IconButton,
   Typography,
-  ListItemText,
   Toolbar,
   Button,
 } from "@mui/material";
-import Cookies from "js-cookie";
-import MenuIcon from "@mui/icons-material/Menu";
+
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import MapSharpIcon from "@mui/icons-material/MapSharp";
-import { Link } from "react-router-dom";
-import { TokenContext } from "../App";
-import { UserContext } from "../App";
+import NavbarButtons from "./Pages/NavbarButtons";
 
 const MenuBar = (props) => {
-  const { UserCon, setUserCon } = useContext(UserContext);
-  const { jwtToken, setJwtToken } = useContext(TokenContext);
-  console.log("User Context", UserCon);
-  const drawerWidth = 240;
-  const navItems = ["Home", "Register", "Login"];
-  const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const handleDrawerToggle = () => {
-    setMobileOpen((prevState) => !prevState);
-  };
-  const drawer = (
-    <Box onClick={handleDrawerToggle}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-        VISOR
-      </Typography>
-      <Divider />
-      <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  );
-  function handleHoverColor(e) {
-    e.target.style.color = props.currentTheme ? "#FFC107" : "#FFFFFF";
-  }
-  function handleHoverColorBack(e) {
-    e.target.style.color = "#FFFFFF";
-  }
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
   return (
     <>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBar component="nav" sx={{ hover: "#" }}>
           <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { sm: "none" } }}
-            >
-              <MenuIcon />
-            </IconButton>
             <MapSharpIcon color={props.currentTheme ? "warning" : ""} />
             <Typography
               variant="h5"
               component="div"
-              sx={{ flexGrow: 1, display: { sm: "block" }, ml: 1 }}
+              sx={{
+                flexGrow: 1,
+                fontWeight: "bold",
+                display: { sm: "block" },
+                ml: 1,
+              }}
             >
               VISOR
             </Typography>
@@ -88,124 +39,10 @@ const MenuBar = (props) => {
               <DarkModeIcon onClick={props.onChange} />
             )}
             <Box sx={{ display: { xs: "none", sm: "block" } }}>
-              {!jwtToken && (
-                <Button key="Home">
-                  <Link
-                    to="/Home"
-                    style={{
-                      textDecoration: "none",
-                      color: "#FFFFFF",
-                    }}
-                    onMouseEnter={handleHoverColor}
-                    onMouseLeave={handleHoverColorBack}
-                  >
-                    Home
-                  </Link>
-                </Button>
-              )}
-              {jwtToken && !UserCon.admin && (
-                <Button key="Checkin">
-                  <Link
-                    to="/Checkin"
-                    style={{ textDecoration: "none", color: "#fff" }}
-                    onMouseEnter={handleHoverColor}
-                    onMouseLeave={handleHoverColorBack}
-                  >
-                    Check In
-                  </Link>
-                </Button>
-              )}
-              {jwtToken && !UserCon.admin && (
-                <Button key="Checkout">
-                  <Link
-                    to="/Checkout"
-                    style={{ textDecoration: "none", color: "#fff" }}
-                    onMouseEnter={handleHoverColor}
-                    onMouseLeave={handleHoverColorBack}
-                  >
-                    Check Out
-                  </Link>
-                </Button>
-              )}
-              {jwtToken && UserCon.admin && (
-                <Button key="AdminPanel">
-                  <Link
-                    to="/Admin"
-                    style={{ textDecoration: "none", color: "#fff" }}
-                    onMouseEnter={handleHoverColor}
-                    onMouseLeave={handleHoverColorBack}
-                  >
-                    Admin
-                  </Link>
-                </Button>
-              )}
-              {jwtToken && UserCon.admin && (
-                <Button key="Register">
-                  <Link
-                    to="/Register"
-                    style={{ textDecoration: "none", color: "#fff" }}
-                    onMouseEnter={handleHoverColor}
-                    onMouseLeave={handleHoverColorBack}
-                  >
-                    Register
-                  </Link>
-                </Button>
-              )}
-              {!jwtToken && (
-                <Button key="Login">
-                  <Link
-                    to="/Login"
-                    style={{ textDecoration: "none", color: "#fff" }}
-                    onMouseEnter={handleHoverColor}
-                    onMouseLeave={handleHoverColorBack}
-                  >
-                    Log In
-                  </Link>
-                </Button>
-              )}
-              {jwtToken && (
-                <Button
-                  key="Log Out"
-                  onClick={() => {
-                    Cookies.remove("jwttoken", { path: "/" });
-                    setJwtToken("");
-                    setUserCon("");
-                  }}
-                >
-                  <Link
-                    to="/Home"
-                    style={{ textDecoration: "none", color: "#fff" }}
-                    onMouseEnter={handleHoverColor}
-                    onMouseLeave={handleHoverColorBack}
-                  >
-                    Log Out
-                  </Link>
-                </Button>
-              )}
+              <NavbarButtons />
             </Box>
           </Toolbar>
         </AppBar>
-        <Box component="nav">
-          <Drawer
-            container={container}
-            variant="temporary"
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
-            sx={{
-              display: { xs: "block", sm: "none" },
-              "& .MuiDrawer-paper": {
-                boxSizing: "border-box",
-                width: drawerWidth,
-                backgroundColor: "color.primary",
-              },
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </Box>
         <Box component="main" sx={{ p: 3 }}>
           {/* <Toolbar /> */}
         </Box>
