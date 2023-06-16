@@ -5,6 +5,8 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Box, CardActionArea } from "@mui/material";
 import { Tech, Security } from "./TechData";
+import DeveloperDetails from "./DeveloperDetails"
+import ContactMe from "./ContactMe"
 const newArr = Tech.map((tech) => {
   return (
     <Card sx={{ width: "25%", m: 1 }}>
@@ -104,6 +106,8 @@ export default function Technologies() {
           {SecArr}
         </Box>
       </Box>
+      <DeveloperDetails />
+      <ContactMe/>
     </>
   );
 }
