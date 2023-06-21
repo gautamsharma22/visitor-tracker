@@ -5,12 +5,12 @@ import MDImage from "../../../images/mongodb.png";
 
 import JWTImage from "../../../images/jwt.png";
 import ReactRImage from "../../../images/reactrouter.png";
-import BCryptImage from "../../../images/bcrypt.jpeg";
+import BCryptImage from "../../../images/bcrypt.png";
 
-import InstgramImage from "../../../images/instagram.png"
-import TelegramImage from "../../../images/telegram.png"
-import LinkedInImage from "../../../images/linkedin.png"
-import EmailImage from "../../../images/gmail.png"
+import InstgramImage from "../../../images/instagram.png";
+import TelegramImage from "../../../images/telegram.png";
+import LinkedInImage from "../../../images/linkedin.png";
+import EmailImage from "../../../images/gmail.png";
 export const Tech = [
   {
     Name: "MongoDB",
@@ -59,14 +59,14 @@ export const Security = [
 ];
 export const Social = [
   {
+    Name: "LinkedIn",
+    Info: "sharma-g",
+    Image: LinkedInImage,
+  },
+  {
     Name: "Email",
     Info: "gautamsharma.best@gmail.com",
     Image: EmailImage,
-  },
-  {
-    Name: "Instagram",
-    Info: "gautamsharma.69",
-    Image: InstgramImage,
   },
   {
     Name: "Telegram",
@@ -74,8 +74,8 @@ export const Social = [
     Image: TelegramImage,
   },
   {
-    Name: "LinkedIn",
-    Info: "sharma-g",
-    Image: LinkedInImage,
+    Name: "Instagram",
+    Info: "gautamsharma.69",
+    Image: InstgramImage,
   },
 ];

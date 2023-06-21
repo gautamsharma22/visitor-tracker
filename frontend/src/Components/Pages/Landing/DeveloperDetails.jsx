@@ -1,6 +1,6 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
-import { Box, CardActionArea } from "@mui/material";
+import { Box} from "@mui/material";
 import DevImage from "../../../images/dev_details.jpg";
 const DeveloperDetails = () => {
   const roundImageStyle = {
@@ -49,7 +49,7 @@ const DeveloperDetails = () => {
               height="300px"
               style={roundImageStyle}
               width="300px"
-              alt="Gautam's Image"
+              alt="dev's"
             />
           </Box>
           <Box

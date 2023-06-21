@@ -122,7 +122,7 @@ export default function DataTable(props) {
       />
       <Button
         variant="contained"
-        color={props.currentTheme ? "warning" : "primary"}
+        color="primary"
         fullWidth
         size="large"
         sx={{ mt: 4 }}

@@ -100,10 +100,10 @@ export default function Login(props) {
           justifyContent:"center"
         }}
       >
-        <img src={image1} height={600} width={600}/>
+        <img src={image1} height={600} width={600} alt="login"/>
         </Grid>
       <Grow in={checked} {...(checked ? { timeout: 800 } : {})}>
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square backgroundColor="background.secondary">
           <Box
             sx={{
               my: 8,
@@ -116,7 +116,7 @@ export default function Login(props) {
             <Avatar
               sx={{
                 m: 1,
-                bgcolor: props.currentTheme ? "warning.light" : "primary.light",
+                bgcolor: "primary",
                 height: 56,
                 width: 56,
               }}
@@ -163,7 +163,7 @@ export default function Login(props) {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
-                color={props.currentTheme ? "warning" : "primary"}
+                color="primary"
               >
                 Sign In
               </Button>

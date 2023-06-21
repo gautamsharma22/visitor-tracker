@@ -19,6 +19,9 @@ const theme = createTheme({
     error: {
       main: "#ef4565",
     },
+    warning: {
+      main: "#FFC107",
+    },
     grey: {
       200: "#90b4ce",
     },

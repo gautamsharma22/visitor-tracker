@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Typography, Box } from "@mui/material";
 import Image1 from "../../../images/Visitor-Management-main-image-768x728.svg";
 import Technologies from "./Technologies";
@@ -37,7 +37,7 @@ const LandingPage = () => {
           <Box sx={{ flexBasis: '25%', display: 'flex', justifyContent: 'center' }}>
       <img
         src={Image1}
-        alt="Image"
+        alt="Landing"
         height="100%"
         width="100%"
       />

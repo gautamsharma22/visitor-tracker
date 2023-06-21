@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, createContext } from "react";
 import "./App.css";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { ThemeProvider} from "@mui/material/styles";
 import jwtDecode from "jwt-decode";
 import Admin from "./Components/Pages/Admin";
 import Checkout from "./Components/Pages/Checkout";
@@ -19,7 +19,8 @@ import lightTheme from "./Themes/lightTheme";
 export const TokenContext = createContext();
 export const UserContext = createContext();
 /* 
-Removed Props Theme dependency Please change all the components vice-versa
+  Removed Props Theme dependency Please change all the components vice-versa
+  Admin Module custom page remaining
 */
 function App() {
   const [jwtToken, setJwtToken] = useState(null);
@@ -52,7 +53,7 @@ function App() {
                 minHeight: "100vh",
               }}
             >
-              <MenuBar onChange={handleChange} />
+              <MenuBar onChange={handleChange} theme={theme}/>
               <Switch>
                 <Route exact path="/">
                   <LandingPage />

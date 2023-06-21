@@ -23,6 +23,9 @@ const theme = createTheme({
     error: {
       main: "#f44336",
     },
+    warning: {
+      main: "#FFC107",
+    },
     grey: {
       200: "#90b4ce",
     },

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import {
   AppBar,
   Box,
@@ -11,18 +11,14 @@ import Brightness7Icon from "@mui/icons-material/Brightness7";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import MapSharpIcon from "@mui/icons-material/MapSharp";
 import NavbarButtons from "./Pages/NavbarButtons";
-import { useTheme } from "@emotion/react";
 const MenuBar = (props) => {
-  const theme = useTheme();
-  const primary = theme.palette.light;
-  console.warn(theme.palette)
   return (
     <>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBar component="nav" sx={{ hover: "#" }}>
           <Toolbar>
-            <MapSharpIcon color={props.currentTheme ? "warning" : ""} />
+            <MapSharpIcon color="warning" />
             <Typography
               variant="h5"
               component="div"
@@ -35,13 +31,13 @@ const MenuBar = (props) => {
             >
               VISOR
             </Typography>
-            {props.currentTheme ? (
+            {props.theme ? (
               <Brightness7Icon onClick={props.onChange} />
             ) : (
               <DarkModeIcon onClick={props.onChange} />
             )}
             <Box sx={{ display: { xs: "none", sm: "block" } }}>
-              <NavbarButtons theme={props.currentTheme} />
+              <NavbarButtons />
             </Box>
           </Toolbar>
         </AppBar>

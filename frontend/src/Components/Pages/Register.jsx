@@ -17,7 +17,7 @@ import {
   Avatar,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import image1 from "../../images/online-registration-illustration-design-concept-websites-landing-pages-other_108061-938.avif";
+import image1 from "../../images/register_background.png";
 import showAlert from "../../Components/alertDialog";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { TokenContext } from "../../App";
@@ -98,10 +98,10 @@ export default function NewRegister(props) {
           justifyContent:"center"
         }}
       >
-        <img src={image1} height={600} width={600}/>
+        <img src={image1} height={600} width={600} alt="register"/>
         </Grid>
       <Grow in={checked} {...(checked ? { timeout: 800 } : {})}>
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} backgroundColor="background.secondary" square>
           <Box
             sx={{
               my: 8,
@@ -114,7 +114,7 @@ export default function NewRegister(props) {
             <Avatar
               sx={{
                 m: 1,
-                bgcolor: props.currentTheme ? "warning.light" : "primary.light",
+                bgcolor: "background.primary",
                 height: 56,
                 width: 56,
               }}

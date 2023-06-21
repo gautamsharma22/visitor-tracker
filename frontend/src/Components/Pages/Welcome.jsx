@@ -33,7 +33,7 @@ const Welcome = () => {
         mt={4}
         height={"90vh"}
       >
-        <img src={Image1} height={600} width={600}></img>
+        <img src={Image1} height={600} width={600} alt="welcome user"></img>
       </Box>
     </Box>
   );

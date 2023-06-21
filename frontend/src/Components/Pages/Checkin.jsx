@@ -6,8 +6,6 @@ import {
   Typography,
   InputLabel,
   Box,
-  Grid,
-  Paper,
   FormControl,
 } from "@mui/material";
 import { Redirect } from "react-router-dom";
@@ -23,7 +21,7 @@ import { TokenContext } from "../../App";
 /*
     Disabled Redirect for testing please add it back 
 */
-const CreateEntry = (props) => {
+const CreateEntry = () => {
   const { jwtToken } = useContext(TokenContext);
   if (!jwtToken) return <Redirect to="/home" />;
   const [AlertComponent, setAlertComponent] = useState(null);

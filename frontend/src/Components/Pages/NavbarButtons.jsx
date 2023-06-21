@@ -5,7 +5,7 @@ import { TokenContext } from "../../App";
 import { UserContext } from "../../App";
 import Cookies from "js-cookie";
 
-const NavbarButtons = (props) => {
+const NavbarButtons = () => {
   const { UserCon, setUserCon } = useContext(UserContext);
   const { jwtToken, setJwtToken } = useContext(TokenContext);
   function handleHoverColor(e) {

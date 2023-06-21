@@ -5,7 +5,7 @@ import { TokenContext } from "../../App";
 import { Redirect } from "react-router-dom";
 import Columns from "./DatagridColums";
 
-export default function DataTable(props) {
+export default function DataTable() {
   const [Requests, setRequests] = useState([]);
   const { jwtToken } = useContext(TokenContext);
   if (!jwtToken) return <Redirect to="/home" />;
@@ -71,7 +71,7 @@ export default function DataTable(props) {
           />
           <Button
             variant="contained"
-            color={props.currentTheme ? "warning" : "primary"}
+            color="primary"
             fullWidth
             size="large"
             sx={{ mt: 4 }}
