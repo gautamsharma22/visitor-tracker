@@ -8,7 +8,7 @@ import { Social } from "./TechData";
 const ContactMe = () => {
   const social = Social.map((social) => {
     return (
-      <Card sx={{ width: "25%", m: 1 }}>
+      <Card sx={{ width: "25%", m: 1,backgroundColor:"background.default" }}>
         <CardActionArea>
           <CardMedia
             component="img"

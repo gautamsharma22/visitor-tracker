@@ -14,20 +14,21 @@ import { Route, Switch } from "react-router";
 import { Box } from "@mui/material";
 import Welcome from "./Components/Pages/Welcome";
 import Cookies from "js-cookie";
+import darkTheme from "./Themes/darkTheme";
+import lightTheme from "./Themes/lightTheme";
 export const TokenContext = createContext();
 export const UserContext = createContext();
+/* 
+Removed Props Theme dependency Please change all the components vice-versa
+*/
 function App() {
   const [jwtToken, setJwtToken] = useState(null);
   const [UserCon, setUserCon] = useState({ user: "", admin: false });
   const [theme, settheme] = useState(false);
-  const darkTheme = createTheme({
-    palette: {
-      mode: theme ? "dark" : "light",
-    },
-  });
   const handleChange = (event) => {
     settheme(!theme);
   };
+  const currentTheme = theme ? darkTheme:lightTheme;
   React.useEffect(() => {
     const cookieValue = Cookies.get("jwttoken");
     if (cookieValue) {
@@ -43,7 +44,7 @@ function App() {
     <div className="App">
       <TokenContext.Provider value={{ jwtToken, setJwtToken }}>
         <UserContext.Provider value={{ UserCon, setUserCon }}>
-          <ThemeProvider theme={darkTheme}>
+          <ThemeProvider theme={currentTheme}>
             <Box
               sx={{
                 display: "flex",
@@ -51,31 +52,31 @@ function App() {
                 minHeight: "100vh",
               }}
             >
-              <MenuBar onChange={handleChange} currentTheme={theme} />
+              <MenuBar onChange={handleChange} />
               <Switch>
                 <Route exact path="/">
-                  <LandingPage currentTheme={theme} />
+                  <LandingPage />
                 </Route>
                 <Route exact path="/Welcome">
-                  <Welcome currentTheme={theme} />
+                  <Welcome />
                 </Route>
                 <Route exact path="/Login">
-                  <Login currentTheme={theme} />
+                  <Login />
                 </Route>
                 <Route exact path="/Register">
-                  <Register currentTheme={theme} />
+                  <Register />
                 </Route>
                 <Route exact path="/Checkin">
-                  <Checkin currentTheme={theme} />
+                  <Checkin />
                 </Route>
                 <Route exact path="/Home">
                   <LandingPage />
                 </Route>
                 <Route exact path="/Admin">
-                  <Admin currentTheme={theme} />
+                  <Admin />
                 </Route>
                 <Route exact path="/Checkout">
-                  <Checkout currentTheme={theme} />
+                  <Checkout />
                 </Route>
               </Switch>
             </Box>

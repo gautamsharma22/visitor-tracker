@@ -5,11 +5,11 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Box, CardActionArea } from "@mui/material";
 import { Tech, Security } from "./TechData";
-import DeveloperDetails from "./DeveloperDetails"
-import ContactMe from "./ContactMe"
+import DeveloperDetails from "./DeveloperDetails";
+import ContactMe from "./ContactMe";
 const newArr = Tech.map((tech) => {
   return (
-    <Card sx={{ width: "25%", m: 1 }}>
+    <Card sx={{ width: "25%", m: 1, backgroundColor: "background.default" }}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -19,7 +19,12 @@ const newArr = Tech.map((tech) => {
           style={{ objectFit: "contain" }}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div" sx={{ textAlign: "center", fontWeight: "bold" }}>
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="div"
+            sx={{ textAlign: "center", fontWeight: "bold", color: "text.primary" }}
+          >
             {tech.Name}
           </Typography>
           <Typography variant="body1" color="text.secondary">
@@ -32,7 +37,7 @@ const newArr = Tech.map((tech) => {
 });
 const SecArr = Security.map((sec) => {
   return (
-    <Card sx={{ width: "30%", m: 2 }}>
+    <Card sx={{ width: "30%", m: 2 ,backgroundColor: "background.secondary"}}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -42,7 +47,12 @@ const SecArr = Security.map((sec) => {
           style={{ objectFit: "contain" }}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div" sx={{ textAlign: "center", fontWeight: "bold" }}>
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="div"
+            sx={{ textAlign: "center", fontWeight: "bold" }}
+          >
             {sec.Name}
           </Typography>
           <Typography variant="body1" color="text.secondary">
@@ -63,13 +73,17 @@ export default function Technologies() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          backgroundColor: "#F5F5F5",
+          backgroundColor: "background.secondary",
         }}
       >
         <Typography
           variant="h3"
           gutterBottom
-          sx={{ textAlign: "center", fontWeight: "bold" }}
+          sx={{
+            textAlign: "center",
+            fontWeight: "bold",
+            color: "text.primary" ,
+          }}
         >
           Tech Stack Used
         </Typography>
@@ -107,7 +121,7 @@ export default function Technologies() {
         </Box>
       </Box>
       <DeveloperDetails />
-      <ContactMe/>
+      <ContactMe />
     </>
   );
 }

@@ -17,7 +17,7 @@ const DeveloperDetails = () => {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          backgroundColor: "#F5F5F5",
+          backgroundColor: "background.secondary",
         }}
       >
         <Typography
@@ -64,7 +64,11 @@ const DeveloperDetails = () => {
             <Typography variant="h4" gutterBottom sx={{ fontWeight: "bold" }}>
               Hey There!
             </Typography>
-            <Typography variant="body1" gutterBottom>
+            <Typography
+              variant="body1"
+              gutterBottom
+              sx={{ color: "text.secondary" }}
+            >
               I am a final year student pursuing a Bachelor's degree in
               Information Technology (B.Sc. I.T.), and I am planning to pursue
               my Masters. I have a strong interest in web development and

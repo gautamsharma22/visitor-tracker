@@ -11,8 +11,11 @@ import Brightness7Icon from "@mui/icons-material/Brightness7";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import MapSharpIcon from "@mui/icons-material/MapSharp";
 import NavbarButtons from "./Pages/NavbarButtons";
-
+import { useTheme } from "@emotion/react";
 const MenuBar = (props) => {
+  const theme = useTheme();
+  const primary = theme.palette.light;
+  console.warn(theme.palette)
   return (
     <>
       <Box sx={{ display: "flex" }}>

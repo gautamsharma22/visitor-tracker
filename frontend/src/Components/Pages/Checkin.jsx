@@ -14,6 +14,7 @@ import { Redirect } from "react-router-dom";
 import MenuItem from "@mui/material/MenuItem";
 import { formatISO } from "date-fns";
 import Select from "@mui/material/Select";
+import { useTheme } from '@mui/material/styles';
 import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
@@ -37,6 +38,10 @@ const CreateEntry = (props) => {
       };
     }
   }, [AlertComponent]);
+  const theme = useTheme();
+  const primaryColor = theme.palette.primary.main;
+  console.log(primaryColor)
+  // const backgroundColor = theme.palette.background.default;
   const [userData, setUserData] = React.useState({
     firstName: "",
     lastName: "",
@@ -221,7 +226,7 @@ const CreateEntry = (props) => {
           </Stack>
           <Button
             variant="contained"
-            color={props.currentTheme ? "warning" : "primary"}
+            color="primary"
             type="submit"
             fullWidth
             size="large"

@@ -25,7 +25,7 @@ const LandingPage = () => {
         </Typography>
         <Box sx={{ display: "flex", flexDirection: "row" }}>
           <Box sx={{ m: 4, flexBasis: "75%" }}>
-            <Typography variant="h5" gutterBottom sx={{ textAlign: "justify"}}>
+            <Typography variant="h5" gutterBottom sx={{ textAlign: "justify", color:"text.secondary"}}>
               VISOR (Visitor Tracking Sytem) is an online version of the manual
               recording of visitors in a visitor register, offering advanced
               features. It digitally collects and analyzes visitor data,
