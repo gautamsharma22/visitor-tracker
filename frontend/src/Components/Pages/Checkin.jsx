@@ -7,13 +7,15 @@ import {
   InputLabel,
   Box,
   FormControl,
+  Input,
+  Avatar,
 } from "@mui/material";
 import { Redirect } from "react-router-dom";
 import MenuItem from "@mui/material/MenuItem";
 import { formatISO } from "date-fns";
 import Select from "@mui/material/Select";
-import { useTheme } from '@mui/material/styles';
 import dayjs from "dayjs";
+import PersonIcon from "@mui/icons-material/Person";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import showAlert from "../../Components/alertDialog";
@@ -36,10 +38,24 @@ const CreateEntry = () => {
       };
     }
   }, [AlertComponent]);
-  const theme = useTheme();
-  const primaryColor = theme.palette.primary.main;
-  console.log(primaryColor)
-  // const backgroundColor = theme.palette.background.default;
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [base64ImageString, setbase64ImageString] = useState(null);
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedFile(file);
+    convertToBase64(file);
+  };
+
+  const convertToBase64 = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      const base64String = reader.result;
+      setbase64ImageString(base64String);
+      console.log("Base64 String:", base64String);
+    };
+  };
   const [userData, setUserData] = React.useState({
     firstName: "",
     lastName: "",
@@ -65,8 +81,8 @@ const CreateEntry = () => {
       checkInTime: isoCheckIn,
     }));
     if (userData.checkInTime === "" || !userData.checkInTime) {
-      const message="Date not selected properly."
-      const alert = showAlert(260,message);
+      const message = "Date not selected properly.";
+      const alert = showAlert(260, message);
       return setAlertComponent(alert);
     } else {
       const {
@@ -79,8 +95,9 @@ const CreateEntry = () => {
         aadharNumber,
         checkInTime,
       } = userData;
+      const visitorImage = base64ImageString;
       try {
-        console.log(checkInTime)
+        console.log(checkInTime);
         console.log("request made");
         const res = await fetch("http://localhost:5000/request/", {
           method: "POST",
@@ -97,6 +114,7 @@ const CreateEntry = () => {
             phoneNumber,
             aadharNumber,
             checkInTime,
+            visitorImage,
           }),
         });
         const response = await res.json();
@@ -119,8 +137,43 @@ const CreateEntry = () => {
         }}
       >
         <form onSubmit={handleSubmit}>
-          <Typography variant="h2" align="center" gutterBottom>
+          <Typography variant="h2" align="center" gutterBottom sx={{ mb: 3 }}>
             Create an Entry for Visitor
+            <Stack
+              sx={{ mb: 3, justifyContent: "center", alignItems: "center" }}
+            >
+    <Avatar
+      sx={{
+        m: 1,
+        bgcolor: "primary",
+        height: 90,
+        width: 90,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: "50%",
+      }}
+    >
+      {!base64ImageString ? (
+        <PersonIcon
+          sx={{
+            height: 70,
+            width: 70,
+          }}
+        />
+      ) : (
+        <img
+          src={base64ImageString}
+          alt="Uploaded"
+          style={{
+            height: 90,
+            width: 90,
+            borderRadius: "50%",
+          }}
+        />
+      )}
+    </Avatar>
+            </Stack>
           </Typography>
           {AlertComponent && AlertComponent}
           <Stack spacing={2} direction="row" sx={{ mb: 3, width: "100%" }}>
@@ -222,6 +275,24 @@ const CreateEntry = () => {
               />
             </LocalizationProvider>
           </Stack>
+          <label htmlFor="file-input">
+            <Input
+              id="file-input"
+              type="file"
+              onChange={handleFileChange}
+              inputProps={{ accept: "image/*" }}
+              style={{ display: "none" }}
+            />
+            <Button
+              fullWidth
+              variant="contained"
+              component="span"
+              size="large"
+              // onClick={handleFileUpload}
+            >
+              Upload Visitor Image
+            </Button>
+          </label>
           <Button
             variant="contained"
             color="primary"

@@ -1,4 +1,4 @@
-import React, { useState,useContext } from "react";
+import React, { useState, useContext } from "react";
 import {
   TextField,
   Button,
@@ -11,20 +11,21 @@ import {
   InputAdornment,
   Box,
   CssBaseline,
-  Grow,
   Grid,
   Paper,
   Avatar,
+  Input,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import image1 from "../../images/register_background.png";
 import showAlert from "../../Components/alertDialog";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Visibility, VisibilityOff, Send } from "@mui/icons-material";
 import { TokenContext } from "../../App";
 import { Redirect } from "react-router-dom";
 export default function NewRegister(props) {
   const { jwtToken } = useContext(TokenContext);
-  if (!jwtToken) return <Redirect to="/home" />;
+  // Disabling The redirect for testing
+  // if (!jwtToken) return <Redirect to="/home" />;
   const [checked, setChecked] = React.useState(false);
   React.useEffect(() => {
     setChecked(true);
@@ -77,7 +78,7 @@ export default function NewRegister(props) {
       });
       const response = await res.json();
       const errMessage = response.message;
-      const alert = showAlert(res.status,errMessage);
+      const alert = showAlert(res.status, errMessage);
       setAlertComponent(alert);
     } catch (error) {
       console.log(error);
@@ -95,114 +96,116 @@ export default function NewRegister(props) {
         sx={{
           display: "flex",
           alignItems: "center",
-          justifyContent:"center"
+          justifyContent: "center",
         }}
       >
-        <img src={image1} height={600} width={600} alt="register"/>
-        </Grid>
-      <Grow in={checked} {...(checked ? { timeout: 800 } : {})}>
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} backgroundColor="background.secondary" square>
-          <Box
+        <img src={image1} height={600} width={600} alt="register" />
+      </Grid>
+      <Grid
+        item
+        xs={12}
+        sm={8}
+        md={5}
+        component={Paper}
+        elevation={6}
+        backgroundColor="background.secondary"
+        square
+      >
+        <Box
+          sx={{
+            my: 8,
+            mx: 4,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Avatar
             sx={{
-              my: 8,
-              mx: 4,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
+              m: 1,
+              bgcolor: "background.primary",
+              height: 56,
+              width: 56,
             }}
           >
-            <Avatar
+            <LockOutlinedIcon
               sx={{
-                m: 1,
-                bgcolor: "background.primary",
-                height: 56,
-                width: 56,
+                height: 40,
+                width: 40,
               }}
-            >
-              <LockOutlinedIcon
-                sx={{
-                  height: 40,
-                  width: 40,
-                }}
-              />
-            </Avatar>
-            <form onSubmit={handleSubmit}>
-              <Typography variant="h3" align="center">
-                Enroll Security Staff
-              </Typography>
-              {AlertComponent && AlertComponent}
+            />
+          </Avatar>
+          <form onSubmit={handleSubmit}>
+            <Typography variant="h3" align="center">
+              Enroll Security Staff
+            </Typography>
+            {AlertComponent && AlertComponent}
 
-              <Stack spacing={2} direction="row" sx={{ mb: 3, mt: 3 }}>
-                <TextField
-                  name="firstName"
-                  type="text"
-                  variant="outlined"
-                  color="primary"
-                  label="First Name"
-                  onChange={handleChange}
-                  value={userData.firstName}
-                  fullWidth
-                />
-                <TextField
-                  name="lastName"
-                  type="text"
-                  variant="outlined"
-                  color="primary"
-                  label="Last Name"
-                  onChange={handleChange}
-                  value={userData.lastName}
-                  fullWidth
-                />
-              </Stack>
+            <Stack spacing={2} direction="row" sx={{ mb: 3, mt: 3 }}>
               <TextField
-                name="email"
-                type="email"
+                name="firstName"
+                type="text"
                 variant="outlined"
                 color="primary"
-                label="Email"
+                label="First Name"
                 onChange={handleChange}
-                value={userData.email}
+                value={userData.firstName}
                 fullWidth
-                sx={{ mb: 3 }}
               />
-              <FormControl variant="outlined" fullWidth sx={{ mb: 3 }}>
-                <InputLabel htmlFor="outlined-adornment-password">
-                  Password
-                </InputLabel>
-                <OutlinedInput
-                  onChange={handleChange}
-                  id="outlined-adornment-password"
-                  type={showPassword ? "text" : "password"}
-                  value={userData.password}
-                  name="password"
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                  label="Password"
-                />
-              </FormControl>
-              <Button
-                variant="contained"
-                color={props.currentTheme ? "warning" : "primary"}
-                type="submit"
+              <TextField
+                name="lastName"
+                type="text"
+                variant="outlined"
+                color="primary"
+                label="Last Name"
+                onChange={handleChange}
+                value={userData.lastName}
                 fullWidth
-                size="large"
-              >
-                Register
-              </Button>
-            </form>
-          </Box>
-        </Grid>
-      </Grow>
+              />
+            </Stack>
+            <TextField
+              name="email"
+              type="email"
+              variant="outlined"
+              color="primary"
+              label="Email"
+              onChange={handleChange}
+              value={userData.email}
+              fullWidth
+              sx={{ mb: 3 }}
+            />
+            <FormControl variant="outlined" fullWidth sx={{ mb: 3 }}>
+              <InputLabel htmlFor="outlined-adornment-password">
+                Password
+              </InputLabel>
+              <OutlinedInput
+                onChange={handleChange}
+                id="outlined-adornment-password"
+                type={showPassword ? "text" : "password"}
+                value={userData.password}
+                name="password"
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="Password"
+              />
+            </FormControl>
+            
+            <Button variant="contained" type="submit" fullWidth size="large">
+              Register
+            </Button>
+          </form>
+        </Box>
+      </Grid>
     </Grid>
   );
 }

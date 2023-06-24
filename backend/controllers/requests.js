@@ -9,6 +9,7 @@ const createRequest = async (req, res) => {
     phoneNumber,
     aadharNumber,
     checkInTime,
+    visitorImage,
   } = req.body;
   const request = new VisitorRequest({
     firstName,
@@ -19,6 +20,7 @@ const createRequest = async (req, res) => {
     phoneNumber,
     aadharNumber,
     checkInTime,
+    visitorImage,
   });
   try {
     const result = await request.save();

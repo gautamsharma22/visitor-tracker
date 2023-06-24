@@ -116,6 +116,7 @@ export default function DataTable(props) {
       <DataGrid
         rows={Requests}
         columns={Columns}
+        rowHeight={80}
         getRowId={getRowId}
         onRowSelectionModelChange={handleSelectionModelChange}
         checkboxSelection
