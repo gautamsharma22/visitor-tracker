@@ -68,6 +68,7 @@ export default function NewRegister(props) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization:`Bearer ${jwtToken}`,
         },
         body: JSON.stringify({
           firstName,

@@ -5,7 +5,7 @@ const authUser = (req, res,next) => {
   try {
     let token = req.headers.authorization;
     if (!token) {
-      return res.status(400).send("Invalid Token");
+      return res.status(400).send("Invalid Token Recieved");
     } else {
       token = token.split(" ")[1];
       jwt.verify(token, process.env.SECRET_KEY);

@@ -1,11 +1,23 @@
 import React from "react";
 import { Avatar } from "@mui/material";
-import PersonIcon from "@mui/icons-material/Person";
+const colors = [
+  "#ff8906",
+  "#3da9fc",
+  "#e53170",
+  "#f25f4c",
+  "#a786df",
+  "#2cb67d",
+];
+
+const getRandomColor = () => {
+  const randomIndex = Math.floor(Math.random() * colors.length);
+  return colors[randomIndex];
+};
 const renderImageCell = (params) => (
   <Avatar
     sx={{
       m: 1,
-      bgcolor: "primary",
+      bgcolor: getRandomColor(),
       height: 60,
       width: 60,
       display: "flex",
@@ -24,21 +36,14 @@ const renderImageCell = (params) => (
           borderRadius: "50%",
         }}
       />
-    ) : (
-      <PersonIcon
-        sx={{
-          height: 70,
-          width: 70,
-        }}
-      />
-    )}
+    ) : params.row.firstName.charAt(0)}
   </Avatar>
 );
 const Columns = [
   {
     field: "visitorImage",
     headerName: "Image",
-    width: 200,
+    width: 100,
     sortable: false,
     renderCell: renderImageCell,
     

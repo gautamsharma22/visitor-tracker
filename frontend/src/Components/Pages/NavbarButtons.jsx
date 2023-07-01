@@ -9,7 +9,6 @@ const NavbarButtons = () => {
   const { UserCon, setUserCon } = useContext(UserContext);
   const { jwtToken, setJwtToken } = useContext(TokenContext);
   function handleHoverColor(e) {
-    console.log(e.target.style.color)
     e.target.style.color = "#FFC107";
   }
   function handleLogout(e) {
@@ -28,6 +27,12 @@ const NavbarButtons = () => {
       condition: !jwtToken,
     },
     {
+      key: "View All",
+      link: "/View",
+      text: "View All",
+      condition: jwtToken,
+    },
+    {
       key: "Checkin",
       link: "/Checkin",
       text: "Check In",
@@ -38,6 +43,12 @@ const NavbarButtons = () => {
       link: "/Checkout",
       text: "Check Out",
       condition: jwtToken && !UserCon.admin,
+    },
+    {
+      key: "Test",
+      link: "/Test",
+      text: "Test",
+      condition: jwtToken,
     },
     {
       key: "AdminPanel",

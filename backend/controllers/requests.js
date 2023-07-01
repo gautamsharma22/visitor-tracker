@@ -86,7 +86,7 @@ const adminRequest = async (req, res) => {
     res.status(200).json(requests);
   } catch (error) {
     res.status(500).json({
-      message: "Something Went Wrong",
+      message: "Something Went Wrong at Admin Request",
     });
   }
 };

@@ -110,7 +110,7 @@ export default function DataTable(props) {
       }}
     >
       <Typography variant="h2" align="center" gutterBottom>
-        Check Out Vistor
+        Check Out Visitor
       </Typography>
       {AlertComponent && AlertComponent}
       <DataGrid

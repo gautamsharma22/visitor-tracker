@@ -14,7 +14,6 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.setHeader('Access-Control-Expose-Headers', 'set-cookie');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-  // res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   next();
 });
 const connectionURI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.s1a1yrw.mongodb.net/?retryWrites=true&w=majority`;
