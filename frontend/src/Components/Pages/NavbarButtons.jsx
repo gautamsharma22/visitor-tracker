@@ -30,7 +30,7 @@ const NavbarButtons = () => {
       key: "View All",
       link: "/View",
       text: "View All",
-      condition: jwtToken,
+      condition: jwtToken && !UserCon.admin,
     },
     {
       key: "Checkin",
@@ -45,15 +45,15 @@ const NavbarButtons = () => {
       condition: jwtToken && !UserCon.admin,
     },
     {
-      key: "Test",
-      link: "/Test",
-      text: "Test",
-      condition: jwtToken,
-    },
-    {
       key: "AdminPanel",
       link: "/Admin",
-      text: "Admin",
+      text: "Admin Panel",
+      condition: jwtToken && UserCon.admin,
+    },
+    {
+      key: "ShowAll",
+      link: "/Test",
+      text: "Show Admins",
       condition: jwtToken && UserCon.admin,
     },
     {

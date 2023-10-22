@@ -74,7 +74,6 @@ export default function DataTable(props) {
         (req) => req.checkOutTime === "--CHECKED IN--" && req._id === id
       );
       if (nonVisitedUser) {
-        console.log("Req recieved");
         try {
           const res = await fetch(
             `http://localhost:5000/request/chekout/${id}`,
@@ -90,6 +89,7 @@ export default function DataTable(props) {
           const errMessage = response.message;
           const alert = showAlert(res.status, errMessage);
           setAlertComponent(alert);
+          fetchData();
         } catch (error) {
           console.log(error);
           const alert = showAlert(500, "Error In Checkout");

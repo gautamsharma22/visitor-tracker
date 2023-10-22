@@ -15,6 +15,9 @@ const getRandomColor = () => {
   return colors[randomIndex];
 };
 const UserDetails = ({ request }) => {
+  console.log(request, "the requests");
+  // request.checkInTime = new Date(request.checkInTime).toLocaleString();
+  // request.checkOutTime = new Date(request.checkOutTime).toLocaleString();
   return (
     <div>
       <Typography
@@ -75,12 +78,12 @@ const UserDetails = ({ request }) => {
 
       <Typography variant="h6" component="div" gutterBottom>
         <span style={{ fontWeight: "bold" }}>Check-In Time: </span>
-        {request.checkInTime.$date}
+        {request.checkInTime}
       </Typography>
 
       <Typography variant="h6" component="div" gutterBottom>
         <span style={{ fontWeight: "bold" }}>Check-Out Time: </span>
-        {request.checkOutTime ? request.checkOutTime.$date : "N/A"}
+        {request.checkOutTime ? request.checkOutTime : "N/A"}
       </Typography>
 
       <Typography variant="h6" component="div" gutterBottom>

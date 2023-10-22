@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
-import React from "react";
+import React,{useContext} from "react";
 import { Typography, Button } from "@mui/material";
+import { TokenContext } from "../App";
 import { styled } from "@mui/system";
 const ModalStyles = {
   position: "fixed",
@@ -27,6 +28,23 @@ const ModalBoxstyle = {
   p: 4,
 };
 const ButtonModal = (props) => {
+  const { jwtToken } = useContext(TokenContext);
+  function handleRemove() {
+    const deleteId = props.userId;
+    try {
+      const response = fetch("http://localhost:5000/users/remove", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${jwtToken}`,
+        },
+        body: JSON.stringify({ userId: deleteId }),
+      });
+    } catch (err) {
+      console.log(err);
+    }
+    props.setOpen(false);
+  }
 
   return (
     props.open && (
@@ -44,7 +62,7 @@ const ButtonModal = (props) => {
             size="medium"
             variant="contained"
             color="error"
-            onClick={() => props.setOpen(false)}
+            onClick={handleRemove}
             sx={{ mr: 2, mt: 2 }}
           >
             Remove

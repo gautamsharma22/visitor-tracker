@@ -11,6 +11,7 @@ import Avatar from "@mui/material/Avatar";
 import ButtonModal from "../ButtonModal";
 const ViewAdmins = () => {
   const [Users, setUsers] = React.useState([{}]);
+  const [removeUsers, setremoveUsers] = React.useState(null);
   const { jwtToken } = useContext(TokenContext);
   if (!jwtToken) return <Redirect to="/home" />;
   const [open, setOpen] = React.useState(false);
@@ -40,15 +41,17 @@ const ViewAdmins = () => {
         },
       });
       const data = await response.json();
-      console.log(data, "dtaat");
       const dataArray = Object.values(data);
       setUsers(dataArray);
     } catch (err) {
       console.log(err);
     }
   }
-  function handleRemove() {
+  function handleRemove(id) {
+    console.log(id);
+    setremoveUsers(id);
     setOpen(true);
+    fetchData();
   }
   const mappedUsers = Users.map((user) => {
     return (
@@ -94,7 +97,7 @@ const ViewAdmins = () => {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" variant="contained" color="error" onClick={handleRemove}>
+          <Button size="small" variant="contained" color="error" onClick={()=>handleRemove(user._id)}>
             Remove
           </Button>
           <Button size="small" variant="contained">
@@ -125,7 +128,7 @@ const ViewAdmins = () => {
       >
         {mappedUsers}
       </Box>
-      <ButtonModal open={open} setOpen={setOpen}/>
+      <ButtonModal open={open} setOpen={setOpen} userId={removeUsers}/>
     </Box>
   );
 };

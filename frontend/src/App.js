@@ -110,9 +110,7 @@ function App() {
                   <CardView />
                 </Route>
                 <Route exact path="/Test">
-                  {/* <ViewAdmins /> */}
-                  <UserDetailsModal request={request}/>
-
+                  <ViewAdmins />
                 </Route>
               </Switch>
             </Box>

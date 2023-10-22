@@ -1,14 +1,15 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
-import { Box} from "@mui/material";
+import { Box } from "@mui/material";
 import DevImage from "../../../images/dev_details.jpg";
+import Typed from "react-typed";
 const DeveloperDetails = () => {
   const roundImageStyle = {
     borderRadius: "50%",
     border: "2px solid #888888",
     boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
   };
-
+const detailedString="I am a final year student pursuing a Bachelor's degree in Information Technology (B.Sc. I.T.), and I am planning to pursue my Masters. I have a strong interest in web development and problem-solving. Currently, I am focusing on learning the MERN (MongoDB, Express.js, React.js, Node.js) stack, and I have intermediate-level proficiency in these technologies. Additionally, I dedicate my free time to practicing Data Structures and Algorithms (DSA) to enhance my problem-solving skills. I am passionate about honing my skills in web development and continuously expanding my knowledge in the field."
   return (
     <>
       <Box
@@ -69,16 +70,15 @@ const DeveloperDetails = () => {
               gutterBottom
               sx={{ color: "text.secondary" }}
             >
-              I am a final year student pursuing a Bachelor's degree in
-              Information Technology (B.Sc. I.T.), and I am planning to pursue
-              my Masters. I have a strong interest in web development and
-              problem-solving. Currently, I am focusing on learning the MERN
-              (MongoDB, Express.js, React.js, Node.js) stack, and I have
-              intermediate-level proficiency in these technologies.
-              Additionally, I dedicate my free time to practicing Data
-              Structures and Algorithms (DSA) to enhance my problem-solving
-              skills. I am passionate about honing my skills in web development
-              and continuously expanding my knowledge in the field.
+              <Typed
+            strings={[
+              "I am a final year student pursuing a Bachelor's degree in Information Technology (B.Sc. I.T.), and I am planning to pursue my Masters. I have a strong interest in web development and problem-solving. Currently, I am focusing on learning the MERN (MongoDB, Express.js, React.js, Node.js) stack, and I have intermediate-level proficiency in these technologies. Additionally, I dedicate my free time to practicing Data Structures and Algorithms (DSA) to enhance my problem-solving skills. I am passionate about honing my skills in web development and continuously expanding my knowledge in the field.",
+            ]}
+            typeSpeed={10}
+            // backSpeed={100}
+            // loop
+          />
+
             </Typography>
           </Box>
         </Box>

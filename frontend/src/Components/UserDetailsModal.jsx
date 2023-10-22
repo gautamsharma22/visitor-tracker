@@ -27,7 +27,7 @@ const ModalBoxstyle = {
   p: 4,
 };
 const UserDetailsModal = (props) => {
-  const { request} = props;
+  const { request } = props;
   return (
     props.open && (
       <Box

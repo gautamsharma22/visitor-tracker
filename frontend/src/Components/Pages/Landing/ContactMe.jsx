@@ -48,6 +48,19 @@ const ContactMe = () => {
           justifyContent: "center",
         }}
       >
+        {/* <Particles
+        params={{
+          particles: {
+            number: {
+              value: 200,
+              density: {
+                enable: true,
+                value_area: 1000,
+              }
+            },
+          },
+        }}
+      /> */}
         <Typography
           variant="h3"
           gutterBottom
