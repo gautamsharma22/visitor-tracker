@@ -8,11 +8,31 @@
   ],
   "routes": [
     {
-      "src": "/users/(.*)",
+      "src": "/users/login",
       "dest": "/app.js"
     },
     {
-      "src": "/request/(.*)",
+      "src": "/users/register",
+      "dest": "/app.js"
+    },
+    {
+      "src": "/users/view",
+      "dest": "/app.js"
+    },
+    {
+      "src": "/users/remove",
+      "dest": "/app.js"
+    },
+    {
+      "src": "/request",
+      "dest": "/app.js"
+    },
+    {
+      "src": "/request/checkout/(.*)",
+      "dest": "/app.js"
+    },
+    {
+      "src": "/request/admin",
       "dest": "/app.js"
     },
     {
