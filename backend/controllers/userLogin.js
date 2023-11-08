@@ -17,10 +17,9 @@ const userLogin = async (req, res) => {
   bcrypt.compare(password, hashedPassword, (err, result) => {
     if (err) {
       console.error(err);
-      res.status(500).json({
+      return res.status(500).json({
         error: err,
       });
-      return;
     }
     if (result) {
       const name = firstName + " " + lastName;
@@ -38,7 +37,7 @@ const userLogin = async (req, res) => {
         admin: isAdmin,
       });
     } else {
-      res.status(401).json({
+      return res.status(401).json({
         message: "Credentials don't match, ",
       });
     }
