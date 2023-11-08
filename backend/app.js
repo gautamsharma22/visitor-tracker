@@ -28,4 +28,4 @@ app.use("/request", manageRequest);
 app.use("/", (req, res) => {
   res.send("app rendered");
 });
-app.listen(3000, () => console.log("server listening"));
+app.listen(process.env.PORT, () => console.log(`server listeningon port ${process.env.PORT}`));
