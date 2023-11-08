@@ -24,7 +24,7 @@ mongoose
   })
   .catch((err) => console.error("Could not connect to MongoDB", err));
 app.use("/", (req, res) => {
-  console.log("app rendered");
+  res.send("app rendered");
 });
 app.use("/users", registerUser);
 app.use("/request", manageRequest);
