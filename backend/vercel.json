@@ -8,19 +8,7 @@
   ],
   "routes": [
     {
-      "src": "/users/login",
-      "dest": "/app.js"
-    },
-    {
-      "src": "/users/register",
-      "dest": "/app.js"
-    },
-    {
-      "src": "/users/view",
-      "dest": "/app.js"
-    },
-    {
-      "src": "/users/remove",
+      "src": "/users/(login|register|view|remove)",
       "dest": "/app.js"
     },
     {
