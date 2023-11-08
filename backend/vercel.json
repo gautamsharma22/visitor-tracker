@@ -8,6 +8,14 @@
   ],
   "routes": [
     {
+      "src": "/users/(.*)",
+      "dest": "/app.js"
+    },
+    {
+      "src": "/request/(.*)",
+      "dest": "/app.js"
+    },
+    {
       "src": "/(.*)",
       "dest": "/app.js"
     }
