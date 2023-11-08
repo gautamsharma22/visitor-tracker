@@ -4,9 +4,9 @@ const mongoose = require("mongoose");
 const registerUser = require("./routes/user");
 const manageRequest = require("./routes/requests");
 const app = express();
-const cookieParser = require("cookie-parser");
-app.use(cookieParser());
-dotenv.config();
+// const cookieParser = require("cookie-parser");
+// app.use(cookieParser());
+// dotenv.config();
 // app.use(express.json());
 // app.use((req, res, next) => {
 //   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -28,6 +28,6 @@ app.use("/", (req, res) => {
 });
 // app.use("/users", registerUser);
 // app.use("/request", manageRequest);
-app.listen(process.env.LISTEN_PORT, () =>
-  console.log(`Server listening on port ${process.env.LISTEN_PORT}`)
+app.listen(3000, () =>
+  console.log("server listening")
 );
