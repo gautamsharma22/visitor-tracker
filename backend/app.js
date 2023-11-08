@@ -23,11 +23,9 @@ mongoose
     console.log("Database connected! You're Good to go.");
   })
   .catch((err) => console.error("Could not connect to MongoDB", err));
+app.use("/users", registerUser);
+app.use("/request", manageRequest);
 app.use("/", (req, res) => {
   res.send("app rendered");
 });
-app.use("/users", registerUser);
-app.use("/request", manageRequest);
-app.listen(3000, () =>
-  console.log("server listening")
-);
+app.listen(3000, () => console.log("server listening"));
