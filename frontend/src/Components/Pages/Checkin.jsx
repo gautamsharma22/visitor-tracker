@@ -97,8 +97,6 @@ const CreateEntry = () => {
       } = userData;
       const visitorImage = base64ImageString;
       try {
-        console.log(checkInTime);
-        console.log("request made");
         const res = await fetch("http://localhost:5000/request/", {
           method: "POST",
           headers: {

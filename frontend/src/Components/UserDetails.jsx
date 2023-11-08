@@ -15,9 +15,6 @@ const getRandomColor = () => {
   return colors[randomIndex];
 };
 const UserDetails = ({ request }) => {
-  console.log(request, "the requests");
-  // request.checkInTime = new Date(request.checkInTime).toLocaleString();
-  // request.checkOutTime = new Date(request.checkOutTime).toLocaleString();
   return (
     <div>
       <Typography

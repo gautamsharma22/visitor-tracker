@@ -2,7 +2,6 @@ import { Box } from "@mui/material";
 import React,{useContext} from "react";
 import { Typography, Button } from "@mui/material";
 import { TokenContext } from "../App";
-import { styled } from "@mui/system";
 const ModalStyles = {
   position: "fixed",
   top: "0",
