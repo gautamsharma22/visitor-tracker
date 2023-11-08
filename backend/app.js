@@ -1,8 +1,8 @@
 const express = require("express");
-const dotenv = require("dotenv");
-const mongoose = require("mongoose");
-const registerUser = require("./routes/user");
-const manageRequest = require("./routes/requests");
+// const dotenv = require("dotenv");
+// const mongoose = require("mongoose");
+// const registerUser = require("./routes/user");
+// const manageRequest = require("./routes/requests");
 const app = express();
 // const cookieParser = require("cookie-parser");
 // app.use(cookieParser());
